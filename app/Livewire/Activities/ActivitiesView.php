@@ -29,7 +29,7 @@ class ActivitiesView extends Component
     {
         return view('livewire.activities.activities-view', [
             'ActivityData' => $this->activityData,
-        ])->extends('layouts.app');
+        ])->extends('components.layouts.app');
 
     }
 }

@@ -374,7 +374,7 @@ class IpcrUpdate extends Component
                     ->where('employee_id', $loggedInUser->employee_id)
                     ->get();
         
-        return view('livewire.ipcr.ipcr-update')->extends('layouts.app');
+        return view('livewire.ipcr.ipcr-update')->extends('components.layouts.app');
 
     }
     

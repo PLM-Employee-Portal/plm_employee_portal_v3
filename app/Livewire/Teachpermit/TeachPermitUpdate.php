@@ -369,6 +369,6 @@ class TeachPermitUpdate extends Component
 
     public function render()
     {
-        return view('livewire.teachpermit.teach-permit-update')->extends('layouts.app');
+        return view('livewire.teachpermit.teach-permit-update')->extends('components.layouts.app');
     }
 }

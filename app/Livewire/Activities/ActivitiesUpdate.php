@@ -105,6 +105,6 @@ class ActivitiesUpdate extends Component
     
     public function render()
     {
-        return view('livewire.activities.activities-update')->extends('layouts.app');
+        return view('livewire.activities.activities-update')->extends('components.layouts.app');
     }
 }

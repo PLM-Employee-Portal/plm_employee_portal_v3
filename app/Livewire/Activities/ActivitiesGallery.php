@@ -71,6 +71,6 @@ class ActivitiesGallery extends Component
     {
         return view('livewire.activities.activities-gallery', [
             'ActivitiesData' => $this->filterListener(),
-        ])->extends('layouts.app');
+        ])->extends('components.layouts.app');
     }
 }

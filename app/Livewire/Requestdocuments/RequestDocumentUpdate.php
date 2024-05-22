@@ -134,6 +134,6 @@ class RequestDocumentUpdate extends Component
     
     public function render()
     {
-        return view('livewire.requestdocuments.request-document-update')->extends('layouts.app');
+        return view('livewire.requestdocuments.request-document-update')->extends('components.layouts.app');
     }
 }

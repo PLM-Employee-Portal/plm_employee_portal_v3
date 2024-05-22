@@ -145,7 +145,7 @@
                    
                     <div>
                         <div>
-                            @dump(count($ipcrs))
+                            {{-- @dump(count($ipcrs)) --}}
 
                             @if (count($ipcrs) == 0)
                             <tbody class="pb-4">

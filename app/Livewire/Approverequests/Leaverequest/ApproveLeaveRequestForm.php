@@ -86,26 +86,33 @@ class ApproveLeaveRequestForm extends Component
         $this->inclusive_end_date = $leaverequest->inclusive_end_date;
         $this->commutation = $leaverequest->commutation;
         $this->commutation_signature_of_appli = $leaverequest->commutation_signature_of_appli;
-        if($leaverequest->head_disapprove_reason){
-            $this->head_disapprove_reason = $leaverequest->head_disapprove_reason;
-            $this->department_head_verdict = "Declined";
-        }
-        else{
-            $this->department_head_verdict = "Approved";
-        }
-        if($leaverequest->human_resource_verdict_a == 1){
-            $this->human_resource_verdict_a = "Approved" ;
-        }else{
-            $this->human_resource_verdict_a = "Declinedd    " ;
-        }
+        $this->head_disapprove_reason = $leaverequest->head_disapprove_reason ?? '';
+        $this->department_head_verdict = $leaverequest->department_head_verdict;
+        $this->human_resource_verdict_a = $leaverequest->department_head_verdict;
+        $this->hr_cd_disapprove_reason = $leaverequest->hr_cd_disapprove_reason ?? ' ';
+        $this->human_resource_verdict_cd = $leaverequest->human_resource_verdict_cd;
+
+        // if($leaverequest->head_disapprove_reason){
+        //     $this->head_disapprove_reason = $leaverequest->head_disapprove_reason;
+        //     $this->department_head_verdict = "Declined";
+        // }
+        // else{
+        //     $this->department_head_verdict = "Approved";
+        // }
+        // if($leaverequest->human_resource_verdict_a == 1){
+        //     $this->human_resource_verdict_a = "Approved" ;
+        // }else{
+        //     $this->human_resource_verdict_a = "Declined" ;
+        // }
         
-        if($leaverequest->hr_cd_disapprove_reason){
-            $this->hr_cd_disapprove_reason = $leaverequest->hr_cd_disapprove_reason;
-            $this->human_resource_verdict_cd = "Declined";
-        }
-        else{
-            $this->human_resource_verdict_cd = "Approved";
-        }
+        // if($leaverequest->hr_cd_disapprove_reason){
+        //     $this->hr_cd_disapprove_reason = $leaverequest->hr_cd_disapprove_reason;
+        //     $this->human_resource_verdict_cd = "Declined";
+        // }
+        // else{
+        //     $this->human_resource_verdict_cd = "Approved";
+        // }
+
         if($leaverequest->auth_off_sig_b){
             $this->flag = "Initial";
             $this->auth_off_sig_b = $leaverequest->auth_off_sig_b;
@@ -228,9 +235,9 @@ class ApproveLeaveRequestForm extends Component
         $targetUser = User::where('employee_id', $leaveRequest->employee_id)->first();
 
         $properties = [
-            'auth_off_sig_a' => ['required_with:human_resource_verdict_a|mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120', 'department_head_verdict'],
-            'auth_off_sig_b' => ['required_with:department_head_verdict|mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120', 'human_resource_verdict_a'],
-            'auth_off_sig_c_and_d' => ['required_with:human_resource_verdict_cd|mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120', 'human_resource_verdict_cd'],
+            'auth_off_sig_a' => ['required_unless:human_resource_verdict_a,null|mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120', 'department_head_verdict'],
+            'auth_off_sig_b' => ['required_unless:department_head_verdict,null|mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120', 'human_resource_verdict_a'],
+            'auth_off_sig_c_and_d' => ['required_unless:human_resource_verdict_cd,null|mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120', 'human_resource_verdict_cd'],
         ];
 
         // Iterate over the properties

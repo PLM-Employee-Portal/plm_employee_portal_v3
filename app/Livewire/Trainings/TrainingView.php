@@ -44,6 +44,6 @@ class TrainingView extends Component
         return view('livewire.trainings.training-view', [
             'TrainingData' => $this->trainingData,
             'PreTestAnswer' => $this->preTestAnswerExists
-        ])->extends('layouts.app');
+        ])->extends('components.layouts.app');
     }
 }

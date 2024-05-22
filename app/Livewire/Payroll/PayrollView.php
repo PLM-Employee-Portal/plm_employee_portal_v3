@@ -51,6 +51,6 @@ class PayrollView extends Component
     }
     public function render()
     {
-        return view('livewire.payroll.payroll-view')->extends('layouts.app');
+        return view('livewire.payroll.payroll-view')->extends('components.layouts.app');
     }
 }

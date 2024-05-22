@@ -204,6 +204,6 @@ class LeaveRequestUpdate extends Component
     
     public function render()
     {
-        return view('livewire.leaverequest.leave-request-update')->extends('layouts.app');
+        return view('livewire.leaverequest.leave-request-update')->extends('components.layouts.app');
     }
 }

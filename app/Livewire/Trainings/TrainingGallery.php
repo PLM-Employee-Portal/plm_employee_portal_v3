@@ -61,6 +61,6 @@ class TrainingGallery extends Component
             // 'ActivitiesData' => $this->filterListener(),
             'TrainingData' => $this->filterListener(),
 
-        ])->extends('layouts.app');
+        ])->extends('components.layouts.app');
     }
 }

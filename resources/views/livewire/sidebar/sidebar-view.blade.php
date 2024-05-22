@@ -272,13 +272,13 @@
             <ul id="dropdown-example" class="hidden py-2 space-y-2">
                   <li>
                      <a href="{{route('ActivitiesGallery')}}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                        {{-- {{ svg('carbon-event', ['class' => 'w-6 h-6 text-gray-800 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white']) }} --}}
+                        {{ svg('carbon-event', ['class' => 'w-6 h-6 text-gray-800 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white']) }}
 
                          <span class="flex-1 ms-3 whitespace-nowrap">Activities</span></a>
                   </li>
                   <li>
                     <a href="{{route('TrainingGallery')}}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                        {{-- {{ svg('carbon-analytics-reference', ['class' => 'w-6 h-6 text-gray-800 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white']) }} --}}
+                        {{ svg('carbon-analytics-reference', ['class' => 'w-6 h-6 text-gray-800 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white']) }}
 
                          <span class="flex-1 ms-3 whitespace-nowrap">Trainings</span></a>
                   </li>
@@ -441,7 +441,7 @@
              </li>
              <li class="bg-white rounded ">
                 <a href="https://plm.edu.ph/about/administration/organization-chart" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    {{-- {{ svg('carbon-branch', ['class' => 'w-6 h-6 text-gray-800 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white']) }} --}}
+                    {{ svg('carbon-branch', ['class' => 'w-6 h-6 text-gray-800 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white']) }}
                    <span class="flex-1 ms-3 whitespace-nowrap">Organizational Chart</span>
                 </a>
              </li>

@@ -474,6 +474,6 @@ class StudyPermitUpdate extends Component
     
     public function render()
     {
-        return view('livewire.studypermit.study-permit-update')->extends('layouts.app');
+        return view('livewire.studypermit.study-permit-update')->extends('components.layouts.app');
     }
 }

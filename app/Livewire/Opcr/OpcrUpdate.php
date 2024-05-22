@@ -400,7 +400,7 @@ class OpcrUpdate extends Component
     
     public function render()
     {
-        return view('livewire.opcr.opcr-update')->extends('layouts.app');
+        return view('livewire.opcr.opcr-update')->extends('components.layouts.app');
     }
 
    

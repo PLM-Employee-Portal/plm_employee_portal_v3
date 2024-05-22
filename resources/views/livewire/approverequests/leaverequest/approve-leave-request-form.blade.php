@@ -331,10 +331,10 @@
                                 <label for="department_head_verdict"
                                     class="mb-2 text-sm font-medium text-gray-900 dark:text-white ">Approved/Declined <span class="text-red-600">*</span></label>
                                     <div class="w-full pl-4 items-start">
-                                    <input type="radio" name="department_head_verdict" id="department_head_verdict" wire:model.live="department_head_verdict" value="Approved">
+                                    <input type="radio" name="department_head_verdict" id="department_head_verdict" wire:model.live="department_head_verdict" value="1">
                                     <label for="numOfWorkDay" class="text-sm font-semibold">Approved</label>
                                     <br>
-                                    <input type="radio" id="department_head_verdict" name="department_head_verdict" wire:model.live="department_head_verdict" value="Declined">
+                                    <input type="radio" id="department_head_verdict" name="department_head_verdict" wire:model.live="department_head_verdict" value="0">
                                     <label for="html" class="text-sm font-semibold">Declined</label><br>
                                     @error('department_head_verdict')
                                         <div class="transition transform alert alert-danger text-sm"
@@ -416,10 +416,10 @@
                                 <label for="human_resource_verdict_a"
                                     class="mb-2 text-sm font-medium text-gray-900 dark:text-white ">Approved/Declined <span class="text-red-600">*</span></label>
                                     <div class="w-full pl-4 items-start">
-                                    <input type="radio" name="human_resource_verdict_a" id="human_resource_verdict_a" wire:model.live="human_resource_verdict_a" value="Approved">
+                                    <input type="radio" name="human_resource_verdict_a" id="human_resource_verdict_a" wire:model.live="human_resource_verdict_a" value="1">
                                     <label for="numOfWorkDay" class="text-sm font-semibold">Approved</label>
                                     <br>
-                                    <input type="radio" id="human_resource_verdict_a" name="human_resource_verdict_a" wire:model.live="human_resource_verdict_a" value="Declined">
+                                    <input type="radio" id="human_resource_verdict_a" name="human_resource_verdict_a" wire:model.live="human_resource_verdict_a" value="0">
                                     <label for="html" class="text-sm font-semibold">Declined</label><br>
                                     @error('human_resource_verdict_a')
                                     <div class="transition transform alert alert-danger"
@@ -481,10 +481,10 @@
                                 <label for="human_resource_verdict_cd"
                                     class="mb-2 text-sm font-medium text-gray-900 dark:text-white ">Approved/Declined <span class="text-red-600">*</span></label>
                                     <div class="w-full pl-4 items-start">
-                                    <input type="radio" name="human_resource_verdict_cd" id="human_resource_verdict_cd" wire:model.live="human_resource_verdict_cd" value="Approved">
+                                    <input type="radio" name="human_resource_verdict_cd" id="human_resource_verdict_cd" wire:model.live="human_resource_verdict_cd" value="1">
                                     <label for="numOfWorkDay" class="text-sm font-semibold">Approved</label>
                                     <br>
-                                    <input type="radio" id="human_resource_verdict_cd" name="human_resource_verdict_cd" wire:model.live="human_resource_verdict_cd" value="Declined">
+                                    <input type="radio" id="human_resource_verdict_cd" name="human_resource_verdict_cd" wire:model.live="human_resource_verdict_cd" value="0">
                                     <label for="html" class="text-sm font-semibold">Declined</label><br>
                                     @error('human_resource_verdict_cd')
                                         <div class="transition transform alert alert-danger"

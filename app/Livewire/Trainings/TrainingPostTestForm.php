@@ -52,6 +52,6 @@ class TrainingPostTestForm extends Component
     {
         return view('livewire.trainings.training-post-test-form', [
             'TrainingData' => $this->trainingData,
-        ])->extends('layouts.app');
+        ])->extends('components.layouts.app');
     }
 }

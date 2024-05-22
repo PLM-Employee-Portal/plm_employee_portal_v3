@@ -162,6 +162,6 @@ class TrainingUpdate extends Component
 
     public function render()
     {
-        return view('livewire.trainings.training-update')->extends('layouts.app');
+        return view('livewire.trainings.training-update')->extends('components.layouts.app');
     }
 }
