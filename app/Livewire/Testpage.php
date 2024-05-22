@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Livewire\Payroll;
+namespace App\Livewire;
 
 use Carbon\Carbon;
 use App\Models\Payroll;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class PayrollTable extends Component
+class Testpage extends Component
 {
+
     use WithPagination;
 
     public $filterName;
@@ -16,8 +17,6 @@ class PayrollTable extends Component
     public $filter;
 
     public $search = "";
-
-    public $resultsCount;
 
 
     public function search()
@@ -39,7 +38,6 @@ class PayrollTable extends Component
     public function render()
     {
         $loggedInUser = auth()->user();
-
         $query = Payroll::where('employee_id', $loggedInUser->employee_id);
         switch ($this->filter) {
             case '1':
@@ -65,30 +63,19 @@ class PayrollTable extends Component
                 // $query->whereDate('date', '>=', Carbon::today()->subYear(), '<=', Carbon::today());
                 $this->filterName = "Last Year";
                 break;
-            default:
-                $this->filterName = "All"; 
-                break;
         }
 
-        if (strlen($this->search) >= 1) {
-            $query->where('date', 'like', '%' . $this->search . '%');
-        }
-    
-        $results = $query->orderBy('date', 'desc')->paginate(5);
-    
-        // Check if $results is not null
-        if ($results !== null) {
-            $this->resultsCount = $results->count();
-            $PayrollData = $results;
+
+        if(strlen($this->search) >= 1){
+            $results = $query->where('date', 'like', '%' . $this->search . '%')->orderBy('date', 'desc')->paginate(5);
         } else {
-            // If $results is null, set $PayrollData to an empty collection
-            $this->resultsCount = 0;
-            $PayrollData = collect([]);
+            $results = $query->orderBy('date', 'desc')->paginate(5);
         }
 
-        return view('livewire.payroll.payroll-table', compact('PayrollData'));
+        return view('livewire.testpage', [
+            'PayrollData' => $results,
+        ]);
         
     }
 
-    
 }

@@ -132,31 +132,30 @@
                     </thead>
                     <div>
                         <div>
-                            @if (count($PayrollData) == 0)
-                            <tbody class="pb-4">
-                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 ">
-                                    <th scope="col" colspan="8" class="justify-center" style="padding-bottom: 40px"> 
-                                        <div class="flex justify-center " style="padding-top: 40px">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="black" class="w-6 h-6 mt-1 mr-1">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                                            </svg>
-                                            <p class="text-blue-500 text-xl font-semibold items-center "> Nothing to show</p>
-                                        </div>
-                                    </th>
-                                </tr>
-                            </tbody>
-                            @else
+                            @if ($resultsCount == 0)
+                                <tbody class="pb-4">
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 ">
+                                        <th scope="col" colspan="8" class="justify-center" style="padding-bottom: 40px"> 
+                                            <div class="flex justify-center " style="padding-top: 40px">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="black" class="w-6 h-6 mt-1 mr-1">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                                                </svg>
+                                                <p class="text-blue-500 text-xl font-semibold items-center "> Nothing to show</p>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            @elseif (isset($PayrollData))
                                 @php
                                     $ctr = 0;
                                     $pageIndex = ($PayrollData->currentpage() - 1) * $PayrollData->perpage() + $ctr;
                                 @endphp
-                                @foreach ($PayrollData as $index =>$data)
+                                @foreach ($PayrollData as $index => $data)
                                 @php
                                     $ctr = $ctr + 1;
                                 @endphp
                                 <tbody>
-                                    {{-- wire:click="view({{$data->id}})" --}}
-                                    <tr  class="hover:cursor-pointer bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <tr wire:click="view({{$data->id}})"  class="hover:cursor-pointer bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                         <th scope="row" class="px-6 py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {{$pageIndex + $ctr}}
                                         </th>
@@ -208,5 +207,4 @@
                 </div>
             </div>
             
-        </div>
 </div>

@@ -11,8 +11,6 @@ use Livewire\WithoutUrlPagination;
 class AttendanceTable extends Component
 {
     use WithPagination;
-    
-
     public $options = [];
     public $dateChosen = [];
 
