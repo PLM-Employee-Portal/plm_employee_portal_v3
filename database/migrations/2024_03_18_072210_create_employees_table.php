@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('employees', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('employee_id');
+            $table->foreignId('employee_id')->primary();
             $table->longText('employee_type');
-            $table->longText('department_name');
-            $table->integer('department_id');
+            $table->integer('department_id')->nullable();
+            $table->integer('college_id')->nullable();
             $table->integer('dean_id')->nullable()->default(0);
-            $table->json('is_department_head_or_dean')->nullable();
+            $table->boolean('is_department_head')->nullable();
+            $table->boolean('is_dean')->nullable();
             $table->integer('employee_role');
             $table->string('first_name');
             $table->string('middle_name');
@@ -58,7 +58,7 @@ return new class extends Migration
             $table->string('school_email')->nullable();
             $table->string('current_position');
             $table->decimal('salary', 10, 2);
-            // $table->string('department_head');
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

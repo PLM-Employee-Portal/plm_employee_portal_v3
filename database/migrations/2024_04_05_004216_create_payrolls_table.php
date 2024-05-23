@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('payrolls', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('employee_id');
+            $table->foreignId('employee_id')->primary();
             $table->date('date');
             $table->decimal('salary');
             $table->decimal('lvt_pay', 10, 2)->nullable();
@@ -30,6 +29,8 @@ return new class extends Migration
             $table->decimal('study_grant', 10, 2)->nullable();
             $table->decimal('other_deductions', 10, 2)->nullable();
             $table->decimal('net_pay', 10, 2)->nullable();
+            $table->dateTime('deleted_at')->nullable();
+
             $table->timestamps();
         });
     }

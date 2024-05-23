@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('traininganswers', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('employee_id');
+            $table->foreignId('employee_id')->primary();
             $table->string('training_id');
             $table->json('pre_test_answers')->nullable();
             $table->json('post_test_answers')->nullable();
             $table->decimal('pre_test_rating', 10, 2)->nullable();
             $table->decimal('post_test_rating', 10, 2)->nullable(); 
+            $table->dateTime('deleted_at')->nullable();
+
             $table->timestamps();
         });
     }

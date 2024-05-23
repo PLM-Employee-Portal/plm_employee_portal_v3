@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('opcrs', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('employee_id');
+            $table->foreignId('employee_id')->primary();
             $table->string('status')->default('Pending');
             $table->string('department_id');
             $table->string('opcr_type');
@@ -37,6 +36,7 @@ return new class extends Migration
             $table->string('final_rating_by')->nullable();
             $table->boolean('final_rating_by_verdict')->nullable();
             $table->date('final_rating_by_date')->nullable();
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

@@ -12,10 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('studypermits', function (Blueprint $table) {
-            $table->id();
               
             // Info
-            $table->foreignId('employee_id');
+            $table->foreignId('employee_id')->primary();
             $table->string('department_name');
             $table->date('application_date');
             $table->date('start_period_cover');
@@ -53,6 +52,8 @@ return new class extends Migration
             $table->date('date_recommended_by')->nullable();
             $table->string('signature_univ_pres')->nullable();
             $table->date('date_univ_pres')->nullable();
+            $table->dateTime('deleted_at')->nullable();
+
             $table->timestamps();
         });
     }

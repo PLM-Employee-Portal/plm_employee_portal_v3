@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('activities', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->string('type');
             $table->string('title');
             $table->longText('description');
@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('host');
             $table->boolean('is_featured');
             $table->json('visible_to_list');
+            $table->dateTime('deleted_at')->nullable();
+
             $table->timestamps();
         });
     }

@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('leaverequests', function (Blueprint $table) {
-            $table->id();
             // Personal Information For leave requests
-            $table->foreignId('employee_id');
+            $table->foreignId('employee_id')->primary();
             $table->string('status')->default('reviewing');
             $table->date('date_of_filling')->default(now());
 
@@ -52,6 +51,7 @@ return new class extends Migration
             $table->boolean('human_resource_verdict_cd')->nullable();
             $table->string('hr_cd_disapprove_reason')->nullable();
             $table->string('auth_off_sig_c_and_d')->nullable();
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

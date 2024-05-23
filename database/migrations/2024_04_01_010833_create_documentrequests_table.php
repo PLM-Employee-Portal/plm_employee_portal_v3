@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('documentrequests', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('employee_id');
+            $table->foreignId('employee_id')->primary();
             $table->string('department_name');
             $table->string('ref_number')->unique();
             $table->string('employment_status');
@@ -32,7 +31,7 @@ return new class extends Migration
             $table->string('milc_certification')->nullable();
             $table->string('certificate_of_no_pending_administrative_case')->nullable();
             $table->longText('other_documents')->nullable();
-            
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

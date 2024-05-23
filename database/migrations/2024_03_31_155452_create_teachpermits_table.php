@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('teachpermits', function (Blueprint $table) {
-            $table->id();
             // Info
-            $table->foreignId('employee_id');
+            $table->foreignId('employee_id')->primary();
             $table->string('department_name');
             $table->date('application_date');
             $table->date('start_period_cover');
@@ -43,6 +42,7 @@ return new class extends Migration
             $table->string('signature_of_university_president')->nullable();
             $table->string('verdict_of_university_president')->nullable();
             $table->date('date_of_signature_of_university_president')->nullable();
+            $table->dateTime('deleted_at')->nullable();
             
             $table->timestamps();
         });

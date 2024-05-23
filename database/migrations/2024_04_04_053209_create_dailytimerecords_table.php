@@ -12,14 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('dailytimerecords', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('employee_id');
+            $table->foreignId('employee_id')->primary();
             $table->date('attendance_date')->default(now());
             $table->time('time_in')->nullable();
             $table->time('time_out')->nullable();
             // $table->string('attendance_type')->nullable();
             $table->boolean('late')->nullable();
             $table->boolean('status')->nullable();
+            $table->dateTime('deleted_at')->nullable();
+
             $table->timestamps();
         });
     }

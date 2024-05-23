@@ -12,10 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('change_information', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-
-            $table->foreignId('employee_id');
+            $table->foreignId('employee_id')->primary();
             $table->string('status');
             $table->string('first_name');
             $table->string('middle_name');
@@ -43,6 +40,9 @@ return new class extends Migration
             $table->json('emp_service_record_from_other_govt_agency')->nullable();
             $table->json('emp_approved_clearance_prev_employer')->nullable();
             $table->json('other_documents')->nullable();
+
+            $table->dateTime('deleted_at')->nullable();
+            $table->timestamps();
         });
     }
 
