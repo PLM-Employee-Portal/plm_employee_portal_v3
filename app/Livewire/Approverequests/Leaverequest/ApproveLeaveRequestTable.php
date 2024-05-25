@@ -13,9 +13,12 @@ class ApproveLeaveRequestTable extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
-    public $filterName;
+    public $date_filter;
 
-    public $filter;
+    public $status_filter;
+
+    public $dateFilterName = "All";
+    public $statusFilterName = "All";
 
     public $search = "";
 
@@ -95,36 +98,49 @@ class ApproveLeaveRequestTable extends Component
             abort(404);
         }
 
-          switch ($this->filter) {
+        switch ($this->date_filter) {
             case '1':
                 $leaveRequestData->whereDate('date_of_filling',  Carbon::today());
-                $this->filterName = "Today";
+                $this->dateFilterName = "Today";
                 break;
             case '2':
                 $leaveRequestData->whereBetween('date_of_filling', [Carbon::today()->startOfWeek(), Carbon::today()]);
-                $this->filterName = "Last 7 Days";
+                $this->dateFilterName = "Last 7 Days";
                 break;
             case '3':
                 $leaveRequestData->whereBetween('date_of_filling', [Carbon::today()->subDays(30), Carbon::today()]);
-                // $leaveRequestData->whereDate('date_of_filling', '>=', Carbon::today()->subDays(30), '<=', Carbon::today());
-                $this->filterName = "Last 30 days";
+                $this->dateFilterName = "Last 30 days";
                 break;
             case '4':
                 $leaveRequestData->whereBetween('date_of_filling', [Carbon::today()->subMonths(6), Carbon::today()]);
                 // $leaveRequestData->whereDate('date_of_filling', '>=', Carbon::today()->subMonths(6), '<=', Carbon::today());
-                $this->filterName = "Last 6 Months";
+                $this->dateFilterName = "Last 6 Months";
                 break;
             case '5':
                 $leaveRequestData->whereBetween('date_of_filling', [Carbon::today()->subYear(), Carbon::today()]);
-                // $leaveRequestData->whereDate('date_of_filling', '>=', Carbon::today()->subYear(), '<=', Carbon::today());
-                $this->filterName = "Last Year";
+                $this->dateFilterName = "Last Year";
+                break;
+        }
+
+        switch ($this->status_filter) {
+            case '1':
+                $leaveRequestData->where('status',  'Approved');
+                $this->statusFilterName = "Approved";
+                break;
+            case '2':
+                $leaveRequestData->where('status', 'Pending');
+                $this->statusFilterName = "Pending";
+                break;
+            case '3':
+                $leaveRequestData->where('status', 'Declined');
+                $this->statusFilterName = "Declined";
                 break;
         }
 
         if(strlen($this->search) >= 1){
-            $leaveRequestData = $leaveRequestData->where('date_of_filling', 'like', '%' . $this->search . '%')->orderBy('date_of_filling', 'desc');
+            $leaveRequestData = $leaveRequestData->where('status', '!=', 'Deleted')->where('date_of_filling', 'like', '%' . $this->search . '%')->orderBy('date_of_filling', 'desc');
         } else {
-            $leaveRequestData = $leaveRequestData->orderBy('date_of_filling', 'desc');
+            $leaveRequestData = $leaveRequestData->where('status', '!=', 'Deleted')->orderBy('date_of_filling', 'desc');
         }
 
         return view('livewire.approverequests.leaverequest.approve-leave-request-table', [

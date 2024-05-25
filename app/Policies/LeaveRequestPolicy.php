@@ -81,8 +81,7 @@ class LeaveRequestPolicy
             }
            
         } else {
-            // return $user->employee_id == $leaverequest->employee_id || $user->is_admin == True;
-            return  $user->is_admin == True;
+            return $user->employee_id == $leaverequest->employee_id || $user->is_admin == True;
 
         }
     }
@@ -92,7 +91,7 @@ class LeaveRequestPolicy
      */
     public function delete(User $user, Leaverequest $leaverequest): bool
     {
-        //
+        return $user->employee_id == $leaverequest->employee_id || $user->is_admin == True;
     }
 
     /**

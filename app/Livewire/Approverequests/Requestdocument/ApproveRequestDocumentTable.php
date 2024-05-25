@@ -17,9 +17,12 @@ class ApproveRequestDocumentTable extends Component
     use WithPagination, WithoutUrlPagination;
     
     
-    public $filterName;
+    public $date_filter;
 
-    public $filter;
+    public $status_filter;
+
+    public $dateFilterName = "All";
+    public $statusFilterName = "All";
 
     public $search = "";
 
@@ -37,27 +40,45 @@ class ApproveRequestDocumentTable extends Component
     public function render()
     {
         $loggedInUser = auth()->user();
-
+        
         $loggedInEmployeeData = Employee::where('employee_id', $loggedInUser->employee_id)->first();
-        $head = explode(',', $loggedInEmployeeData->is_department_head_or_dean[0] ?? ' ');
-        $departmentHeadId = $loggedInEmployeeData->department_id;
-        $collgeDeanId = $loggedInEmployeeData->dean_id;
+
+        $dept_head_id = "Denied";
+        foreach($loggedInEmployeeData->is_department_head as $index => $department_id){
+            if($department_id == 1){
+                $dept_head_id = $index;
+            }
+        }
+
+        $college_head_id = "Denied";
+        foreach($loggedInEmployeeData->is_college_head as $index => $college_id){
+            if($college_id == 1){
+                $college_head_id = $index;
+            }
+        }
+
+        if($dept_head_id != "Denied"){
+            $departmentHeadId = $loggedInEmployeeData->department_id[$dept_head_id];
+        }
+        if($college_head_id != "Denied"){
+            $collegeDeanId = $loggedInEmployeeData->college_id[$college_head_id];
+        }
 
         // Check if condition for department head is true
-        if ($head[0] == 1 && $head[1] == 1){
+        if ($college_head_id != "Denied" && $dept_head_id != "Denied"){
             $documentRequestData = Documentrequest::join('employees', 'employees.employee_id', 'documentrequests.employee_id')
-                ->where(function ($query) use ($collgeDeanId, $departmentHeadId) {
-                    $query->orWhere('employees.department_id', $departmentHeadId)
-                        ->orWhere('employees.dean_id',  $collgeDeanId);
+                ->where(function ($query) use ($collegeDeanId, $departmentHeadId) {
+                    $query->orWhereJsonContains('employees.department_id', $departmentHeadId)
+                        ->orWhereJsonContains('employees.college_id',  $collegeDeanId);
                 })
                 ->select('documentrequests.*') // Select only documentrequest columns
                 ->distinct() // Ensure unique records
                 ->orderBy('created_at', 'desc');
         }
-        else if ($head[0] == 1) {
+        else if ($dept_head_id != "Denied") {
             $documentRequestData= Documentrequest::join('employees', 'employees.employee_id', 'documentrequests.employee_id')
                 ->where(function ($query) use ($departmentHeadId) {
-                    $query->orWhere('employees.department_id', $departmentHeadId);
+                    $query->orWhereJsonContains('employees.department_id', $departmentHeadId);
                 })
                 ->select('documentrequests.*') // Select only documentrequest columns
                 ->distinct() // Ensure unique records
@@ -65,10 +86,10 @@ class ApproveRequestDocumentTable extends Component
         }
 
         // Check if condition for college dean is true
-        else if ($head[1] == 1) {
+        else if ($college_head_id != "Denied") {
             $documentRequestData = Documentrequest::join('employees', 'employees.employee_id', 'documentrequests.employee_id')
-                ->where(function ($query) use ($collgeDeanId) {
-                    $query->orWhere('employees.dean_id',  $collgeDeanId);
+                ->where(function ($query) use ($collegeDeanId) {
+                    $query->orWhereJsonContains('employees.college_id',  $collegeDeanId);
                 })
                 ->select('documentrequests.*') // Select only documentrequest columns
                 ->distinct() // Ensure unique records
@@ -81,36 +102,49 @@ class ApproveRequestDocumentTable extends Component
             abort(404);
         }
 
-        switch ($this->filter) {
+        switch ($this->date_filter) {
             case '1':
                 $documentRequestData->whereDate('date_of_filling',  Carbon::today());
-                $this->filterName = "Today";
+                $this->dateFilterName = "Today";
                 break;
             case '2':
                 $documentRequestData->whereBetween('date_of_filling', [Carbon::today()->startOfWeek(), Carbon::today()]);
-                $this->filterName = "Last 7 Days";
+                $this->dateFilterName = "Last 7 Days";
                 break;
             case '3':
                 $documentRequestData->whereBetween('date_of_filling', [Carbon::today()->subDays(30), Carbon::today()]);
-                // $documentRequestData->whereDate('date_of_filling', '>=', Carbon::today()->subDays(30), '<=', Carbon::today());
-                $this->filterName = "Last 30 days";
+                $this->dateFilterName = "Last 30 days";
                 break;
             case '4':
                 $documentRequestData->whereBetween('date_of_filling', [Carbon::today()->subMonths(6), Carbon::today()]);
                 // $documentRequestData->whereDate('date_of_filling', '>=', Carbon::today()->subMonths(6), '<=', Carbon::today());
-                $this->filterName = "Last 6 Months";
+                $this->dateFilterName = "Last 6 Months";
                 break;
             case '5':
                 $documentRequestData->whereBetween('date_of_filling', [Carbon::today()->subYear(), Carbon::today()]);
-                // $documentRequestData->whereDate('date_of_filling', '>=', Carbon::today()->subYear(), '<=', Carbon::today());
-                $this->filterName = "Last Year";
+                $this->dateFilterName = "Last Year";
+                break;
+        }
+
+        switch ($this->status_filter) {
+            case '1':
+                $documentRequestData->where('status',  'Approved');
+                $this->statusFilterName = "Approved";
+                break;
+            case '2':
+                $documentRequestData->where('status', 'Pending');
+                $this->statusFilterName = "Pending";
+                break;
+            case '3':
+                $documentRequestData->where('status', 'Declined');
+                $this->statusFilterName = "Declined";
                 break;
         }
 
         if(strlen($this->search) >= 1){
-            $documentRequestData = $documentRequestData->where('date_of_filling', 'like', '%' . $this->search . '%')->orderBy('date_of_filling', 'desc');
+            $documentRequestData = $documentRequestData->where('status', '!=', 'Deleted')->where('date_of_filling', 'like', '%' . $this->search . '%')->orderBy('date_of_filling', 'desc');
         } else {
-            $documentRequestData = $documentRequestData->orderBy('date_of_filling', 'desc');
+            $documentRequestData = $documentRequestData->where('status', '!=', 'Deleted')->orderBy('date_of_filling', 'desc');
         }
       
         return view('livewire.approverequests.requestdocument.approve-request-document-table', [
@@ -137,7 +171,7 @@ class ApproveRequestDocumentTable extends Component
    }
 
    public function getStatusOfDocument($index, $request){
-       $documentRequest = Documentrequest::findOrFail($index);
+       $documentRequest = Documentrequest::where('reference_num', $index)->first();
        $requestName = str_replace(' ', '_', $request);
        $requestName = strtolower($requestName);
        $loggedInUser = auth()->user();
@@ -146,8 +180,13 @@ class ApproveRequestDocumentTable extends Component
        $head = explode(',', $loggedInEmployeeData->is_department_head_or_dean[0] ?? ' ');
        if ($request == "Others")
             $requestName = 'other_documents';
-       if($documentRequest->$requestName && ($employee_id == $documentRequest->employee_id || $head[0] == 1 || $head[1] == 1 )){
-           return "Approved";
+    //    if($documentRequest->$requestName && ($employee_id == $documentRequest->employee_id || $head[0] == 1 || $head[1] == 1 )){
+    //        return "Approved";
+    //    }
+       if(isset($documentRequest->$requestName)){
+            if($documentRequest->$requestName && ($employee_id == $documentRequest->employee_id || $head[0] == 1 || $head[1] == 1 )){
+            return "Approved";
+        }
        }
        return "Pending";
 

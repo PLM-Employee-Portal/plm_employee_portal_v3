@@ -14,9 +14,12 @@ class RequestDocumentTable extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
-    public $filter;
+    public $date_filter;
 
-    public $filterName;
+    public $status_filter;
+
+    public $dateFilterName = "All";
+    public $statusFilterName = "All";
 
     public $search = "";
     
@@ -31,43 +34,58 @@ class RequestDocumentTable extends Component
         $this->resetPage();
     }
     
-    public function render()
+    public function render()    
     {
         $loggedInUser = auth()->user();
 
          if ($loggedInUser->is_admin) {
-            $documentRequestData = Documentrequest::orderBy('date_of_filling', 'desc')->paginate(10);
+            $results = Documentrequest::orderBy('date_of_filling', 'desc')->paginate(10);
         } else{
             $query = Documentrequest::where('employee_id', $loggedInUser->employee_id);
-            switch ($this->filter) {
+            switch ($this->date_filter) {
                 case '1':
                     $query->whereDate('date_of_filling',  Carbon::today());
-                    $this->filterName = "Today";
+                    $this->dateFilterName = "Today";
                     break;
                 case '2':
                     $query->whereBetween('date_of_filling', [Carbon::today()->startOfWeek(), Carbon::today()]);
-                    $this->filterName = "Last 7 Days";
+                    $this->dateFilterName = "Last 7 Days";
                     break;
                 case '3':
                     $query->whereBetween('date_of_filling', [Carbon::today()->subDays(30), Carbon::today()]);
-                    // $query->whereDate('date_of_filling', '>=', Carbon::today()->subDays(30), '<=', Carbon::today());
-                    $this->filterName = "Last 30 days";
+                    $this->dateFilterName = "Last 30 days";
                     break;
                 case '4':
                     $query->whereBetween('date_of_filling', [Carbon::today()->subMonths(6), Carbon::today()]);
-                    $this->filterName = "Last 6 Months";
+                    // $query->whereDate('date_of_filling', '>=', Carbon::today()->subMonths(6), '<=', Carbon::today());
+                    $this->dateFilterName = "Last 6 Months";
                     break;
                 case '5':
                     $query->whereBetween('date_of_filling', [Carbon::today()->subYear(), Carbon::today()]);
-                    $this->filterName = "Last Year";
+                    $this->dateFilterName = "Last Year";
+                    break;
+            }
+    
+            switch ($this->status_filter) {
+                case '1':
+                    $query->where('status',  'Approved');
+                    $this->statusFilterName = "Approved";
+                    break;
+                case '2':
+                    $query->where('status', 'Pending');
+                    $this->statusFilterName = "Pending";
+                    break;
+                case '3':
+                    $query->where('status', 'Declined');
+                    $this->statusFilterName = "Declined";
                     break;
             }
     
     
             if(strlen($this->search) >= 1){
-                $results = $query->where('date_of_filling', 'like', '%' . $this->search . '%')->orderBy('date_of_filling', 'desc')->paginate(5);
+                $results = $query->where('status', '!=', 'Deleted')->where('date_of_filling', 'like', '%' . $this->search . '%')->orderBy('date_of_filling', 'desc')->paginate(5);
             } else {
-                $results = $query->orderBy('date_of_filling', 'desc')->paginate(5);
+                $results = $query->where('status', '!=', 'Deleted')->orderBy('date_of_filling', 'desc')->paginate(5);
             }
         }
         
@@ -95,12 +113,14 @@ class RequestDocumentTable extends Component
     }
 
     public function getStatusOfDocument($index, $request){
-        $documentRequest = Documentrequest::findOrFail($index);
+        $documentRequest = Documentrequest::where('reference_num', $index)->first();
         $requestName = str_replace(' ', '_', $request);
         $requestName = strtolower($requestName);
         $employee_id = auth()->user()->employee_id;
-        if($documentRequest->$requestName && $employee_id == $documentRequest->employee_id){
-            return "Approved";
+        if(isset($documentRequest->$requestName)){
+            if($documentRequest->$requestName && $employee_id == $documentRequest->employee_id){
+                return "Approved";
+            }
         }
         return "Pending";
 
@@ -111,7 +131,7 @@ class RequestDocumentTable extends Component
     }
 
     public function removeRequestDocument($id){
-        $ipcrToBeDeleted = Documentrequest::findOrFail($id);
+        $ipcrToBeDeleted = Documentrequest::where('reference_num', $id)->first();
         $this->authorize('delete', $ipcrToBeDeleted);
         $ipcrToBeDeleted->delete();
         return redirect()->route('RequestDocumentTable');

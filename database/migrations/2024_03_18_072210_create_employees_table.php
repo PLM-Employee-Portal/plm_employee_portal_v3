@@ -14,31 +14,32 @@ return new class extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->foreignId('employee_id')->primary();
             $table->longText('employee_type');
+            $table->string('school_email')->nullable();
             $table->json('college_id')->nullable();
-            $table->json('department_id')->nullable()->default(0);
+            $table->json('department_id')->nullable();
             $table->json('is_department_head')->nullable();
             $table->json('is_college_head')->nullable();
-            $table->integer('employee_role');
             $table->string('first_name');
             $table->string('middle_name');
             $table->string('last_name');
             $table->decimal('age');
-            $table->enum('gender', ['Male', 'Female', 'Would Rather Not Say'])
-                ->default('Would Rather Not say');
+            $table->string('gender')->default('Would Rather Not say');
             $table->string('personal_email');
             $table->string('phone');
             $table->date('birth_date');
             $table->string('address');
             $table->date('start_of_employment');
             $table->date('end_of_employment')->nullable();
-            $table->boolean('faculty_or_not');
             $table->json('employee_history')->nullable();
             $table->decimal('vacation_credits')->nullable();
             $table->decimal('sick_credits')->nullable();
             $table->integer('study_available_units')->nullable();
             $table->integer('teach_available_units')->nullable();
+            $table->string('current_position');
+            $table->decimal('salary', 10, 2);
             
             //Documents
+            $table->string('emp_image')->nullable();
             $table->json('emp_diploma')->nullable();
             $table->json('emp_tor')->nullable();
             $table->json('emp_cert_of_trainings_seminars')->nullable();
@@ -53,11 +54,12 @@ return new class extends Migration
             $table->json('other_documents')->nullable();
             
             // Account Creation
-            $table->string('emp_image')->nullable();
-            $table->string('school_email')->nullable();
-            $table->string('current_position');
-            $table->decimal('salary', 10, 2);
-            // $table->string('department_head');
+
+
+            // $table->boolean('faculty_or_not');
+            // $table->integer('employee_role');
+
+
             $table->timestamps();
         });
     }

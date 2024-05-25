@@ -22,11 +22,11 @@ return new class extends Migration
             $table->json('load');
             $table->string('total_teaching_load')->nullable();
             $table->string('total_aggregate_load')->nullable();
-            $table->string('applicant_signature');
+            $table->binary('applicant_signature');
             $table->string('status')->default('reviewing');
             $table->decimal('total_units_enrolled', 10, 2)->nullable();
             $table->decimal('available_units', 10, 2)->nullable();
-            
+            $table->dateTime('deleted_at')->nullable();
 
             // Documents
             $table->json('cover_memo');

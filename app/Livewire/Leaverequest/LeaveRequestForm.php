@@ -117,7 +117,7 @@ class LeaveRequestForm extends Component
         // Generate a random number
          $characters = '0123456789';
          $randomNumber = '';
-         for ($i = 0; $i < rand(35, 40); $i++) {
+         for ($i = 0; $i < rand(10, 15); $i++) {
              $randomNumber .= $characters[rand(0, strlen($characters) - 1)];
          }
  
@@ -134,7 +134,7 @@ class LeaveRequestForm extends Component
     protected $rules = [
         'type_of_leave' => 'required|in:Others,Vacation Leave,Mandatory/Forced Leave,Sick Leave,Maternity Leave,Paternity Leave,Special Privilege Leave,Solo Parent Leave,Study Leave,10-Day VAWC Leave,Rehabilitation Privilege,Special Leave Benefits for Women,Special Emergency Leave,Adoption Leave',
         'type_of_leave_others' => 'required_if:type_of_leave,Others|max:100',
-        'type_of_leave_sub_category' => 'required|in:Within the Philippines,Abroad,In Hospital,Out Patient,Special Leave Benefits for Women,Completion of Master\'s degree,BAR/Board Examination Review,Monetization of leave credits,Terminal Leave',
+        'type_of_leave_sub_category' => 'required|in:Within the Philippines,Abroad,Out Patient,Special Leave Benefits for Women,Completion of Master\'s degree,BAR/Board Examination Review,Monetization of leave credits,Terminal Leave,In Hospital',
         'type_of_leave_description' => 'max:500',
         'inclusive_start_date' => 'required|after_or_equal:date_of_filling|before_or_equal:inclusive_end_date',
         'inclusive_end_date' => 'required|after_or_equal:inclusive_start_date',
@@ -160,6 +160,7 @@ class LeaveRequestForm extends Component
         $loggedInUser = auth()->user();
 
         $leaverequestdata = new Leaverequest();
+
         $randomNumber = 0;
         while(True) {
             $randomNumber = $this->generateRefNumber();
@@ -168,6 +169,7 @@ class LeaveRequestForm extends Component
                 break;
             }
         }
+
         $leaverequestdata->reference_num = $randomNumber;
         $leaverequestdata->employee_id = $loggedInUser->employee_id;
         $leaverequestdata->status = "Pending";
@@ -183,16 +185,13 @@ class LeaveRequestForm extends Component
         $department_id = Employee::where('employee_id', $loggedInUser->employee_id)->value('department_id');
         $departmentName = DB::table('departments')->where('department_id', $department_id)->value('department_name');
 
-        $leaverequestdata->department_name = $departmentName;
+        $leaverequestdata->office_department = $departmentName;
 
-        // $imageData = $this->commutation_signature_of_appli->store('');
-        // $encodedImageData = base64_encode($this->commutation_signature_of_appli);
+      
+
         $imageData = file_get_contents($this->commutation_signature_of_appli->getRealPath());
-        // dd($imageData);
         $leaverequestdata->commutation_signature_of_appli = $imageData;
-        // dd($leaverequestdata->commutation_signature_of_appli);
 
-        // $leaverequestdata->commutation_signature_of_appli = $this->commutation_signature_of_appli->store('photos/leaverequest', 'local');
 
         $this->js("alert('Leave Request submitted!')"); 
        
@@ -202,10 +201,10 @@ class LeaveRequestForm extends Component
 
     }
 
-    public function updateNumOfDays($start_date, $end_date){
-        dd($start_date);
+    // public function updateNumOfDays($start_date, $end_date){
+    //     dd($start_date);
      
-    }
+    // }
     public function render()
     {
         return view('livewire.leaverequest.leave-request-form')->extends('components.layouts.app');

@@ -26,6 +26,8 @@ return new class extends Migration
             $table->date('birth_date');
             $table->string('address');
             $table->json('employee_history')->nullable();
+            $table->dateTime('deleted_at')->nullable();
+
 
              //Documents
             $table->string('emp_photo')->nullable();

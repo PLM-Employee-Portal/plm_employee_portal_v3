@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('host');
             $table->boolean('is_featured');
             $table->json('visible_to_list');
+            $table->dateTime('deleted_at')->nullable();
+
             $table->timestamps();
         });
     }

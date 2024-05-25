@@ -69,11 +69,14 @@ class LeaveRequestUpdate extends Component
         }
 
 
+
         $this->index = $index;
         
         $employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_id', 'employee_id', 'current_position', 'salary', 'vacation_credits', 'sick_credits')
                                     ->where('employee_id', $loggedInUser->employee_id)
                                     ->first();   
+
+
         $departmentName = DB::table('departments')->where('department_id', $employeeRecord->department_id)->value('department_name');
         
         $this->available_credits = $employeeRecord->vacation_credits + $employeeRecord->sick_credits;
@@ -190,9 +193,9 @@ class LeaveRequestUpdate extends Component
         }
 
         $updateData = [
-            'employee_id' => $loggedInUser->employee_id,
-            'status' => "Pending",
-            'date_of_filling' => $this->date_of_filling,
+            // 'employee_id' => $loggedInUser->employee_id,
+            // 'status' => "",
+            // 'date_of_filling' => $this->date_of_filling,
             'type_of_leave' => $this->type_of_leave,
             'type_of_leave_others' => $this->type_of_leave_others, 
             'type_of_leave_sub_category' => $this->type_of_leave_sub_category, 

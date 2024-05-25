@@ -27,9 +27,10 @@ return new class extends Migration
             $table->dateTime('inclusive_end_date')->default(now()->timezone('Asia/Manila'));
             $table->string('commutation');
             $table->binary('commutation_signature_of_appli');
+            $table->dateTime('deleted_at')->nullable();
 
             // Approve Requests
-            $table->string('department_name');
+            $table->string('office_department');
             $table->decimal('total_earned_vaca', 10, 2)->nullable();
             $table->decimal('less_this_appli_vaca', 10, 2)->nullable();
             $table->decimal('balance_vaca', 10, 2)->nullable();

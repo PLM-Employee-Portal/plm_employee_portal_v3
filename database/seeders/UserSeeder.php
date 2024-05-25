@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
         $employee->employee_id = '202132321';
         $employee->employee_type = 'Casual';
         // $employee->department_name = 'College of Engineering';
-        $employee->employee_role = 2;
+        // $employee->employee_role = 2;
         $employee->department_id = [1, 2, 3, 4];
         $employee->college_id = [1, 2, 3];
         $employee->is_department_head = [0];
@@ -42,7 +42,7 @@ class UserSeeder extends Seeder
         $employee->salary = 510;
         $employee->start_of_employment = Carbon::createFromDate(2022, 4, 9);
         $employee->end_of_employment = Carbon::createFromDate(2024, 4, 9);
-        $employee->faculty_or_not = true;
+        // $employee->faculty_or_not = true;
         $employee->study_available_units = 20;
         $employee->teach_available_units = 10;
         $employee->vacation_credits = 20;
@@ -199,7 +199,7 @@ class UserSeeder extends Seeder
         $employee->employee_id = '200000001';
         $employee->employee_type = 'Casual';
         // $employee->department_name = 'College of Information System and Technology Management';
-        $employee->employee_role = 1;
+        // $employee->employee_role = 1;
         $employee->department_id = [1];
         $employee->college_id = [1];
         $employee->is_department_head = [1];
@@ -220,7 +220,7 @@ class UserSeeder extends Seeder
         $employee->vacation_credits = 20;
         $employee->sick_credits = 20;
         $employee->start_of_employment = Carbon::createFromDate(2022, 4, 9);
-        $employee->faculty_or_not = false;
+        // $employee->faculty_or_not = false;
         $employee->school_email = 'admin@plm.edu.ph';
 
         $employee->save();

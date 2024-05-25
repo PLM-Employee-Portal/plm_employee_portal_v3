@@ -38,7 +38,7 @@
                             <div class="grid grid-cols-2 gap-4 min-[1000px]:grid-cols-2  col-span-3 p-6 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700">
                                 <div class="w-full">
                                     <h2><b>Reference Number</b></h2>
-                                    <input type="text" value="{{$ref_number}}"
+                                    <input type="text" value="{{$reference_num}}"
                                         class="bg-gray-50 border mt-4 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                          required disabled>
                                 </div>
@@ -96,11 +96,8 @@
                                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                         disabled>
                                                 </div>
-                                            </div>
-                                            
+                                            </div>  
                                     </div>
-                        
-                                
                             </div>
                         </div>
                         

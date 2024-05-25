@@ -28,7 +28,7 @@ return new class extends Migration
             $table->float('supp_admin_rating');
             $table->float('final_average_rating');
             $table->string('comments_and_reco')->nullable();
-            $table->string('discussed_with')->nullable();
+            $table->binary('discussed_with');
             $table->date('disscused_with_date');
             $table->string('assessed_by')->nullable();
             $table->date('assessed_by_date')->nullable();
@@ -37,6 +37,7 @@ return new class extends Migration
             $table->string('final_rating_by')->nullable();
             $table->boolean('final_rating_by_verdict')->nullable();
             $table->date('final_rating_by_date')->nullable();
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
     }
