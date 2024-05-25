@@ -39,7 +39,7 @@
                             <div class="w-full ">
                                 <label for="firstname"
                                     class="block mb-2 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">First name <span class="text-red-600">*</span></label>
-                                <input type="text" name="firstname" id="firstname"  wire:model="first_name"
+                                <input type="text" name="firstname" id="firstname"  wire:model="first_name" 
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="First name" required="" >
                             </div>
@@ -351,7 +351,7 @@
                                                                 d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                                                         </svg>
                                                     </button>
-                                                    <img src="data:image/gif;base64,{{ base64_encode($image) }}"
+                                                    <img src="data:image/gif;base64,{{ $image }}"
                                                         alt="Image Description"
                                                         class="w-full h-full object-contain p-1">
                                                     <input id="emp_diploma_{{ $index }}" type="file" class="hidden"
@@ -505,7 +505,7 @@
                                                                 d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                                                         </svg>
                                                     </button>
-                                                    <img src="data:image/gif;base64,{{ base64_encode($image) }}"
+                                                    <img src="data:image/gif;base64,{{ $image }}"
                                                         alt="Image Description"
                                                         class="w-full h-full object-contain p-1">
                                                     <input id="emp_tor_{{ $index }}" type="file" class="hidden"
@@ -663,7 +663,7 @@
                                                             d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                                                     </svg>
                                                 </button>
-                                                <img src="data:image/gif;base64,{{ base64_encode($image) }}"
+                                                <img src="data:image/gif;base64,{{ $image }}"
                                                     alt="Image Description"
                                                     class="w-full h-full object-contain p-1">
                                                 <input id="emp_cert_of_trainings_seminars_{{ $index }}" type="file" class="hidden"
@@ -817,7 +817,7 @@
                                                             d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                                                     </svg>
                                                 </button>
-                                                <img src="data:image/gif;base64,{{ base64_encode($image) }}"
+                                                <img src="data:image/gif;base64,{{ $image }}"
                                                     alt="Image Description"
                                                     class="w-full h-full object-contain p-1">
                                                 <input id="emp_auth_copy_of_csc_or_prc_{{ $index }}" type="file" class="hidden"
@@ -974,7 +974,7 @@
                                                         d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                                                 </svg>
                                             </button>
-                                            <img src="data:image/gif;base64,{{ base64_encode($image) }}"
+                                            <img src="data:image/gif;base64,{{ $image }}"
                                                 alt="Image Description"
                                                 class="w-full h-full object-contain p-1">
                                             <input id="emp_auth_copy_of_prc_board_rating_{{ $index }}" type="file" class="hidden"
@@ -1128,7 +1128,7 @@
                                                         d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                                                 </svg>
                                             </button>
-                                            <img src="data:image/gif;base64,{{ base64_encode($image) }}"
+                                            <img src="data:image/gif;base64,{{ $image }}"
                                                 alt="Image Description"
                                                 class="w-full h-full object-contain p-1">
                                             <input id="emp_med_certif_{{ $index }}" type="file" class="hidden"
@@ -1286,7 +1286,7 @@
                                                         d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                                                 </svg>
                                             </button>
-                                            <img src="data:image/gif;base64,{{ base64_encode($image) }}"
+                                            <img src="data:image/gif;base64,{{ $image }}"
                                                 alt="Image Description"
                                                 class="w-full h-full object-contain p-1">
                                             <input id="emp_nbi_clearance_{{ $index }}" type="file" class="hidden"
@@ -1440,7 +1440,7 @@
                                                         d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                                                 </svg>
                                             </button>
-                                            <img src="data:image/gif;base64,{{ base64_encode($image) }}"
+                                            <img src="data:image/gif;base64,{{ $image }}"
                                                 alt="Image Description"
                                                 class="w-full h-full object-contain p-1">
                                             <input id="emp_psa_birth_certif_{{ $index }}" type="file" class="hidden"
@@ -1597,7 +1597,7 @@
                                                         d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                                                 </svg>
                                             </button>
-                                            <img src="data:image/gif;base64,{{ base64_encode($image) }}"
+                                            <img src="data:image/gif;base64,{{ $image }}"
                                                 alt="Image Description"
                                                 class="w-full h-full object-contain p-1">
                                             <input id="emp_psa_marriage_certif_{{ $index }}" type="file" class="hidden"
@@ -1751,7 +1751,7 @@
                                                         d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                                                 </svg>
                                             </button>
-                                            <img src="data:image/gif;base64,{{ base64_encode($image) }}"
+                                            <img src="data:image/gif;base64,{{ $image }}"
                                                 alt="Image Description"
                                                 class="w-full h-full object-contain p-1">
                                             <input id="emp_service_record_from_other_govt_agency_{{ $index }}" type="file" class="hidden"
@@ -1908,7 +1908,7 @@
                                                         d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                                                 </svg>
                                             </button>
-                                            <img src="data:image/gif;base64,{{ base64_encode($image) }}"
+                                            <img src="data:image/gif;base64,{{ $image }}"
                                                 alt="Image Description"
                                                 class="w-full h-full object-contain p-1">
                                             <input id="emp_approved_clearance_prev_employer_{{ $index }}" type="file" class="hidden"
@@ -2061,7 +2061,7 @@
                                                         d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                                                 </svg>
                                             </button>
-                                            <img src="data:image/gif;base64,{{ base64_encode($image) }}"
+                                            <img src="data:image/gif;base64,{{ $image }}"
                                                 alt="Image Description"
                                                 class="w-full h-full object-contain p-1">
                                             <input id="other_documents_{{ $index }}" type="file" class="hidden"

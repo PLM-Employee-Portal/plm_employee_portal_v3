@@ -23,6 +23,17 @@ class ChangeInformation extends Component
     public $phone;
     public $birth_date;
     public $address;
+
+    public $placeholder_first_name;
+    public $placeholder_middle_name;
+    public $placeholder_last_name;
+    public $placeholder_age;
+    public $placeholder_gender;
+    public $placeholder_personal_email;
+    public $placeholder_phone;
+    public $placeholder_birth_date;
+    public $placeholder_address;
+
     public $employee_history;
     public $employeeHistory;
     
@@ -40,14 +51,15 @@ class ChangeInformation extends Component
     public $emp_approved_clearance_prev_employer = [];
     public $other_documents = [];
 
+    public $index;
+
     public function mount(){
         $employee_id = auth()->user()->employee_id;
         $employee = Employee::where('employee_id', $employee_id)->first();
 
-        // Employee Information
         $this->first_name = $employee->first_name;
         $this->middle_name = $employee->middle_name;
-        $this->last_name = $employee->last_name;
+        $this->last_name = $employee->last_name;    
         $this->age = number_format($employee->age, 0);
         $this->gender = $employee->gender;
         $this->personal_email = $employee->personal_email;
@@ -55,24 +67,54 @@ class ChangeInformation extends Component
         $this->birth_date = $employee->birth_date;
         $this->address = $employee->address;
 
+        // $this->placeholder_first_name = $employee->first_name;
+        // $this->placeholder_middle_name = $employee->middle_name;
+        // $this->placeholder_last_name = $employee->last_name;    
+        // $this->placeholder_age = number_format($employee->age, 0);
+        // $this->placeholder_gender = $employee->gender;
+        // $this->placeholder_personal_email = $employee->personal_email;
+        // $this->placeholder_phone = $employee->phone;
+        // $this->placeholder_birth_date = $employee->birth_date;
+        // $this->placeholder_address = $employee->address;
 
-        $this->emp_image= $employee->emp_image ;
-
-        $this->emp_diploma = $employee->emp_diploma ?? [];
-        $this->emp_tor = $employee->emp_tor ?? [];
-        $this->emp_cert_of_trainings_seminars = $employee->emp_cert_of_trainings_seminars ?? [];
-        $this->emp_auth_copy_of_csc_or_prc = $employee->emp_auth_copy_of_csc_or_prc ?? [];
-        $this->emp_auth_copy_of_prc_board_rating = $employee->emp_auth_copy_of_prc_board_rating ?? [];
-        $this->emp_med_certif = $employee->emp_med_certif ?? [];
-        $this->emp_nbi_clearance = $employee->emp_nbi_clearance ?? [];
-        $this->emp_psa_birth_certif = $employee->emp_psa_birth_certif ?? [];
-        $this->emp_psa_marriage_certif = $employee->emp_psa_marriage_certif ?? [];
-        $this->emp_service_record_from_other_govt_agency = $employee->emp_service_record_from_other_govt_agency ?? [];
-        $this->emp_approved_clearance_prev_employer = $employee->emp_approved_clearance_prev_employer ?? [];
         if($employee->employee_history != null){
             $this->employeeHistory = json_decode($employee->employee_history, true);
         }
+
+        $this->emp_image= $employee->emp_image ;
+
+        $this->emp_diploma = json_decode($employee->emp_diploma, true) ?? [];
+        $this->emp_tor = json_decode($employee->emp_tor, true) ?? [];
+        $this->emp_cert_of_trainings_seminars = json_decode($employee->emp_cert_of_trainings_seminars, true) ?? [];
+        $this->emp_auth_copy_of_csc_or_prc = json_decode($employee->emp_auth_copy_of_csc_or_prc, true) ?? [];
+        $this->emp_auth_copy_of_prc_board_rating = json_decode($employee->emp_auth_copy_of_prc_board_rating, true) ?? [];
+        $this->emp_med_certif = json_decode($employee->emp_med_certif, true) ?? [];
+        $this->emp_nbi_clearance = json_decode($employee->emp_nbi_clearance, true) ?? [];
+        $this->emp_psa_birth_certif = json_decode($employee->emp_psa_birth_certif, true) ?? [];
+        $this->emp_psa_marriage_certif = json_decode($employee->emp_psa_marriage_certif, true) ?? [];
+        $this->emp_service_record_from_other_govt_agency = json_decode($employee->emp_service_record_from_other_govt_agency, true) ?? [];
+        $this->emp_approved_clearance_prev_employer = json_decode($employee->emp_approved_clearance_prev_employer, true) ?? [];
+        $this->other_documents = json_decode($employee->other_documents, true)?? [];
+        // dd($this->other_documents);
+       
     }
+
+    private function generateRefNumber(){
+         $characters = '0123456789';
+         $randomNumber = '';
+         for ($i = 0; $i < rand(10, 15); $i++) {
+             $randomNumber .= $characters[rand(0, strlen($characters) - 1)];
+         }
+ 
+         // Get the current year
+         $currentYear = date('Y');
+ 
+         // Concatenate the date and random number
+         $result = $currentYear . $randomNumber;
+ 
+         return $result;
+     }
+
 
     public function removeArrayImage($index, $request, $insideIndex = null){
 
@@ -107,7 +149,10 @@ class ChangeInformation extends Component
     }
     
     public function getArrayImage($item, $index){
-        return Storage::disk('local')->get($this->$item[$index]);
+        $employee_id = auth()->user()->employee_id;
+        $imageFile = Employee::where('employee_id', $employee_id)->first();
+        $imageFile = json_decode($imageFile->$item, true); 
+        return $imageFile[$index];
     }
 
     public function addEmployeeHistory(){
@@ -210,13 +255,23 @@ class ChangeInformation extends Component
     ];
 
     public function submit(){
-        // dd($this->emp_diploma);
         foreach($this->rules as $rule => $validationRule){
             $this->validate([$rule => $validationRule]);
             $this->resetValidation();
         }   
+
+        $randomNumber = 0;
+        while(True) {
+            $randomNumber = $this->generateRefNumber();
+            $existingRecord = \App\Models\ChangeInformation::where('reference_num', $randomNumber)->first() ?? null;
+            if(!$existingRecord){
+                break;
+            }
+         
+        }
      
         $employee = new ModelsChangeInformation();
+        $employee->reference_num = $randomNumber;
         $employee->employee_id = auth()->user()->employee_id;
         $employee->first_name = $this->first_name;
         $employee->middle_name = $this->middle_name;
@@ -280,8 +335,9 @@ class ChangeInformation extends Component
                         }
                         else{ 
                             $ctr += 1;
-                            $itemName = $file->store("photos/changeinformation/$field", 'local');
-                            $fileNames[] = $itemName;
+                            $imageData = file_get_contents($file->getRealPath());
+                            // $itemName = $file->store("photos/changeinformation/$field", 'local');
+                            $fileNames[] = base64_encode($imageData);;
                             if($employee->$field != null && $ctr <= $ctrField){
                                 Storage::delete($employee->$field[$index]);
                             }
@@ -309,7 +365,7 @@ class ChangeInformation extends Component
             }
 
             if(count($fileNames) > 0){
-                $employee->$field = $fileNames;        
+                $employee->$field = json_encode($fileNames, true);        
                 // dd($employee->$field, $fileNames);
             }
         }

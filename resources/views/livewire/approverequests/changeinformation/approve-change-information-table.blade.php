@@ -209,7 +209,7 @@
                                                     <!-- Dropdown content -->
                                                     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
                                                         <li>
-                                                            <a onclick="location.href='{{ route('ApproveChangeInformationForm', ['index' => $changeinformation->id]) }}'"  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
+                                                            <a onclick="location.href='{{ route('ApproveChangeInformationForm', ['index' => $changeinformation->reference_num]) }}'"  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
                                                         </li>
                                                     </ul>
                                                     <div class="py-2">

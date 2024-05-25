@@ -68,14 +68,11 @@ class LeaveRequestUpdate extends Component
             abort(404);
         }
 
-
-
         $this->index = $index;
         
         $employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_id', 'employee_id', 'current_position', 'salary', 'vacation_credits', 'sick_credits')
                                     ->where('employee_id', $loggedInUser->employee_id)
                                     ->first();   
-
 
         $departmentName = DB::table('departments')->where('department_id', $employeeRecord->department_id)->value('department_name');
         

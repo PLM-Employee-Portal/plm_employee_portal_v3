@@ -71,73 +71,95 @@ class UserSeeder extends Seeder
 
         // $employee->employee_history = "[{\"end_date\": \"2024-03-02\", \"start_date\": \"2024-03-02\", \"prev_position\": \"Software Engineer\", \"name_of_company\": "Accenture"}, {"end_date": "2023-03-02", "start_date": "2022-03-02", "prev_position": "Junior Developer", "name_of_company": "IBM"}, {"end_date": "2022-03-02", "start_date": "2021-02-07", "prev_position": "Intern Developer", "name_of_company": "EasyPC"}]';
         
-    // Emp Image
-    $imageContent = file_get_contents(public_path('storage/photos/demofiles/Picture.webp'));
-    $destinationPath = 'photos/avatar/Picture.webp';
-    Storage::disk('public')->put($destinationPath, $imageContent);
-    $employee->emp_image = $destinationPath;
+        // Emp Image
+        $imageContent = file_get_contents(public_path('storage/photos/demofiles/Picture.webp'));
+        $destinationPath = 'photos/avatar/Picture.webp';
+        Storage::disk('public')->put($destinationPath, $imageContent);
+        $employee->emp_image = $destinationPath;
 
-    //    // Emp Image 
+       // Emp Image 
     //    $path = Storage::putFile('photos/avatar', new File('public\storage\photos\demofiles\Picture.webp'), 'public');
     //    $employee->emp_image = $path;
 
        // Diploma
-       $path = Storage::putFile('photos/diploma', new File('public\storage\photos\demofiles\diploma.png'), 'private');
-       $employee_diploma[] = $path;   
-       $path = Storage::putFile('photos/diploma', new File('public\storage\photos\demofiles\Training picture\coding.webp'), 'private');
-       $employee_diploma[] = $path;   
-       $employee->emp_diploma = $employee_diploma;
+       // $path = Storage::putFile('photos/diploma', new File('public\storage\photos\demofiles\diploma.png'), 'private');
+       $path = file_get_contents(public_path('storage\photos\demofiles\diploma.png'));
+       
+       $employee_diploma[] = base64_encode($path);   
+       $path = file_get_contents(public_path('storage\photos\demofiles\Training picture\coding.webp'));
+       $employee_diploma[] = base64_encode($path);   
+       $employee->emp_diploma = json_encode($employee_diploma, true);
+    //    $path = Storage::putFile('photos/diploma', new File('public\storage\photos\demofiles\Training picture\coding.webp'), 'private');
+
 
        // Tor
-       $path = Storage::putFile('photos/tor', new File('public\storage\photos\demofiles\tor.jfif'), 'private');
-       $emp_tor[] = $path;   
-       $employee->emp_tor = $emp_tor;
+       $path = file_get_contents(public_path('storage\photos\demofiles\tor.jfif'));
+    //    $path = Storage::putFile('photos/tor', new File('public\storage\photos\demofiles\tor.jfif'), 'private');
+       $emp_tor[] = base64_encode($path);     
+       $employee->emp_tor = json_encode($emp_tor, true);
 
 
        // Certificate
-       $path = Storage::putFile('photos/cert_of_trainings_seminars', new File('public\storage\photos\demofiles\certif.jpg'), 'private');
-       $emp_cert_of_trainings_seminars[] = $path;   
-       $employee->emp_cert_of_trainings_seminars = $emp_cert_of_trainings_seminars;
+    //    $path = Storage::putFile('photos/cert_of_trainings_seminars', new File(''), 'private');
+       $path = file_get_contents(public_path('storage\photos\demofiles\certif.jpg'));
+
+       $emp_cert_of_trainings_seminars[] = base64_encode($path);   
+       $employee->emp_cert_of_trainings_seminars =  json_encode($emp_cert_of_trainings_seminars, true);
 
        // PRC License
-       $path = Storage::putFile('photos/auth_copy_of_csc_or_prc', new File('public\storage\photos\demofiles\prc license.jfif'), 'private');
-       $emp_auth_copy_of_csc_or_prc[] = $path;   
-       $employee->emp_auth_copy_of_csc_or_prc = $emp_auth_copy_of_csc_or_prc;
+    //    $path = Storage::putFile('photos/auth_copy_of_csc_or_prc', new File('public\storage\photos\demofiles\prc license.jfif'), 'private');
+       $path = file_get_contents(public_path('storage\photos\demofiles\prc license.jfif'));
+
+       $emp_auth_copy_of_csc_or_prc[] = base64_encode($path);   
+       $employee->emp_auth_copy_of_csc_or_prc = json_encode($emp_auth_copy_of_csc_or_prc, true);
        
        // PRC Board Rating
-       $path = Storage::putFile('photos/auth_copy_of_prc_board_rating', new File('public\storage\photos\demofiles\prc board rating.JPG'), 'private');
-       $emp_auth_copy_of_prc_board_rating[] = $path;   
-       $employee->emp_auth_copy_of_prc_board_rating = $emp_auth_copy_of_prc_board_rating;
+    //    $path = Storage::putFile('photos/auth_copy_of_prc_board_rating', new File('public\storage\photos\demofiles\prc board rating.JPG'), 'private');\
+       $path = file_get_contents(public_path('storage\photos\demofiles\prc board rating.JPG'));
+       $emp_auth_copy_of_prc_board_rating[] = base64_encode($path);   
+       $employee->emp_auth_copy_of_prc_board_rating = json_encode($emp_auth_copy_of_prc_board_rating, true);
 
        // Medical Certificate
-       $path = Storage::putFile('photos/med_certif', new File('public\storage\photos\demofiles\Medical Certificate.jpg'), 'private');
-       $emp_med_certif[] = $path;   
-       $employee->emp_med_certif = $emp_med_certif;
+    //    $path = Storage::putFile('photos/med_certif', new File('public\storage\photos\demofiles\Medical Certificate.jpg'), 'private');
+       $path = file_get_contents(public_path('storage\photos\demofiles\Medical Certificate.jpg'));
+
+       $emp_med_certif[] = base64_encode($path);   
+       $employee->emp_med_certif = json_encode($emp_med_certif, true);
 
        // NBI Clearance
-       $path = Storage::putFile('photos/nbi_clearance', new File('public\storage\photos\demofiles\NBI Clearance.png'), 'private');
-       $emp_nbi_clearance[] = $path;   
-       $employee->emp_nbi_clearance = $emp_nbi_clearance;
+    //    $path = Storage::putFile('photos/nbi_clearance', new File('public\storage\photos\demofiles\NBI Clearance.png'), 'private');
+       $path = file_get_contents(public_path('storage\photos\demofiles\NBI Clearance.png'));
+
+       $emp_nbi_clearance[] = base64_encode($path);   
+       $employee->emp_nbi_clearance = json_encode($emp_nbi_clearance, true);
 
        // PSA
-       $path = Storage::putFile('photos/psa', new File('public\storage\photos\demofiles\psa.png'), 'private');
-       $emp_psa_birth_certif[] = $path;   
-       $employee->emp_psa_birth_certif = $emp_psa_birth_certif;
+    //    $path = Storage::putFile('photos/psa', new File('public\storage\photos\demofiles\psa.png'), 'private');
+       $path = file_get_contents(public_path('storage\photos\demofiles\psa.png'));
+
+       $emp_psa_birth_certif[] = base64_encode($path);   
+       $employee->emp_psa_birth_certif = json_encode($emp_psa_birth_certif, true);
 
        // PSA Marriage
-       $path = Storage::putFile('photos/psa_marriage', new File('public\storage\photos\demofiles\psa marriage.jpg'), 'private');
-       $emp_psa_marriage_certif[] = $path;   
-       $employee->emp_psa_marriage_certif = $emp_psa_marriage_certif;
+    //    $path = Storage::putFile('photos/psa_marriage', new File('public\storage\photos\demofiles\psa marriage.jpg'), 'private');
+       $path = file_get_contents(public_path('storage\photos\demofiles\psa marriage.jpg'));
+
+       $emp_psa_marriage_certif[] = base64_encode($path);   
+       $employee->emp_psa_marriage_certif = json_encode($emp_psa_marriage_certif, true);
 
        // Service Record
-       $path = Storage::putFile('photos/service_record', new File('public\storage\photos\demofiles\service record.png'), 'private');
-       $emp_service_record_from_other_govt_agency[] = $path;   
-       $employee->emp_service_record_from_other_govt_agency = $emp_service_record_from_other_govt_agency;
+    //    $path = Storage::putFile('photos/service_record', new File('public\storage\photos\demofiles\service record.png'), 'private');
+       $path = file_get_contents(public_path('storage\photos\demofiles\service record.png'));
+
+       $emp_service_record_from_other_govt_agency[] = base64_encode($path);   
+       $employee->emp_service_record_from_other_govt_agency = json_encode($emp_service_record_from_other_govt_agency, true);
 
        // Approved Clearance
-       $path = Storage::putFile('photos/approved_clearance', new File('public\storage\photos\demofiles\Approved Clearance.jpg'), 'private');
-       $emp_approved_clearance_prev_employer[] = $path;   
-       $employee->emp_approved_clearance_prev_employer = $emp_approved_clearance_prev_employer;
+    //    $path = Storage::putFile('photos/approved_clearance', new File('public\storage\photos\demofiles\Approved Clearance.jpg'), 'private');
+       $path = file_get_contents(public_path('storage\photos\demofiles\Approved Clearance.jpg'));
+
+       $emp_approved_clearance_prev_employer[] = base64_encode($path);   
+       $employee->emp_approved_clearance_prev_employer = json_encode($emp_approved_clearance_prev_employer, true);
 
         $employee->save();
 

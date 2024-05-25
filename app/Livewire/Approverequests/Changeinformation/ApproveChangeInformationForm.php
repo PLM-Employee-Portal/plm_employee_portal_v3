@@ -47,7 +47,7 @@ class ApproveChangeInformationForm extends Component
         // $this->index = $index;
         try {
             $this->index = $index;
-            $employee = ChangeInformation::findOrFail($index);
+            $employee = $this->editChangeInformation($index);
             $this->authorize('update', [$employee, 'Approve']);
         } catch (AuthorizationException $e) {
             abort(404);
@@ -78,11 +78,21 @@ class ApproveChangeInformationForm extends Component
         $this->emp_psa_marriage_certif = $employee->emp_psa_marriage_certif ?? [];
         $this->emp_service_record_from_other_govt_agency = $employee->emp_service_record_from_other_govt_agency ?? [];
         $this->emp_approved_clearance_prev_employer = $employee->emp_approved_clearance_prev_employer ?? [];
-        $this->other_documents = $employee->other_documents ?? [];
+        $this->other_documents = json_decode($employee->other_documents, true) ?? [];
+        // dd($this->other_documents);
         if($employee->employee_history != null){
             $this->employeeHistory = json_decode($employee->employee_history, true);
         }
         // dd($this->employeeHistory);
+    }
+
+    public function editChangeInformation($index){
+        $changeinformation = ChangeInformation::where('reference_num', $index)->first();
+        if(!$changeinformation){
+            abort(404);
+        }
+        // $this->leaverequest = $leaverequest;
+        return $changeinformation;
     }
 
     public function removeArrayImage($index, $request, $insideIndex = null){
@@ -113,7 +123,9 @@ class ApproveChangeInformationForm extends Component
     }
     
     public function getArrayImage($item, $index){
-        return Storage::disk('local')->get($this->$item[$index]);
+        $imageFile = $this->editChangeInformation($this->index);
+        $imageFile = json_decode($imageFile->$item, true); 
+        return $imageFile[$index];
     }
 
     // protected $rules = [
@@ -189,8 +201,7 @@ class ApproveChangeInformationForm extends Component
     // ];
 
     public function submit(){
-        $changeInformationStatus = ChangeInformation::findOrFail($this->index);
-        $changeInformationStatus->status = "Approved";
+        $changeInformationStatus = ChangeInformation::where('reference_num', $this->index)->first();
 
         $employee = Employee::where('employee_id', $changeInformationStatus->employee_id)->first();
         $employee->first_name = $this->first_name;
@@ -234,7 +245,7 @@ class ApproveChangeInformationForm extends Component
                 if(is_null($item)){
                 }
                 else if(is_string($item)){
-                    $fileNames[] = $item;
+                    // $fileNames[] = $item;
                 }
                 else{
                     $this->resetValidation();
@@ -244,7 +255,9 @@ class ApproveChangeInformationForm extends Component
                 }
             }
             if(count($fileNames) > 0){
-                $employee->$field = $fileNames;        
+                $employee->$field = json_encode($fileNames, true);        
+            } else{
+
             }
         }
        
@@ -261,17 +274,48 @@ class ApproveChangeInformationForm extends Component
         $jsonEmployeeHistory = json_encode($jsonEmployeeHistory);
 
         $employee->employee_history = $jsonEmployeeHistory;        
+
+        $updateData = [
+            'first_name' =>  $employee->first_name,
+            'middle_name' => $employee->middle_name,
+            'last_name' => $employee->last_name,
+            'age' =>  $employee->age,
+            'gender' => $employee->gender,
+            'personal_email' => $employee->personal_email,
+            'phone'  => $employee->phone,
+            'birth_date' => $employee->birth_date,
+            'address' => $employee->address,
+            'emp_diploma' => json_encode($employee->emp_diploma, true),
+            'emp_tor' => json_encode($employee->emp_tor, true),
+            'emp_cert_of_trainings_seminars' => json_encode($employee->emp_cert_of_trainings_seminars, true),
+            'emp_auth_copy_of_csc_or_prc' => json_encode($employee->emp_auth_copy_of_csc_or_prc, true),
+            'emp_auth_copy_of_prc_board_rating' => json_encode($employee->emp_auth_copy_of_prc_board_rating, true),
+            'emp_med_certif' => json_encode($employee->emp_med_certif, true),
+            'emp_nbi_clearance' => json_encode($employee->emp_nbi_clearance, true),
+            'emp_psa_birth_certif' => json_encode($employee->emp_psa_birth_certif, true),
+            'emp_psa_marriage_certif' => json_encode($employee->emp_psa_marriage_certif, true),
+            'emp_service_record_from_other_govt_agency' => json_encode($employee->emp_service_record_from_other_govt_agency, true),
+            'emp_approved_clearance_prev_employer' => json_encode($employee->emp_approved_clearance_prev_employer, true),
+            'other_documents' => json_encode($employee->other_documents, true),
+            'updated_at' => now(),
+          ];
+
+        
+        Employee::where('employee_id', $changeInformationStatus->employee_id)
+                               ->update($updateData);
         
         $this->js("alert('Change Information Submitted!')"); 
         
-        $employee->update();
-        $changeInformationStatus->update(); 
+        
+        $changeInformationStatus = ChangeInformation::where('reference_num', $this->index)
+                                                    ->update(['Status' => "Approved",
+                                                               'updated_at' => now() ]);
         
         return redirect()->to(route('profile'));
     }
     
     public function render()
     {
-        return view('livewire.approverequests.changeinformation.approve-change-information-form')->extends('components.components.layouts.app');
+        return view('livewire.approverequests.changeinformation.approve-change-information-form')->extends('components.layouts.app');
     }
 }
