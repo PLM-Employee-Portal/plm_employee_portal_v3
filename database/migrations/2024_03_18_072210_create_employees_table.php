@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->foreignId('employee_id')->primary();
             $table->longText('employee_type');
-            $table->longText('department_name');
-            $table->integer('department_id');
-            $table->integer('dean_id')->nullable()->default(0);
-            $table->json('is_department_head_or_dean')->nullable();
+            $table->json('college_id')->nullable();
+            $table->json('department_id')->nullable()->default(0);
+            $table->json('is_department_head')->nullable();
+            $table->json('is_college_head')->nullable();
             $table->integer('employee_role');
             $table->string('first_name');
             $table->string('middle_name');

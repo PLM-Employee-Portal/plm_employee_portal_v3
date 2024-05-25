@@ -20,25 +20,15 @@ class UserSeeder extends Seeder
     public function run(): void
     { 
 
-        // for($i = 0; $i <= 30; $i++){
-        //     Dailytimerecord::create([
-        //         'employee_id' => '202132321',
-        //         'attendance_date' => Carbon::createFromDate(2024, 5, $i),
-        //         'time_in' => $i.':00',
-        //         'time_out' => $i.':'.$i,
-        //         'late' => 1,
-        //         'status' => 1,
-        //     ]);
-        // }
-        
         $employee = new Employee();
         $employee->employee_id = '202132321';
         $employee->employee_type = 'Casual';
-        $employee->department_name = 'College of Engineering';
+        // $employee->department_name = 'College of Engineering';
         $employee->employee_role = 2;
-        $employee->department_id = 1;
-        $employee->dean_id = 1;
-        $employee->is_department_head_or_dean = ['0,0'];
+        $employee->department_id = [1, 2, 3, 4];
+        $employee->college_id = [1, 2, 3];
+        $employee->is_department_head = [0];
+        $employee->is_college_head = [0];
         $employee->first_name = 'Juan';
         $employee->middle_name = 'Dela';
         $employee->last_name = 'Cruz';
@@ -50,7 +40,6 @@ class UserSeeder extends Seeder
         $employee->address = 'Sampaloc, Manila';
         $employee->current_position = 'Part-time';
         $employee->salary = 510;
-        // $employee->department_head = 'Raymund Dioses';
         $employee->start_of_employment = Carbon::createFromDate(2022, 4, 9);
         $employee->end_of_employment = Carbon::createFromDate(2024, 4, 9);
         $employee->faculty_or_not = true;
@@ -59,6 +48,7 @@ class UserSeeder extends Seeder
         $employee->vacation_credits = 20;
         $employee->sick_credits = 20;
         $employee->school_email = 'comsci@plm.edu.ph'; 
+
 
         $employeeHistory = [
             [
@@ -208,10 +198,12 @@ class UserSeeder extends Seeder
         $employee = new Employee();
         $employee->employee_id = '200000001';
         $employee->employee_type = 'Casual';
-        $employee->department_name = 'College of Information System and Technology Management';
-        $employee->employee_role = 2;
-        $employee->department_id = 1;
-        $employee->is_department_head_or_dean = ['1,0'];
+        // $employee->department_name = 'College of Information System and Technology Management';
+        $employee->employee_role = 1;
+        $employee->department_id = [1];
+        $employee->college_id = [1];
+        $employee->is_department_head = [1];
+        $employee->is_college_head = [1];
         $employee->first_name = 'Admin';
         $employee->middle_name = 'Admin';
         $employee->last_name = 'Admin';

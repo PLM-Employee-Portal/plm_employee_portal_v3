@@ -45,13 +45,14 @@ class DashboardView extends Component
     public function mount(){
         $loggedInUser = auth()->user()->employee_id;
         $employeeInformation = Employee::where('employee_id', $loggedInUser)
-                                ->select('department_name', 'sick_credits', 'vacation_credits', 'first_name', 'gender')->get();
-        $this->firstName = $employeeInformation[0]->first_name;
-        $this->vacationCredits = $employeeInformation[0]->vacation_credits;
-        $this->sickCredits = $employeeInformation[0]->sick_credits;
-        $this->gender = $employeeInformation[0]->gender;
-        $this->activities = Activities::whereJsonContains('visible_to_list', $employeeInformation[0]->department_name)->get();
-        $this->trainings = Training::whereJsonContains('visible_to_list', $employeeInformation[0]->department_name)->get();
+                                ->select('college_id', 'sick_credits', 'vacation_credits', 'first_name', 'gender')->first();
+        $college_name = DB::table('colleges')->where('college_id', $employeeInformation->college_id)->value('college_name') ?? '';
+        $this->firstName = $employeeInformation->first_name;
+        $this->vacationCredits = $employeeInformation->vacation_credits;
+        $this->sickCredits = $employeeInformation->sick_credits;
+        $this->gender = $employeeInformation->gender;
+        $this->activities = Activities::whereJsonContains('visible_to_list', $college_name)->get();
+        $this->trainings = Training::whereJsonContains('visible_to_list', $college_name)->get();
 
         $attendanceCount = Dailytimerecord::where('employee_id', $loggedInUser)->count();
         // $this->currentHourMinuteSecond = Carbon::now();

@@ -353,9 +353,9 @@
                                     <label for="auth_off_sig_b" class="relative flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                         @if (is_string($auth_off_sig_b))
                                             @php
-                                                $auth_off_sig_b = $this->getHeadSignature();
+                                                $signature = $this->getHeadSignature();
                                             @endphp
-                                            <img src="data:image/gif;base64,{{ base64_encode($auth_off_sig_b) }}" alt="Image Description" class="w-full h-full object-contain"> 
+                                            <img src="data:image/gif;base64,{{ base64_encode($signature) }}" alt="Image Description" class="w-full h-full object-contain"> 
                                         @else
                                             <img src="{{ $auth_off_sig_b->temporaryUrl() }}" class="w-full h-full object-contain" alt="Uploaded Image">
                                         @endif

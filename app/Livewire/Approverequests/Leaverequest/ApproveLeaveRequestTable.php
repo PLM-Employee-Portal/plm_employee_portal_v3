@@ -35,25 +35,43 @@ class ApproveLeaveRequestTable extends Component
         $loggedInUser = auth()->user();
         
         $loggedInEmployeeData = Employee::where('employee_id', $loggedInUser->employee_id)->first();
-        $head = explode(',', $loggedInEmployeeData->is_department_head_or_dean[0] ?? ' ');
-        $departmentHeadId = $loggedInEmployeeData->department_id;
-        $collgeDeanId = $loggedInEmployeeData->dean_id;
+
+        $dept_head_id = "Denied";
+        foreach($loggedInEmployeeData->is_department_head as $index => $department_id){
+            if($department_id == 1){
+                $dept_head_id = $index;
+            }
+        }
+
+        $college_head_id = "Denied";
+        foreach($loggedInEmployeeData->is_college_head as $index => $college_id){
+            if($college_id == 1){
+                $college_head_id = $index;
+            }
+        }
+
+        if($dept_head_id != "Denied"){
+            $departmentHeadId = $loggedInEmployeeData->department_id[$dept_head_id];
+        }
+        if($college_head_id != "Denied"){
+            $collegeDeanId = $loggedInEmployeeData->college_id[$college_head_id];
+        }
 
         // Check if condition for department head is true
-        if ($head[0] == 1 && $head[1] == 1){
+        if ($college_head_id != "Denied" && $dept_head_id != "Denied"){
             $leaveRequestData = Leaverequest::join('employees', 'employees.employee_id', 'leaverequests.employee_id')
-                ->where(function ($query) use ($collgeDeanId, $departmentHeadId) {
-                    $query->orWhere('employees.department_id', $departmentHeadId)
-                        ->orWhere('employees.dean_id',  $collgeDeanId);
+                ->where(function ($query) use ($collegeDeanId, $departmentHeadId) {
+                    $query->whereJsonContains('employees.department_id', $departmentHeadId)
+                        ->orwhereJsonContains('employees.college_id',  $collegeDeanId);
                 })
                 ->select('leaverequests.*') // Select only documentrequest columns
                 ->distinct() // Ensure unique records
                 ->orderBy('created_at', 'desc');
         }
-        else if ($head[0] == 1) {
+        else if ($dept_head_id != "Denied") {
             $leaveRequestData= Leaverequest::join('employees', 'employees.employee_id', 'leaverequests.employee_id')
                 ->where(function ($query) use ($departmentHeadId) {
-                    $query->orWhere('employees.department_id', $departmentHeadId);
+                    $query->whereJsonContains('employees.department_id', $departmentHeadId);
                 })
                 ->select('leaverequests.*') // Select only Leaverequest columns
                 ->distinct() // Ensure unique records
@@ -61,10 +79,10 @@ class ApproveLeaveRequestTable extends Component
         }
 
         // Check if condition for college dean is true
-        else if ($head[1] == 1) {
+        else if ($college_head_id != "Denied") {
             $leaveRequestData = Leaverequest::join('employees', 'employees.employee_id', 'leaverequests.employee_id')
-                ->where(function ($query) use ($collgeDeanId) {
-                    $query->orWhere('employees.dean_id',  $collgeDeanId);
+                ->where(function ($query) use ($collegeDeanId) {
+                    $query->whereJsonContains('employees.college_id',  $collegeDeanId);
                 })
                 ->select('leaverequests.*') // Select only Leaverequest columns
                 ->distinct() // Ensure unique records

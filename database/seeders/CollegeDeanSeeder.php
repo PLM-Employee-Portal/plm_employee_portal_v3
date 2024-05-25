@@ -20,11 +20,12 @@ class CollegeDeanSeeder extends Seeder
         $employee = new Employee();
         $employee->employee_id = '202121054';
         $employee->employee_type = 'Permanent';
-        $employee->department_name = 'College of Information System and Technology Management';
+        // $employee->department_name = 'College of Information System and Technology Management';
         $employee->employee_role = 2;
-        $employee->department_id = 3;
-        $employee->dean_id = 1;
-        $employee->is_department_head_or_dean = ['0,1'];
+        $employee->department_id = [1, 2];
+        $employee->college_id = [1, 2];
+        $employee->is_department_head = [0, 1];
+        $employee->is_college_head = [1, 0];
         $employee->first_name = 'College';
         $employee->middle_name = 'Dean';
         $employee->last_name = '3';

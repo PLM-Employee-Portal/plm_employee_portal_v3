@@ -7,6 +7,7 @@ use App\Models\User;
 use Livewire\Component;
 use App\Models\Employee;
 use App\Models\Leaverequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Notifications\SignedNotifcation;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -67,7 +68,6 @@ class ApproveLeaveRequestForm extends Component
 
     public function mount($index){
         $this->index = $index;
-        $loggedInUser = auth()->user();
         try {
             $leaverequest = $this->editLeaveRequest($index);
             $this->authorize('update', [$leaverequest, 'Approve']);
@@ -75,7 +75,6 @@ class ApproveLeaveRequestForm extends Component
             abort(404);
         }
 
-        // $leaverequest = $this->editLeaveRequest($index);
         $this->date_of_filling = $leaverequest->date_of_filling;
         $this->type_of_leave = $leaverequest->type_of_leave;
         $this->type_of_leave_others = $leaverequest->type_of_leave_others;
@@ -85,83 +84,66 @@ class ApproveLeaveRequestForm extends Component
         $this->inclusive_start_date = $leaverequest->inclusive_start_date;
         $this->inclusive_end_date = $leaverequest->inclusive_end_date;
         $this->commutation = $leaverequest->commutation;
-        $this->commutation_signature_of_appli = $leaverequest->commutation_signature_of_appli;
+
+        $properties = [
+            'commutation_signature_of_appli',
+            'auth_off_sig_a',
+            'auth_off_sig_b',
+            'auth_off_sig_c_and_d',
+        ];
+
+        foreach($properties as $property){
+            if($leaverequest->$property){
+                $this->$property = " ";
+            }
+        }
+       
         $this->head_disapprove_reason = $leaverequest->head_disapprove_reason ?? '';
         $this->department_head_verdict = $leaverequest->department_head_verdict;
-        $this->human_resource_verdict_a = $leaverequest->department_head_verdict;
+        $this->human_resource_verdict_a = $leaverequest->human_resource_verdict_a;
         $this->hr_cd_disapprove_reason = $leaverequest->hr_cd_disapprove_reason ?? ' ';
         $this->human_resource_verdict_cd = $leaverequest->human_resource_verdict_cd;
 
-        // if($leaverequest->head_disapprove_reason){
-        //     $this->head_disapprove_reason = $leaverequest->head_disapprove_reason;
-        //     $this->department_head_verdict = "Declined";
-        // }
-        // else{
-        //     $this->department_head_verdict = "Approved";
-        // }
-        // if($leaverequest->human_resource_verdict_a == 1){
-        //     $this->human_resource_verdict_a = "Approved" ;
-        // }else{
-        //     $this->human_resource_verdict_a = "Declined" ;
-        // }
-        
-        // if($leaverequest->hr_cd_disapprove_reason){
-        //     $this->hr_cd_disapprove_reason = $leaverequest->hr_cd_disapprove_reason;
-        //     $this->human_resource_verdict_cd = "Declined";
-        // }
-        // else{
-        //     $this->human_resource_verdict_cd = "Approved";
-        // }
 
-        if($leaverequest->auth_off_sig_b){
-            $this->flag = "Initial";
-            $this->auth_off_sig_b = $leaverequest->auth_off_sig_b;
-        }
-        if($leaverequest->auth_off_sig_a){
-            $this->flag = "Initial";
-            $this->auth_off_sig_a = $leaverequest->auth_off_sig_a;
-        }
-        if($leaverequest->auth_off_sig_c_and_d){
-            $this->flag = "Initial";
-            $this->auth_off_sig_c_and_d = $leaverequest->auth_off_sig_c_and_d;
-        }
-        
-
-        $this->employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_name', 'employee_id', 'current_position', 'salary', 'vacation_credits', 'sick_credits')
+        $employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_id', 'employee_id', 'current_position', 'salary', 'vacation_credits', 'sick_credits')
                                     ->where('employee_id', $leaverequest->employee_id)
-                                    ->get();    
-        $this->available_credits = $this->employeeRecord[0]->vacation_credits + $this->employeeRecord[0]->sick_credits;
-        $this->employee_id = $this->employeeRecord[0]->employee_id;
-        $this->first_name = $this->employeeRecord[0]->first_name;
-        $this->middle_name = $this->employeeRecord[0]->middle_name;
-        $this->last_name = $this->employeeRecord[0]->last_name;
-        $this->department_name = $this->employeeRecord[0]->department_name;
-        $this->current_position = $this->employeeRecord[0]->current_position;
-        $this->salary = $this->employeeRecord[0]->salary;
+                                    ->first();    
+        $departmentName = DB::table('departments')->where('department_id', $employeeRecord->department_id)->value('department_name');
+        $this->available_credits = $employeeRecord->vacation_credits + $employeeRecord->sick_credits;
+        $this->employee_id = $employeeRecord->employee_id;
+        $this->first_name = $employeeRecord->first_name;
+        $this->middle_name = $employeeRecord->middle_name;
+        $this->last_name = $employeeRecord->last_name;
+        $this->department_name = $departmentName;
+        $this->current_position = $employeeRecord->current_position;
+        $this->salary = $employeeRecord->salary;
     }
 
   
 
     public function editLeaveRequest($index){
-        $leaverequest = Leaverequest::findOrFail($index);
-        // $this->leaverequest = $leaverequest;
+        $leaverequest = Leaverequest::where('reference_num', $index)->first();
         return $leaverequest;
     }
 
     public function getHeadSignature(){
-        return Storage::disk('local')->get($this->auth_off_sig_b);
+        $imageFile = $this->editLeaveRequest($this->index);
+        return $imageFile->auth_off_sig_b ?? ' ';
     }
 
     public function getHumanResourceA(){
-        return Storage::disk('local')->get($this->auth_off_sig_a);
+        $imageFile = $this->editLeaveRequest($this->index);
+        return $imageFile->auth_off_sig_a ?? ' ';
     }
 
     public function getHumanResourceCD(){
-        return Storage::disk('local')->get($this->auth_off_sig_c_and_d);
+        $imageFile = $this->editLeaveRequest($this->index);
+        return $imageFile->auth_off_sig_c_and_d ?? ' ';
     }
 
     public function getApplicantSignature(){
-        return Storage::disk('local')->get($this->commutation_signature_of_appli);
+        $imageFile = $this->editLeaveRequest($this->index);
+        return $imageFile->commutation_signature_of_appli ?? ' ';
     }
 
     public function removeImage($item){
@@ -224,7 +206,7 @@ class ApproveLeaveRequestForm extends Component
 
     public function submit(){
         // $this->validate();
-        $leaveRequest = Leaverequest::findOrFail($this->index);
+        $leaveRequest = Leaverequest::where('reference_num', $this->index)->first();
 
 
         $loggedInUser = auth()->user();
@@ -244,8 +226,7 @@ class ApproveLeaveRequestForm extends Component
         foreach ($properties as $propertyName => $validationRule) {
         // Check if the current property value is a string or an uploaded file                
                 if (is_string($this->$propertyName)) {
-                    // If it's a string, assign it directly
-                    $leaveRequest->$propertyName = $this->$propertyName;
+                    $propertyName = $this->$propertyName;
                 }
                 else if($this->$propertyName == null){
                     if($propertyName == "auth_off_sig_a")
@@ -253,15 +234,15 @@ class ApproveLeaveRequestForm extends Component
                     else if ($propertyName == 'auth_off_sig_b')
                         $this->validate([$propertyName => 'required_with:department_head_verdict']);
                     else if ($propertyName == 'auth_off_sig_c_and_d')
-                        $this->validate([$propertyName => 'required_with:human_resource_verdict_a']);
+                        $this->validate([$propertyName => 'required_with:human_resource_verdict_cd']);
                 }
                 else {
                     // If it's an uploaded file, store it and apply validation rules
                     if($this->$propertyName){
                         $name_of_verdict = $validationRule[1];
-                        $targetUser->notify(new SignedNotifcation($loggedInUser->employee_id, 'Leave Request', 'Signed', $leaveRequest->id, $signedIn, $this->$name_of_verdict == 'Approved' ? 1 : 0));
+                        $targetUser->notify(new SignedNotifcation($loggedInUser->employee_id, 'Leave Request', 'Signed', $leaveRequest->reference_num, $signedIn, $this->$name_of_verdict == 'Approved' ? 1 : 0));
                     }
-                    $leaveRequest->$propertyName = $this->$propertyName ? $this->$propertyName->store('photos/leaverequest/' . $propertyName, 'local') : '';
+                    $leaveRequest->$propertyName = file_get_contents($this->$propertyName->getRealPath());
                     $this->validate([$propertyName => $validationRule[0]]);
                 }
                 
@@ -269,7 +250,7 @@ class ApproveLeaveRequestForm extends Component
 
         if(isset($this->department_head_verdict)){
             $this->validate(['head_disapprove_reason' => 'required_if:department_head_verdict,Declined']);
-            if($this->department_head_verdict == "Approved"){
+            if($this->department_head_verdict == 1){
                 $leaveRequest->department_head_verdict = 1;
             } else{
                 $leaveRequest->department_head_verdict = 0;
@@ -278,7 +259,7 @@ class ApproveLeaveRequestForm extends Component
         }
 
         if(isset($this->human_resource_verdict_a)){
-            if($this->human_resource_verdict_a == "Approved"){
+            if($this->human_resource_verdict_a == 1){
                 $leaveRequest->human_resource_verdict_a = 1;
             } else{
                 $leaveRequest->human_resource_verdict_a = 0;
@@ -288,15 +269,13 @@ class ApproveLeaveRequestForm extends Component
         }
         if(isset($this->human_resource_verdict_cd)){
             $this->validate(['hr_cd_disapprove_reason' => 'required_if:human_resource_verdict_cd,Declined']);
-            if($this->human_resource_verdict_cd == "Approved"){
+            if($this->human_resource_verdict_cd == 1){
                 $leaveRequest->human_resource_verdict_cd = 1;
             } else{
                 $leaveRequest->human_resource_verdict_cd = 0;
                 $leaveRequest->hr_cd_disapprove_reason = $this->hr_cd_disapprove_reason;
             }
         }
-
-       
        
         if($leaveRequest->human_resource_verdict_cd == 1 && $leaveRequest->human_resource_verdict_a == 1 && $leaveRequest->department_head_verdict == 1 ){
             if($leaveRequest->auth_off_sig_b && $leaveRequest->auth_off_sig_a && $leaveRequest->auth_off_sig_c_and_d){
@@ -310,10 +289,24 @@ class ApproveLeaveRequestForm extends Component
             $leaveRequest->status = "Pending";
         }
 
+        $updateData = [
+            'status' => $leaveRequest->status,
+            'auth_off_sig_a' => $leaveRequest->auth_off_sig_a,
+            'auth_off_sig_b' => $leaveRequest->auth_off_sig_b,
+            'auth_off_sig_c_and_d' => $leaveRequest->auth_off_sig_c_and_d,
+            'department_head_verdict' => $leaveRequest->department_head_verdict ?? null,
+            'human_resource_verdict_a' => $leaveRequest->human_resource_verdict_a ?? null,
+            'human_resource_verdict_cd' => $leaveRequest->human_resource_verdict_cd ?? null,
+            'head_disapprove_reason' => $leaveRequest->head_disapprove_reason ?? null,
+            'hr_a_disapprove_reason' => $leaveRequest->hr_a_disapprove_reason ?? null,
+            'hr_cd_disapprove_reason' => $leaveRequest->hr_cd_disapprove_reason ?? null,
+
+        ];
+
+        Leaverequest::where('reference_num', $this->index)
+                               ->update($updateData);
 
         $this->js("alert('Leave Request Status Updated!')"); 
-
-        $leaveRequest->update();
 
         return redirect()->to(route('ApproveLeaveRequestTable'));
 

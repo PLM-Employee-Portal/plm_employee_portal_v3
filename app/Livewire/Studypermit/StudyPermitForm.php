@@ -62,16 +62,16 @@ class StudyPermitForm extends Component
 
     public function mount(){
         $loggedInUser = auth()->user();
-        $this->employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_name', 'current_position', 'employee_type', 'study_available_units' )
+        $employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_name', 'current_position', 'employee_type', 'study_available_units' )
                                     ->where('employee_id', $loggedInUser->employee_id)
-                                    ->get();   
-        $this->first_name = $this->employeeRecord[0]->first_name;
-        $this->middle_name = $this->employeeRecord[0]->middle_name;
-        $this->last_name = $this->employeeRecord[0]->last_name;
-        $this->department_name = $this->employeeRecord[0]->department_name;
-        $this->current_position = $this->employeeRecord[0]->current_position;
-        $this->employee_type = $this->employeeRecord[0]->employee_type;
-        $this->study_available_units = $this->employeeRecord[0]->study_available_units ?? 0;
+                                    ->first();   
+        $this->first_name = $employeeRecord->first_name;
+        $this->middle_name = $employeeRecord->middle_name;
+        $this->last_name = $employeeRecord->last_name;
+        $this->department_name = $employeeRecord->department_name;
+        $this->current_position = $employeeRecord->current_position;
+        $this->employee_type = $employeeRecord->employee_type;
+        $this->study_available_units = $employeeRecord->study_available_units ?? 0;
         $dateToday = Carbon::now()->toDateString();
         $this->date = $dateToday;
         $this->start_period_cover = $dateToday;

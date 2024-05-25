@@ -26,7 +26,7 @@ return new class extends Migration
             $table->dateTime('inclusive_start_date')->default(now()->timezone('Asia/Manila'));
             $table->dateTime('inclusive_end_date')->default(now()->timezone('Asia/Manila'));
             $table->string('commutation');
-            $table->string('commutation_signature_of_appli');
+            $table->binary('commutation_signature_of_appli');
 
             // Approve Requests
             $table->string('department_name');
@@ -37,20 +37,19 @@ return new class extends Migration
             $table->decimal('less_this_appli_sick', 10, 2)->nullable();
             $table->decimal('balance_sick', 10, 2)->nullable();
             $table->date('as_of_filling')->nullable();
-            $table->string('auth_off_sig_a')->nullable();
-            // $table->string('auth_off_sig_a_status')
             $table->string('status_description')->nullable();
-            $table->string('auth_off_sig_b')->nullable();
             $table->string('days_with_pay')->nullable();
             $table->string('days_without_pay')->nullable();
             $table->string('others')->nullable();
+            $table->binary('auth_off_sig_b')->nullable();
             $table->boolean('department_head_verdict')->nullable();
             $table->string('head_disapprove_reason')->nullable();
             $table->boolean('human_resource_verdict_a')->nullable();
+            $table->binary('auth_off_sig_a')->nullable();
             $table->string('hr_a_disapprove_reason')->nullable();
             $table->boolean('human_resource_verdict_cd')->nullable();
             $table->string('hr_cd_disapprove_reason')->nullable();
-            $table->string('auth_off_sig_c_and_d')->nullable();
+            $table->binary('auth_off_sig_c_and_d')->nullable();
             $table->timestamps();
         });
     }

@@ -8,6 +8,7 @@ use Livewire\Component;
 use App\Models\Employee;
 use App\Models\Leaverequest;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Auth\Access\AuthorizationException;
 
@@ -70,15 +71,17 @@ class LeaveRequestUpdate extends Component
 
         $this->index = $index;
         
-        $employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_name', 'employee_id', 'current_position', 'salary', 'vacation_credits', 'sick_credits')
+        $employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_id', 'employee_id', 'current_position', 'salary', 'vacation_credits', 'sick_credits')
                                     ->where('employee_id', $loggedInUser->employee_id)
                                     ->first();   
+        $departmentName = DB::table('departments')->where('department_id', $employeeRecord->department_id)->value('department_name');
+        
         $this->available_credits = $employeeRecord->vacation_credits + $employeeRecord->sick_credits;
         $this->employee_id = $employeeRecord->employee_id;
         $this->first_name = $employeeRecord->first_name;
         $this->middle_name = $employeeRecord->middle_name;
         $this->last_name = $employeeRecord->last_name;
-        $this->department_name = $employeeRecord->department_name;
+        $this->department_name = $departmentName;
         $this->current_position = $employeeRecord->current_position;
         $this->salary = $employeeRecord->salary;
 
@@ -92,7 +95,10 @@ class LeaveRequestUpdate extends Component
         $this->inclusive_start_date = $leaverequest->inclusive_start_date;
         $this->inclusive_end_date = $leaverequest->inclusive_end_date;
         $this->commutation = $leaverequest->commutation;
-        $this->commutation_signature_of_appli = $leaverequest->commutation_signature_of_appli;
+
+        if($leaverequest->commutation_signature_of_appli){
+            $this->commutation_signature_of_appli = " ";
+        }
 
        
     }
@@ -107,14 +113,15 @@ class LeaveRequestUpdate extends Component
     }
 
     public function getApplicantSignature(){
-        return Storage::disk('local')->get($this->commutation_signature_of_appli);
+        $imageFile = $this->editLeaveRequest($this->index);
+        return $imageFile->commutation_signature_of_appli;
     }
 
     public function updated($keys){
         if(in_array($keys, ['inclusive_start_date', 'inclusive_end_date'])){
             $startDate = Carbon::parse($this->inclusive_start_date);
             $endDate = Carbon::parse($this->inclusive_end_date);
-            $num_of_days_work_days_applied = $startDate->diffInDays($endDate);
+            // $num_of_days_work_days_applied = $startDate->diffInDays($endDate);
             // $num_of_hours_work_days_applied = $startDate->diffInHours($endDate);
             $num_of_seconds_work_days_applied = $startDate->diffInMinutes($endDate);
             // dd($num_of_seconds_work_days_applied);
@@ -131,11 +138,7 @@ class LeaveRequestUpdate extends Component
                 if($days > 8){
                     $days = 8;
                 }
-                // dd($seconds, $num_of_seconds_work_days_applied);
-                // $decimalPart = ($num_of_seconds_work_days_applied - floor($num_of_seconds_work_days_applied)) * 60;
                 $hoursLeave = $days * 0.125;
-                
-                // $this->$num_of_days_work_days_applied = number_format($hoursLeave , 3);
                 $this->num_of_days_work_days_applied = number_format($hoursLeave, 3);
             }
             else{
@@ -174,15 +177,16 @@ class LeaveRequestUpdate extends Component
 
         $loggedInUser = auth()->user();
 
-        $leaverequestdata = Leaverequest::where('reference_num', $this->index);
+        $leaverequestdata = Leaverequest::where('reference_num', $this->index)->first();
         if(!$leaverequestdata){
             abort(404);
         }
+
         if(is_string($this->commutation_signature_of_appli)){
-            $commutation_signature_of_appli= $this->commutation_signature_of_appli;
+            $commutation_signature_of_appli = $leaverequestdata->commutation_signature_of_appli;
         } else{
-            $commutation_signature_of_appli =  $this->commutation_signature_of_appli->store('photos/leaveRequest/discussed_with', 'local');
             $this->validate(['commutation_signature_of_appli' => 'required|mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120']);
+            $commutation_signature_of_appli = file_get_contents($this->commutation_signature_of_appli->getRealPath());
         }
 
         $updateData = [
@@ -190,15 +194,15 @@ class LeaveRequestUpdate extends Component
             'status' => "Pending",
             'date_of_filling' => $this->date_of_filling,
             'type_of_leave' => $this->type_of_leave,
-            'type_of_leave_others' => $this->type_of_leave_others, // Example additional field
-            'type_of_leave_sub_category' => $this->type_of_leave_sub_category, // Example additional field
-            'type_of_leave_description' => $this->type_of_leave_description, // Example additional field
-            'num_of_days_work_days_applied' => $this->num_of_days_work_days_applied, // Example additional field
-            'inclusive_start_date' => $this->inclusive_start_date, // Example additional field
-            'inclusive_end_date' => $this->inclusive_end_date, // Example additional field
+            'type_of_leave_others' => $this->type_of_leave_others, 
+            'type_of_leave_sub_category' => $this->type_of_leave_sub_category, 
+            'type_of_leave_description' => $this->type_of_leave_description, 
+            'num_of_days_work_days_applied' => $this->num_of_days_work_days_applied, 
+            'inclusive_start_date' => $this->inclusive_start_date,
+            'inclusive_end_date' => $this->inclusive_end_date,
             'commutation' => $this->commutation,
             'commutation_signature_of_appli' => $commutation_signature_of_appli,
-            'updated_at' => now(), // Use Laravel's now() helper for current time
+            'updated_at' => now(),
           ];
 
         
@@ -207,7 +211,6 @@ class LeaveRequestUpdate extends Component
         
         $this->js("alert('Leave Request Updated!')"); 
 
-        // $leaverequestdata->update();
 
         return redirect()->to(route('LeaveRequestTable'));
 

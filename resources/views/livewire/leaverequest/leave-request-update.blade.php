@@ -305,9 +305,9 @@
                                                 <label for="commutation_signature_of_appli" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                                     @if(is_string($commutation_signature_of_appli) == True)
                                                         @php
-                                                            $commutation_signature_of_appli = $this->getApplicantSignature();
+                                                            $signature = $this->getApplicantSignature();
                                                         @endphp
-                                                        <img src="data:image/gif;base64,{{ base64_encode($commutation_signature_of_appli) }}" alt="Image Description" class="w-full h-full object-contain"> 
+                                                        <img src="data:image/gif;base64,{{ base64_encode($signature) }}" alt="Image Description" class="w-full h-full object-contain"> 
                                                     @else
                                                         <img src="{{ $commutation_signature_of_appli->temporaryUrl() }}" class="w-full h-full object-contain" alt="Uploaded Image">
                                                     @endif
