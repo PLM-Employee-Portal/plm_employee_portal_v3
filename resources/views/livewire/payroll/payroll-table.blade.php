@@ -132,8 +132,9 @@
                     </thead>
                     <div>
                         <div>
+                            <tbody class="pb-4">
+
                             @if ($resultsCount == 0)
-                                <tbody class="pb-4">
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 ">
                                         <th scope="col" colspan="8" class="justify-center" style="padding-bottom: 40px"> 
                                             <div class="flex justify-center " style="padding-top: 40px">
@@ -144,8 +145,7 @@
                                             </div>
                                         </th>
                                     </tr>
-                                </tbody>
-                            @elseif (isset($PayrollData))
+                            @else
                                 @php
                                     $ctr = 0;
                                     $pageIndex = ($PayrollData->currentpage() - 1) * $PayrollData->perpage() + $ctr;
@@ -154,7 +154,6 @@
                                 @php
                                     $ctr = $ctr + 1;
                                 @endphp
-                                <tbody>
                                     <tr wire:click="view({{$data->id}})"  class="hover:cursor-pointer bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                         <th scope="row" class="px-6 py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {{$pageIndex + $ctr}}
@@ -195,9 +194,10 @@
                                             </div>
                                         </td>
                                     </tr>
-                                </tbody>
                                 @endforeach
                             @endif
+                        </tbody>
+
                         </div>
                     </div>
                     

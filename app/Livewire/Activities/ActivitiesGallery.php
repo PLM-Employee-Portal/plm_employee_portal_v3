@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Employee;
 use App\Models\Activities;
 use Livewire\Attributes\Locked;
+use Illuminate\Support\Facades\DB;
 
 class ActivitiesGallery extends Component
 {   
@@ -16,50 +17,99 @@ class ActivitiesGallery extends Component
 
 
     public function mount(){
-        $loggedInUser = auth()->user();
-        $employeeData = Employee::select('department_id', 'dean_id', 'is_department_head_or_dean')
-                    ->where('employee_id', $loggedInUser->employee_id)
-                    ->first();
-        $head = explode(',', $employeeData->is_department_head_or_dean[0] ?? ' ');
-        $this->is_head = $head[0] == 1 || $head[1] == 1 || $loggedInUser->is_admin  ? true : false;
+        $loggedInUser = auth()->user()->employee_id;
+        $employeeData = Employee::where('employee_id', $loggedInUser)
+                            ->first();
+
+
+        $dept_head_id = False;
+        foreach($employeeData->is_department_head as $department_id){
+            if($department_id == 1){
+                $dept_head_id = True;
+            }
+        }
+
+        $college_head_id = False;
+        foreach($employeeData->is_college_head as $college_id){
+            if($college_id == 1){
+                $college_head_id = True;
+            }
+        }
+
+    
+
+        // $head = explode(',', $employeeData->is_department_head_or_dean[0] ?? ' ');
+        // $this->is_head = $dept_head_id == 1 || $college_head_id == 1 || $loggedInUser->is_admin  ? true : false;
+        $this->is_head = $dept_head_id == 1 || $college_head_id == 1;
+
     }
 
     public function filterListener(){
         $loggedInUser = auth()->user();
-        $departmentName = Employee::where('employee_id', $loggedInUser->employee_id)
-                                ->value('department_name');
+        $collegeName = Employee::where('employee_id', $loggedInUser->employee_id)
+                                ->value('college_id');
         if($this->filter == "Announcement"){
-                return Activities::whereJsonContains('visible_to_list', $departmentName)
+                        return Activities::where(function ($query) use ($collegeName) {
+                            foreach ($collegeName as $college) {
+                            $college_name = DB::table('colleges')->where('college_id', $college)->value('college_name');
+                                $query->orWhereJsonContains('visible_to_list', $college_name);
+                            }
+                        })
                         ->where('type', 'Announcement') // Add additional conditions if needed
                         ->orderBy('created_at', 'desc')
-                        ->paginate(10);
+                        ->paginate(1);
         }
         else if($this->filter == "Event"){
-                return Activities::whereJsonContains('visible_to_list', $departmentName)
+                return Activities::where(function ($query) use ($collegeName) {
+                        foreach ($collegeName as $college) {
+                        $college_name = DB::table('colleges')->where('college_id', $college)->value('college_name');
+                            $query->orWhereJsonContains('visible_to_list', $college_name);
+                        }
+                        })
                         ->where('type', 'Event') // Add additional conditions if needed
                         ->orderBy('created_at', 'desc')
                         ->paginate(10);
         }
         else if($this->filter == "Seminar"){
-                return Activities::whereJsonContains('visible_to_list', $departmentName)
+                return Activities::where(function ($query) use ($collegeName) {
+                        foreach ($collegeName as $college) {
+                        $college_name = DB::table('colleges')->where('college_id', $college)->value('college_name');
+                            $query->orWhereJsonContains('visible_to_list', $college_name);
+                        }
+                        })
                         ->where('type', 'Seminar') // Add additional conditions if needed
                         ->orderBy('created_at', 'desc')
                         ->paginate(10);
         }
         else if($this->filter == "Training"){
-            return Activities::whereJsonContains('visible_to_list', $departmentName)
+            return Activities::where(function ($query) use ($collegeName) {
+                    foreach ($collegeName as $college) {
+                    $college_name = DB::table('colleges')->where('college_id', $college)->value('college_name');
+                        $query->orWhereJsonContains('visible_to_list', $college_name);
+                    }
+                    })
                     ->where('type', 'Training') // Add additional conditions if needed
                     ->orderBy('created_at', 'desc')
                     ->paginate(10);
         }
         else if($this->filter == "Others"){
-            return Activities::whereJsonContains('visible_to_list', $departmentName)
+            return Activities::where(function ($query) use ($collegeName) {
+                    foreach ($collegeName as $college) {
+                    $college_name = DB::table('colleges')->where('college_id', $college)->value('college_name');
+                        $query->orWhereJsonContains('visible_to_list', $college_name);
+                    }
+                    })
                     ->where('type', 'Others') // Add additional conditions if needed
                     ->orderBy('created_at', 'desc')
                     ->paginate(10);
         }
         else{
-            return Activities::whereJsonContains('visible_to_list', $departmentName)->orderBy('created_at', 'desc')->paginate(10);
+            return Activities::where(function ($query) use ($collegeName) {
+                foreach ($collegeName as $college) {
+                $college_name = DB::table('colleges')->where('college_id', $college)->value('college_name');
+                    $query->orWhereJsonContains('visible_to_list', $college_name);
+                }
+            })->orderBy('created_at', 'desc')->paginate(10);
         }
     }
 

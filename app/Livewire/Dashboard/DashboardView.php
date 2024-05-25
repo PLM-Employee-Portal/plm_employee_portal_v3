@@ -46,13 +46,24 @@ class DashboardView extends Component
         $loggedInUser = auth()->user()->employee_id;
         $employeeInformation = Employee::where('employee_id', $loggedInUser)
                                 ->select('college_id', 'sick_credits', 'vacation_credits', 'first_name', 'gender')->first();
-        $college_name = DB::table('colleges')->where('college_id', $employeeInformation->college_id)->value('college_name') ?? '';
+        $collegeName = DB::table('colleges')->where('college_id', $employeeInformation->college_id)->value('college_name');
+        $collegeIds = $employeeInformation->college_id;
         $this->firstName = $employeeInformation->first_name;
         $this->vacationCredits = $employeeInformation->vacation_credits;
         $this->sickCredits = $employeeInformation->sick_credits;
         $this->gender = $employeeInformation->gender;
-        $this->activities = Activities::whereJsonContains('visible_to_list', $college_name)->get();
-        $this->trainings = Training::whereJsonContains('visible_to_list', $college_name)->get();
+        $this->activities = Activities::where(function ($query) use ($collegeIds) {
+                foreach ($collegeIds  as $college) {
+                $college_name = DB::table('colleges')->where('college_id', $college)->value('college_name');
+                    $query->orWhereJsonContains('visible_to_list', $college_name);
+                }
+            })->get();
+        $this->trainings = Training::where(function ($query) use ($collegeIds) {
+            foreach ($collegeIds  as $college) {
+            $college_name = DB::table('colleges')->where('college_id', $college)->value('college_name');
+                $query->orWhereJsonContains('visible_to_list', $college_name);
+            }
+        })->get();
 
         $attendanceCount = Dailytimerecord::where('employee_id', $loggedInUser)->count();
         // $this->currentHourMinuteSecond = Carbon::now();

@@ -43,6 +43,7 @@ class CollegeDeanSeeder extends Seeder
         $employee->teach_available_units = 10;
         $employee->vacation_credits = 20;
         $employee->sick_credits = 20;
+        $employee->is_faculty = true;
         $employee->school_email = 'comsci@plm.edu.ph';
 
               

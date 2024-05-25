@@ -36,6 +36,7 @@ return new class extends Migration
             $table->integer('study_available_units')->nullable();
             $table->integer('teach_available_units')->nullable();
             $table->string('current_position');
+            $table->boolean('is_faculty');
             $table->decimal('salary', 10, 2);
             
             //Documents
@@ -56,7 +57,6 @@ return new class extends Migration
             // Account Creation
 
 
-            // $table->boolean('faculty_or_not');
             // $table->integer('employee_role');
 
 

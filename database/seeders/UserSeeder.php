@@ -42,7 +42,7 @@ class UserSeeder extends Seeder
         $employee->salary = 510;
         $employee->start_of_employment = Carbon::createFromDate(2022, 4, 9);
         $employee->end_of_employment = Carbon::createFromDate(2024, 4, 9);
-        // $employee->faculty_or_not = true;
+        $employee->is_faculty = true;
         $employee->study_available_units = 20;
         $employee->teach_available_units = 10;
         $employee->vacation_credits = 20;
@@ -220,7 +220,7 @@ class UserSeeder extends Seeder
         $employee->vacation_credits = 20;
         $employee->sick_credits = 20;
         $employee->start_of_employment = Carbon::createFromDate(2022, 4, 9);
-        // $employee->faculty_or_not = false;
+        $employee->is_faculty = false;
         $employee->school_email = 'admin@plm.edu.ph';
 
         $employee->save();

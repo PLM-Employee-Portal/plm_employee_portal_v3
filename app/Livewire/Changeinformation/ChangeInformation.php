@@ -72,7 +72,6 @@ class ChangeInformation extends Component
         if($employee->employee_history != null){
             $this->employeeHistory = json_decode($employee->employee_history, true);
         }
-        // dd($this->employeeHistory);
     }
 
     public function removeArrayImage($index, $request, $insideIndex = null){

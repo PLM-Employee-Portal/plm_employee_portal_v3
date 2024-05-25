@@ -22,7 +22,7 @@ class AttendanceTable extends Component
 
     public $filter;
 
-    public $filterName;
+    public $filterName = "All";
 
     protected $queryString = [
         'category',
@@ -106,6 +106,7 @@ class AttendanceTable extends Component
     {
         $loggedInUser = auth()->user();
         $query = Dailytimerecord::where('employee_id', $loggedInUser->employee_id);
+        
         switch ($this->filter) {
             case '1':
                 $query->whereDate('attendance_date',  Carbon::today());
@@ -117,18 +118,15 @@ class AttendanceTable extends Component
                 break;
             case '3':
                 $query->whereBetween('attendance_date', [Carbon::today()->subDays(30), Carbon::today()]);
-                // $query->whereDate('attendance_date', '>=', Carbon::today()->subDays(30), '<=', Carbon::today());
                 $this->filterName = "Last 30 days";
                 break;
             case '4':
                 $query->whereBetween('attendance_date', [Carbon::today()->subMonths(6), Carbon::today()]);
-                // $query->whereDate('attendance_date', '>=', Carbon::today()->subMonths(6), '<=', Carbon::today());
                 $this->filterName = "Last 6 Months";
                 break;
             case '5':
                 $query->whereBetween('attendance_date', [Carbon::today()->subYear(), Carbon::today()]);
-                // $query->whereDate('attendance_date', '>=', Carbon::today()->subYear(), '<=', Carbon::today());
-                $this->filterName = "Last Year";
+                    $this->filterName = "Last Year";
                 break;
         }
 
