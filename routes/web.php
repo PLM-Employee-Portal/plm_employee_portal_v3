@@ -289,8 +289,8 @@ Route::middleware('auth')->group(function (){
 Route::middleware('auth')->group(function (){
     Route::get("/payroll", PayrollTable::class)->name("PayrollTable");
 
-    Route::get("/payroll/pdf/{index}", [PayrolPdfController::class, 'turnToPdf'])->name("PayrollPdf");
+    Route::get("/payroll/pdf/{date}", [PayrolPdfController::class, 'turnToPdf'])->name("PayrollPdf");
 
-    Route::get("/payroll/view/{index}", PayrollView::class)->name("PayrollView");
+    Route::get("/payroll/view/{date}", PayrollView::class)->name("PayrollView");
 
 });

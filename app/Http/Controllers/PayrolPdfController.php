@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Storage;
 
 class PayrolPdfController extends Controller
 {
-    public function turnToPdf($id){
-        $payrollData = Payroll::findOrFail($id); 
+    public function turnToPdf($date){
+        $payrollData = Payroll::where('date', $date)->first(); 
         $payrollData = json_decode($payrollData);
         $loggedInuser = auth()->user()->employee_id;
         $employee = Employee::query()->where('employee_id', $loggedInuser)->first(); 

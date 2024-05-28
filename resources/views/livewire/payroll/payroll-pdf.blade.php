@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Study Permit</title>
+    <title>Certification</title>
     <style>
         .container {
             width: 100%;
@@ -70,7 +70,7 @@
            <br> (University of the City of Manila) 
            <br> 1<sup>st</sup> Floor, Gusaling Villegas 
            <br> Intramuros, Manila,
-           <br> {{ svg('bytesize-telephone') }} 8-643.25.00 
+           <br> {{ svg('carbon-phone') }} 8-643.25.00 
            <br style="text-decoration: underline;"> hrmo@plm.edu.ph
         </p>
         <img src="data:image/gif;base64,{{ base64_encode($logo) }}" alt="Image Description" width="90" height="110" style="vertical-align: top; "> 

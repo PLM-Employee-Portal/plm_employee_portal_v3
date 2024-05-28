@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('documentrequests', function (Blueprint $table) {
             $table->foreignId('employee_id');
             $table->string('reference_num')->primary();
+            $table->string('name');
             $table->string('office_department');
             $table->string('employment_status');
             $table->string('status')->default('reviewing');

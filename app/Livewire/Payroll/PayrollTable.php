@@ -30,8 +30,8 @@ class PayrollTable extends Component
         $this->resetPage();
     }
 
-    public function view($index){
-        return redirect()->to(route('PayrollView', ['index' => $index]));
+    public function view($date){
+        return redirect()->to(route('PayrollView', ['date' => $date]));
     }
 
 

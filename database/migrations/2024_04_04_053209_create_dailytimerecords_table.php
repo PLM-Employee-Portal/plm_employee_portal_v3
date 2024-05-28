@@ -12,14 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('dailytimerecords', function (Blueprint $table) {
-            $table->id();
             $table->foreignId('employee_id');
+            $table->bigInteger('job_id');
             $table->date('attendance_date')->default(now());
             $table->time('time_in')->nullable();
             $table->time('time_out')->nullable();
-            // $table->string('attendance_type')->nullable();
+            $table->integer('absent');
             $table->boolean('late')->nullable();
+            $table->decimal('overtime', 8, 2);
+            $table->decimal('undertime', 8, 2);
+            $table->decimal('cto', 8, 2);
             $table->boolean('status')->nullable();
+            $table->integer('lwop');
+            $table->string('remarks');
             $table->timestamps();
         });
     }

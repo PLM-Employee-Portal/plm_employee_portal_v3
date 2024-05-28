@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->foreignId('employee_id')->primary();
+            $table->bigInteger('job_id');
             $table->longText('employee_type');
             $table->string('school_email')->nullable();
             $table->json('college_id')->nullable();
@@ -38,6 +39,7 @@ return new class extends Migration
             $table->string('current_position');
             $table->boolean('is_faculty');
             $table->decimal('salary', 10, 2);
+            $table->decimal('cto', 8, 2);
             
             //Documents
             $table->string('emp_image')->nullable();

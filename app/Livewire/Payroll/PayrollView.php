@@ -12,14 +12,16 @@ class PayrollView extends Component
 {
     public $payrollData;
     public $index;
+
+    public $date;
     public $faculty;
     public $total_earnings;
     public $total_deductions;
     public $net_pay;
     public $nameOfDate;
 
-    public function mount($index){
-        $this->index = $index;
+    public function mount($date){
+        $this->date = $date;
         $this->transferData();
         $this->calculateSummary();
     }
@@ -29,7 +31,7 @@ class PayrollView extends Component
         $date = Carbon::createFromFormat('Y-m-d', $this->payrollData->date);
         $this->nameOfDate = $date->format('F Y');
         $month = (int) $date->format('m');
-        $attendanceNumber = Dailytimerecord::orderby('id','asc')
+        $attendanceNumber = Dailytimerecord::orderby('attendance_date','asc')
                             ->where('employee_id', $loggedInUser)
                             ->whereMonth('attendance_date', $month)
                             ->get();
@@ -40,9 +42,10 @@ class PayrollView extends Component
     }
 
     private function transferData(){
-        $payrollData = Payroll::findOrFail($this->index);
         $loggedInUser = auth()->user()->employee_id;
-        $employeeData = Employee::where('employee_id', $loggedInUser)->value('faculty_or_not');
+        $payrollData = Payroll::where('employee_id', $loggedInUser)->where('date', $this->date)->first();
+        $loggedInUser = auth()->user()->employee_id;
+        // $employeeData = Employee::where('employee_id', $loggedInUser)->value('faculty_or_not');
         if($payrollData->employee_id == $loggedInUser){
             $this->payrollData = $payrollData;
             $this->faculty = True;
