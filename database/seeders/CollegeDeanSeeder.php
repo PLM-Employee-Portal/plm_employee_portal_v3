@@ -22,6 +22,8 @@ class CollegeDeanSeeder extends Seeder
         $employee->employee_type = 'Permanent';
         // $employee->department_name = 'College of Information System and Technology Management';
         // $employee->employee_role = 2;
+        $employee->job_id = 1;
+        $employee->cto = 2;
         $employee->department_id = [1, 2];
         $employee->college_id = [1, 2];
         $employee->is_department_head = [0, 1];

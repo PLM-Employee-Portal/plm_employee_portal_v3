@@ -25,6 +25,13 @@ class AttendanceSeeder extends Seeder
             Dailytimerecord::create([
                 'employee_id' => '202132321',
                 'attendance_date' => $attendanceDate,
+                'job_id' => rand(1,10),
+                'absent' => rand(1,2),
+                'overtime' => rand(1,2),
+                'undertime' => rand(1,2),
+                'cto' => rand(1,2),
+                'lwop' => rand(1,2),
+                'remarks' => 'remark',
                 'time_in' => sprintf("%02d:%02d", $randomHour, $randomMinute), // Format hour and minute
                 'time_out' => sprintf("%02d:%02d", $randomHour, $randomMinute), // Use same random time for time_out
                 'late' => $randomLate,

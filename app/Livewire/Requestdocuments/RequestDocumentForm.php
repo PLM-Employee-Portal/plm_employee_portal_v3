@@ -112,11 +112,12 @@ class RequestDocumentForm extends Component
         $documentrequestdata = new Documentrequest();
 
 
-        $employeeRecord = Employee::where('employee_id', $loggedInUser->employee_id)->select('department_id', 'employee_type')->first();
+        $employeeRecord = Employee::where('employee_id', $loggedInUser->employee_id)->select('department_id', 'employee_type', 'first_name', 'middle_name', 'last_name')->first();
         $departmentName = DB::table('departments')->where('department_id', $employeeRecord->department_id)->value('department_name');
       
 
         $documentrequestdata->employee_id = $loggedInUser->employee_id;
+        $documentrequestdata->name = $employeeRecord->first_name . $employeeRecord->middle_name . $employeeRecord->last_name;
         $documentrequestdata->office_department = $departmentName;
         $documentrequestdata->date_of_filling = $this->date_of_filling;
         $documentrequestdata->reference_num = $this->reference_num;
