@@ -262,27 +262,26 @@ class UserSeeder extends Seeder
         // ]);
 
         User::create([
-            'name'     => 'Department Head 3',
             'email'    => 'departmentHead@plm.edu.ph',
             'password' => bcrypt('depthead'),
             'employee_id' => '202189212',
+            'role_type' => 1,
         ]);
 
       
 
         User::create([
-            'name'     => 'Employee',
             'email'    => 'employee@plm.edu.ph',
             'password' => bcrypt('secret'),
             'employee_id' => '202132321',
+            'role_type' => 1,
         ]);
 
         User::create([
-            'name'     => 'Admin',
             'email'    => 'admin@plm.edu.ph',
             'password' => bcrypt('admin'),
             'employee_id' => '200000001',
-            'is_admin' => 1,
+            'role_type' => 0,
         ]);
 
        

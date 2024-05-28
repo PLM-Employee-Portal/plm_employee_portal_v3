@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('reference_num')->primary();
             $table->string('status')->default('Pending');
             $table->string('ipcr_type');
+            $table->string('employee_name');
             $table->date('date_of_filling');
             $table->string('position');
             $table->date('start_period');

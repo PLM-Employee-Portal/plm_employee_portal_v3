@@ -17,7 +17,7 @@ class Login extends Component
     public $remember = false;
 
     protected $rules = [
-        'email' => ['required', 'email'],
+        'email' => ['required'],
         'password' => ['required'],
     ];
 
@@ -25,7 +25,7 @@ class Login extends Component
     {
         $this->validate();
 
-        if (!Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
+        if (!Auth::attempt(['employee_id' => $this->email, 'password' => $this->password], $this->remember)) {
             $this->addError('email', trans('auth.failed'));
 
             return;

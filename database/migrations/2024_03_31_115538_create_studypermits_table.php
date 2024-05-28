@@ -15,6 +15,7 @@ return new class extends Migration
             $table->foreignId('employee_id');
             $table->string('reference_num')->primary();
             $table->string('department_name');
+            $table->string('employee_name');
             $table->date('application_date');
             $table->date('start_period_cover');
             $table->date('end_period_cover');
