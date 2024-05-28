@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Employee;
 use App\Models\Training;
 use Livewire\Attributes\Locked;
+use Illuminate\Support\Facades\DB;
 
 class TrainingGallery extends Component
 {
@@ -32,18 +33,50 @@ class TrainingGallery extends Component
     #[Locked]
     public $is_head;
 
+    public function mount(){
+        $loggedInUser = auth()->user()->employee_id;
+        $employeeData = Employee::where('employee_id', $loggedInUser)
+                            ->first();
+
+
+        $dept_head_id = False;
+        foreach($employeeData->is_department_head as $department_id){
+            if($department_id == 1){
+                $dept_head_id = True;
+            }
+        }
+
+        $college_head_id = False;
+        foreach($employeeData->is_college_head as $college_id){
+            if($college_id == 1){
+                $college_head_id = True;
+            }
+        }
+        $this->is_head = $dept_head_id == 1 || $college_head_id == 1;
+    }
+
     public function filterListener(){
         $loggedInUser = auth()->user();
-        $employeeData = Employee::select('department_id', 'dean_id', 'is_department_head_or_dean', 'department_name')
+        $employeeData = Employee::select('department_id', 'college_id')
                     ->where('employee_id', $loggedInUser->employee_id)
                     ->first();
-        $head = explode(',', $employeeData->is_department_head_or_dean[0] ?? ' ');
-        $this->is_head = $head[0] == 1 || $head[1] == 1 || $loggedInUser->is_admin ? true : false;
+        // $head = explode(',', $employeeData->is_department_head_or_dean[0] ?? ' ');
+        // $this->is_head = $head[0] == 1 || $head[1] == 1 || $loggedInUser->is_admin ? true : false;
+        
         $this->department_name = $employeeData->department_name;
+        $collegeName = Employee::where('employee_id', $loggedInUser->employee_id)
+                                ->value('college_id');
+                                
         if($this->filter != "All" && $this->filter != null){
-            return Training::whereJsonContains('visible_to_list', $employeeData->department_name)
-                        ->whereJsonContains('visible_to_list', $this->filter)
-                        ->paginate(10);
+            return Training::where(function ($query) use ($collegeName) {
+                foreach ($collegeName as $college) {
+                $college_name = DB::table('colleges')->where('college_id', $college)->value('college_name');
+                    $query->orWhereJsonContains('visible_to_list', $college_name);
+                }
+            })
+            ->where('type', 'Announcement') // Add additional conditions if needed
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
         }
         else {
             return Training::whereJsonContains('visible_to_list', $employeeData->department_name)->orderBy('created_at', 'desc')->paginate(10);
@@ -53,7 +86,14 @@ class TrainingGallery extends Component
 
     public function fillerSetter($type){
         return $this->filter = $type;
-     }
+    }
+
+    public function getActivityPhoto($index){
+        // $imageFile = $this->editLeaveRequest($this->index);
+        $imageFile = Training::where('activity_id', $index)->value('poster');
+        return $imageFile;
+    }
+
 
     public function render()
     {

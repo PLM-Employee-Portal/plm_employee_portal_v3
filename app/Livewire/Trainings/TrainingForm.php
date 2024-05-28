@@ -82,9 +82,37 @@ class TrainingForm extends Component
         'postest.*.answer' => 'Post-Test Answer',
     ];
 
+    private function generateRefNumber(){
+        // Generate a random number
+         $characters = '0123456789';
+         $randomNumber = '';
+         for ($i = 0; $i < rand(5, 6); $i++) {
+             $randomNumber .= $characters[rand(0, strlen($characters) - 1)];
+         }
+ 
+         // Get the current year
+         $currentYear = date('Y');
+ 
+         // Concatenate the date and random number
+         $result = $currentYear . $randomNumber;
+ 
+         return $result;
+     }
+
     public function submit(){
         $this->validate();
+        $randomNumber = 0;
+        while(True) {
+            $randomNumber = $this->generateRefNumber();
+            $existingRecord = Training::where('training_id', $randomNumber)->first();
+            if(!$existingRecord){
+                break;
+            }
+         
+        }
+
         $trainingdata = new Training();
+        $trainingdata->training_id = $randomNumber;
         $trainingdata->training_title = $this->training_title;
         $trainingdata->training_information = $this->training_information;
         // $trainingdata->pre_test_title = $this->pre_test_title;

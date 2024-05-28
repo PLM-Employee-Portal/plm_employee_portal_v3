@@ -16,13 +16,24 @@ class ActivitiesView extends Component
     public function mount($index){
         $this->index = $index;
         $loggedInUser = auth()->user();
-        $employeeData = Employee::select('is_department_head_or_dean')
-                ->where('employee_id', $loggedInUser->employee_id)
-                ->first();
-        $head = explode(',', $employeeData->is_department_head_or_dean[0] ?? ' ');
-        $this->is_head = $head[0] == 1 || $head[1] == 1 || $loggedInUser->is_admin ? true : false;
+        $loggedInEmployeeData = Employee::where('employee_id', $loggedInUser->employee_id)->first();
+        $this->activityData = Activities::where('activity_id', $index)->first();
+            $dept_head_id = "Denied";
+            foreach($loggedInEmployeeData->is_department_head as $index => $department_id){
+                if($department_id == 1){
+                    $dept_head_id = True;
+                }
+            }
+    
+            $college_head_id = "Denied";
+            foreach($loggedInEmployeeData->is_college_head as $index => $college_id){
+                if($college_id == 1){
+                    $college_head_id = True;
+                }
+            }
 
-        $this->activityData = Activities::findOrFail($index);
+        $this->is_head = $college_head_id == 1 ||$dept_head_id == 1 || $loggedInUser->is_admin ? true : false;
+       
         // dd($this->activityData->poster);
     }
     public function render()

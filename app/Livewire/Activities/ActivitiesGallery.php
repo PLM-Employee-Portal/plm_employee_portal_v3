@@ -44,6 +44,12 @@ class ActivitiesGallery extends Component
 
     }
 
+    public function getActivityPhoto($index){
+        // $imageFile = $this->editLeaveRequest($this->index);
+        $imageFile = Activities::where('activity_id', $index)->value('poster');
+        return $imageFile;
+    }
+
     public function filterListener(){
         $loggedInUser = auth()->user();
         $collegeName = Employee::where('employee_id', $loggedInUser->employee_id)
@@ -57,7 +63,7 @@ class ActivitiesGallery extends Component
                         })
                         ->where('type', 'Announcement') // Add additional conditions if needed
                         ->orderBy('created_at', 'desc')
-                        ->paginate(1);
+                        ->paginate(10);
         }
         else if($this->filter == "Event"){
                 return Activities::where(function ($query) use ($collegeName) {

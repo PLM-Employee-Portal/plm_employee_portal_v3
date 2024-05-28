@@ -51,7 +51,10 @@
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                     @foreach ($TrainingData as $data)
                         <div>
-                            <a href="{{route('TrainingView', ['index' => $data->id])}}"><img class="h-full w-full object-cover rounded-lg" src="{{ asset('storage/' . $data->training_photo) }}" alt=""></a>
+                            @php
+                                $photo = $this->getActivityPhoto($data->training_id);
+                            @endphp
+                            {{-- <a href="{{route('TrainingView', ['index' => $data->training_id])}}"><img class="h-full w-full object-cover rounded-lg" src="data:image/gif;base64,{{ base64_encode($photo) }}" alt=""></a> --}}
                         </div>
                     @endforeach
                 </div>

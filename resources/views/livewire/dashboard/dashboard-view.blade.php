@@ -71,14 +71,14 @@
     <div class="swiper-wrapper p-2">
         @foreach ($activities as $activity)
             <div class="swiper-slide w-full" data-swiper-autoplay="2000">
-                <a href="{{route('ActivitiesView', ['index' => $activity->id])}}">
-                    <img src="{{ asset('storage/' . $activity->poster) }}" class="h-full w-full object-cover" alt="...">
+                <a href="{{route('ActivitiesView', ['index' => $activity->activity_id])}}">
+                    <img src="data:image/gif;base64,{{ base64_encode($activity->poster) }}" class="h-full w-full object-cover" alt="...">
                 </a>
             </div>
         @endforeach
         @foreach ($trainings as $training)
             <div class="swiper-slide w-full" data-swiper-autoplay="2000">
-                <a href="{{route('TrainingView', ['index' => $training->id])}}">
+                <a href="{{route('TrainingView', ['index' => $training->training_id])}}">
                     <img src="{{ asset('storage/' . $training->training_photo) }}" class="h-full w-full object-cover" alt="...">
                 </a>
             </div>

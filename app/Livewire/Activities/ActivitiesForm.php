@@ -5,6 +5,7 @@ namespace App\Livewire\Activities;
 use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\Activities;
+use Database\Seeders\ActivitiesSeeder;
 use Livewire\WithFileUploads;
 
 class ActivitiesForm extends Component
@@ -36,6 +37,25 @@ class ActivitiesForm extends Component
         
     ];
 
+    private function generateRefNumber(){
+        // Generate a random number
+         $characters = '0123456789';
+         $randomNumber = '';
+         for ($i = 0; $i < rand(5, 6); $i++) {
+             $randomNumber .= $characters[rand(0, strlen($characters) - 1)];
+         }
+ 
+         // Get the current year
+         $currentYear = date('Y');
+ 
+         // Concatenate the date and random number
+         $result = $currentYear . $randomNumber;
+ 
+         return $result;
+     }
+
+
+
     public function submit(){
        
         foreach($this->rules as $rule => $validationRule){
@@ -46,26 +66,39 @@ class ActivitiesForm extends Component
         $dateToday = Carbon::now()->toDateString();;
         $this->validate(['date' => 'required|after_or_equal:'.$dateToday]);
 
+        $randomNumber = 0;
+        while(True) {
+            $randomNumber = $this->generateRefNumber();
+            $existingRecord = Activities::where('activity_id', $randomNumber)->first();
+            if(!$existingRecord){
+                break;
+            }
+         
+        }
+
         $activitydata = new Activities();
 
         $activitydata->type = $this->type;
+        $activitydata->activity_id = $randomNumber;
         $activitydata->title = $this->title;
         $activitydata->description = $this->description;
-        if($this->type == "Announcement"){
-            $activitydata->poster = $this->poster->store('photos/activities/announcement', 'public');
-        }
-        else if($this->type == "Event"){
-            $activitydata->poster = $this->poster->store('photos/activities/event', 'public');
-        }
-        else if($this->type == "Seminar"){
-            $activitydata->poster = $this->poster->store('photos/activities/seminar', 'public');
-        }
-        else if($this->type == "Training"){
-            $activitydata->poster = $this->poster->store('photos/activities/training', 'public');
-        }
-        else if($this->type == "Others"){
-            $activitydata->poster = $this->poster->store('photos/activities/others', 'public');
-        }
+        // if($this->type == "Announcement"){
+        //     $activitydata->poster = $this->poster->store('photos/activities/announcement', 'public');
+        // }
+        // else if($this->type == "Event"){
+        //     $activitydata->poster = $this->poster->store('photos/activities/event', 'public');
+        // }
+        // else if($this->type == "Seminar"){
+        //     $activitydata->poster = $this->poster->store('photos/activities/seminar', 'public');
+        // }
+        // else if($this->type == "Training"){
+        //     $activitydata->poster = $this->poster->store('photos/activities/training', 'public');
+        // }
+        // else if($this->type == "Others"){
+        //     $activitydata->poster = $this->poster->store('photos/activities/others', 'public');
+        // }
+        $imageData = file_get_contents($this->poster->getRealPath());
+        $activitydata->poster = $imageData;
         $activitydata->date = $this->date;
         $activitydata->start = $this->start;
         $activitydata->end = $this->end;
