@@ -51,7 +51,7 @@ class UserSeeder extends Seeder
         $employee->vacation_credits = 20;
         $employee->sick_credits = 20;
         $employee->school_email = 'comsci@plm.edu.ph'; 
-
+        $employee->active = 1;
 
         $employeeHistory = [
             [
@@ -250,6 +250,7 @@ class UserSeeder extends Seeder
         $employee->start_of_employment = Carbon::createFromDate(2022, 4, 9);
         $employee->is_faculty = false;
         $employee->school_email = 'admin@plm.edu.ph';
+        $employee->active = 1;
 
         $employee->save();
 

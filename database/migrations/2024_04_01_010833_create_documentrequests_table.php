@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('employment_status');
             $table->string('status')->default('reviewing');
             $table->date('date_of_filling');
+            $table->date('documents')->nullable();
             $table->json('requests');
             $table->longText('milc_description')->nullable();
             $table->longText('other_request')->nullable();
@@ -33,7 +34,6 @@ return new class extends Migration
             $table->binary('milc_certification')->nullable();
             $table->binary('certificate_of_no_pending_administrative_case')->nullable();
             $table->longText('other_documents')->nullable();
-            
             $table->timestamps();
         });
     }

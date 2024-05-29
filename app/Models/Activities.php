@@ -11,6 +11,13 @@ class Activities extends Model
 
         // Just add the three below to make the login work.
 
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'employee_activities';
+
      /**
      * The primary key associated with the table.
      *

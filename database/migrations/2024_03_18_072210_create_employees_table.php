@@ -40,6 +40,7 @@ return new class extends Migration
             $table->boolean('is_faculty');
             $table->decimal('salary', 10, 2);
             $table->decimal('cto', 8, 2);
+            $table->boolean('active');
             
             //Documents
             $table->string('emp_image')->nullable();
@@ -55,6 +56,7 @@ return new class extends Migration
             $table->json('emp_service_record_from_other_govt_agency')->nullable();
             $table->json('emp_approved_clearance_prev_employer')->nullable();
             $table->json('other_documents')->nullable();
+
             
             // Account Creation
 

@@ -52,6 +52,7 @@ return new class extends Migration
             $table->date('date_recommended_by')->nullable();
             $table->string('signature_univ_pres')->nullable();
             $table->date('date_univ_pres')->nullable();
+            $table->binary('permit_to_study')->nullable();
             $table->timestamps();
         });
     }
