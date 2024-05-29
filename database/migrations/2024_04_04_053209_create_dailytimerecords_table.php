@@ -25,6 +25,8 @@ return new class extends Migration
             $table->boolean('status')->nullable();
             $table->integer('lwop');
             $table->string('remarks');
+            $table->decimal('sl_used', 8, 2);
+            $table->decimal('vl_used', 8, 2);
             $table->timestamps();
         });
     }

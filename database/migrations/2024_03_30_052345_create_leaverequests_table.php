@@ -51,6 +51,8 @@ return new class extends Migration
             $table->boolean('human_resource_verdict_cd')->nullable();
             $table->string('hr_cd_disapprove_reason')->nullable();
             $table->binary('auth_off_sig_c_and_d')->nullable();
+            $table->binary('leave_form')->nullable();
+            $table->string('remarks')->nullable();
             $table->timestamps();
         });
     }

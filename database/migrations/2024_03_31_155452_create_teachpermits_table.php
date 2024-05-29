@@ -43,6 +43,7 @@ return new class extends Migration
             $table->string('signature_of_university_president')->nullable();
             $table->string('verdict_of_university_president')->nullable();
             $table->date('date_of_signature_of_university_president')->nullable();
+            $table->binary('permit_to_teach')->nullable();
             
             $table->timestamps();
         });
