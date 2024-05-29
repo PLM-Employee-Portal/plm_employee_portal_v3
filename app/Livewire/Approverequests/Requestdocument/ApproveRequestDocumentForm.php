@@ -8,6 +8,7 @@ use Livewire\Component;
 use App\Models\Employee;
 use Livewire\WithFileUploads;
 use App\Models\Documentrequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Notifications\SignedNotifcation;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -49,25 +50,28 @@ class ApproveRequestDocumentForm extends Component
 
     public function mount($index){
         $this->index = $index;
-        $documentrequestdata = Documentrequest::findOrFail($index);
-        
+        // $documentrequestdata = Documentrequest::where('reference_num', $index)->first();
         $type = 'Approve';
         try {
+            $documentrequestdata = $this->editDocumentRequest($index);
             $this->authorize('update', [$documentrequestdata,  $type]);
         } catch (AuthorizationException $e) {
             abort(404);
         }
 
         $loggedInUser = auth()->user();
-        $this->employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_name', 'current_position', 'employee_type' )
-                                    ->where('employee_id', $loggedInUser->employee_id)
-                                    ->get();   
-        $this->first_name = $this->employeeRecord[0]->first_name;
-        $this->middle_name = $this->employeeRecord[0]->middle_name;
-        $this->last_name = $this->employeeRecord[0]->last_name;
-        $this->department_name = $this->employeeRecord[0]->department_name;
-        $this->current_position = $this->employeeRecord[0]->current_position;
-        $this->employee_type = $this->employeeRecord[0]->employee_type;
+        $employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_id', 'current_position', 'employee_type' )
+                                    ->where('employee_id', $documentrequestdata->employee_id)
+                                    ->first();   
+        $departmentName = DB::table('departments')->where('department_id', $employeeRecord->department_id)->value('department_name');
+
+        $this->ref_number = $documentrequestdata->reference_num;
+        $this->first_name = $employeeRecord->first_name;
+        $this->middle_name = $employeeRecord->middle_name;
+        $this->last_name = $employeeRecord->last_name;
+        $this->department_name = $departmentName;
+        $this->current_position = $employeeRecord->current_position;
+        $this->employee_type = $employeeRecord->employee_type;
 
         $this->date_of_filling = $documentrequestdata->date_of_filling;
         $this->ref_number = $documentrequestdata->ref_number;
@@ -76,21 +80,51 @@ class ApproveRequestDocumentForm extends Component
         $this->milc_description = $documentrequestdata->milc_description;
         $this->other_request = $documentrequestdata->other_request;
         $this->purpose = $documentrequestdata->purpose;
-        $this->signature_requesting_party = $documentrequestdata->signature_requesting_party;
-        $this->certificate_of_employment = $documentrequestdata->certificate_of_employment;
-        $this->certificate_of_employment_with_compensation = $documentrequestdata->certificate_of_employment_with_compensation;
-        $this->certificate_of_employment = $documentrequestdata->certificate_of_employment;
-        $this->certificate_of_employment_with_compensation = $documentrequestdata->certificate_of_employment_with_compensation;
-        $this->service_record = $documentrequestdata->service_record;
-        $this->part_time_teaching_services = $documentrequestdata->part_time_teaching_services;
-        $this->milc_certification = $documentrequestdata->milc_certification;
-        $this->certificate_of_no_pending_administrative_case = $documentrequestdata->certificate_of_no_pending_administrative_case;
-        $this->other_documents = $documentrequestdata->other_documents ?? [];
+
+        $properties = [
+            'signature_requesting_party' ,
+            'certificate_of_employment' ,
+            'certificate_of_employment_with_compensation' ,
+            'service_record' ,
+            'part_time_teaching_services' ,
+            'milc_certification' ,
+            'certificate_of_no_pending_administrative_case' ,
+            'other_documents',
+        ];
+
+        foreach ($properties as $propertyName) {
+            if (is_null($this->$propertyName)) {
+
+            } else {
+               $this->$propertyName = " ";
+            }
+        }
+
+        // $this->signature_requesting_party = $documentrequestdata->signature_requesting_party;
+        // $this->certificate_of_employment = $documentrequestdata->certificate_of_employment;
+        // $this->certificate_of_employment_with_compensation = $documentrequestdata->certificate_of_employment_with_compensation;
+        // $this->certificate_of_employment = $documentrequestdata->certificate_of_employment;
+        // $this->certificate_of_employment_with_compensation = $documentrequestdata->certificate_of_employment_with_compensation;
+        // $this->service_record = $documentrequestdata->service_record;
+        // $this->part_time_teaching_services = $documentrequestdata->part_time_teaching_services;
+        // $this->milc_certification = $documentrequestdata->milc_certification;
+        // $this->certificate_of_no_pending_administrative_case = $documentrequestdata->certificate_of_no_pending_administrative_case;
+        // $this->other_documents = $documentrequestdata->other_documents ?? [];
 
     }
 
+    public function editDocumentRequest($index){
+        $documentrequest = Documentrequest::where('reference_num', $index)->first();
+        if(!$documentrequest){
+            abort(404);
+        }
+        // $this->leaverequest = $leaverequest;
+        return $documentrequest;
+    }
+
     public function getApplicantSignature(){
-        return Storage::disk('local')->get($this->signature_requesting_party);
+        $imageFile = $this->editDocumentRequest($this->index);
+        return $imageFile->signature_requesting_party;
     }
     
     public function getCertificateOfEmployment(){
