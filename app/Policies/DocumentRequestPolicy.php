@@ -84,6 +84,7 @@ class DocumentRequestPolicy
     public function delete(User $user, Documentrequest $documentrequest): bool
     {
         return $user->employee_id == $documentrequest->employee_id || $user->is_admin == True;
+
     }
 
     /**

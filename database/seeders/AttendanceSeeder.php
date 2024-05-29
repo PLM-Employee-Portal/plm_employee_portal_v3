@@ -35,6 +35,8 @@ class AttendanceSeeder extends Seeder
                 'time_in' => sprintf("%02d:%02d", $randomHour, $randomMinute), // Format hour and minute
                 'time_out' => sprintf("%02d:%02d", $randomHour, $randomMinute), // Use same random time for time_out
                 'late' => $randomLate,
+                'sl_used' => rand(1,2),
+                'vl_used' => rand(1,2),
                 'status' => 1,
             ]);
         }

@@ -130,10 +130,12 @@ class RequestDocumentTable extends Component
         return redirect()->route('RequestDocumentEdit', ['index' => $id]);
     }
 
-    public function removeRequestDocument($id){
-        $ipcrToBeDeleted = Documentrequest::where('reference_num', $id)->first();
-        $this->authorize('delete', $ipcrToBeDeleted);
-        $ipcrToBeDeleted->delete();
+    public function removeRequestDocument($ref_num){
+        $data = Documentrequest::where('reference_num', $ref_num)->first();
+        $dataToUpdate = ['status' => 'Deleted',
+                         'deleted_at' => now()];
+        $this->authorize('delete', $data);
+        Documentrequest::where('reference_num', $ref_num)->update($dataToUpdate);
         return redirect()->route('RequestDocumentTable');
     }
 }

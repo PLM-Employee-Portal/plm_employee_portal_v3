@@ -271,9 +271,11 @@
                                                 <div class="hidden  top-0 right-0 mt-2 z-50 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700" id="dropdown{{$loop->index}}">
                                                     <!-- Dropdown content -->
                                                     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
+                                                        @if (is_null($leaverequest->leave_form))                                                            
                                                         <li>
                                                             <a onclick="location.href='{{ route('LeaveRequestEdit', ['index' => $leaverequest->reference_num]) }}'"  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
                                                         </li>
+                                                        @endif
                                                         <li>
                                                             <a onclick="location.href='{{ route('LeaveRequestPdf', ['index' => $leaverequest->reference_num]) }}'" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">PDF</a>
                                                         </li>

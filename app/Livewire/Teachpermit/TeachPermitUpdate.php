@@ -7,6 +7,7 @@ use App\Models\Employee;
 use App\Models\Teachpermit;
 use Livewire\WithFileUploads;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Auth\Access\AuthorizationException;
 
@@ -55,27 +56,29 @@ class TeachPermitUpdate extends Component
     public $date_of_signature_of_university_president;
 
 
-
     public function mount($index){
         $loggedInUser = auth()->user();
+        $this->index = $index;
 
         try {
             $this->index = $index;
-            $teachpermitdata = Teachpermit::findOrFail($index);
+            $teachpermitdata = $this->editForm();
             $this->authorize('update', [$teachpermitdata]);
         } catch (AuthorizationException $e) {
             abort(404);
         }
 
-        $this->employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_name', 'current_position', 'employee_type', 'study_available_units' )
+        $employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_id', 'current_position', 'employee_type', 'study_available_units' )
                                     ->where('employee_id', $loggedInUser->employee_id)
-                                    ->get();   
-        $this->first_name = $this->employeeRecord[0]->first_name;
-        $this->middle_name = $this->employeeRecord[0]->middle_name;
-        $this->last_name = $this->employeeRecord[0]->last_name;
-        $this->department_name = $this->employeeRecord[0]->department_name;
-        $this->current_position = $this->employeeRecord[0]->current_position;
-        $this->employee_type = $this->employeeRecord[0]->employee_type;
+                                    ->first();   
+        $departmentName = DB::table('departments')->where('department_id', $employeeRecord->department_id[0])->value('department_name');
+        
+        $this->first_name = $employeeRecord->first_name;
+        $this->middle_name = $employeeRecord->middle_name;
+        $this->last_name = $employeeRecord->last_name;
+        $this->department_name = $departmentName;
+        $this->current_position = $employeeRecord->current_position;
+        $this->employee_type = $employeeRecord->employee_type;
 
         $this->employee_id = $teachpermitdata->employee_id;
         $this->application_date = $teachpermitdata->application_date;
@@ -87,20 +90,20 @@ class TeachPermitUpdate extends Component
         $this->total_aggregate_load = $teachpermitdata->total_aggregate_load ? $teachpermitdata->total_aggregate_load : NULL;
         $this->total_load_plm = $teachpermitdata->total_load_plm ? $teachpermitdata->total_load_plm : NULL;
         $this->total_load_otherunivs = $teachpermitdata->total_load_otherunivs ? $teachpermitdata->total_load_otherunivs : NULL;
-        $this->applicant_signature = $teachpermitdata->applicant_signature;
+        $this->applicant_signature = $teachpermitdata->applicant_signature ? ' ' : null;
         $this->status = $teachpermitdata->status;
         $this->total_units_enrolled = $teachpermitdata->total_units_enrolled;
-        $this->study_available_units = $this->employeeRecord[0]->study_available_units ?? 0;
+        $this->study_available_units = $employeeRecord->study_available_units ?? 0;
 
-        $this->date_of_signature_of_head_office = $teachpermitdata->date_of_signature_of_head_office;
-        $this->date_of_signature_of_human_resource = $teachpermitdata->date_of_signature_of_human_resource;
-        $this->date_of_signature_of_vp_for_academic_affair = $teachpermitdata->date_of_signature_of_vp_for_academic_affair;
-        $this->date_of_signature_of_university_president = $teachpermitdata->date_of_signature_of_university_president;
+        // $this->date_of_signature_of_head_office = $teachpermitdata->date_of_signature_of_head_office;
+        // $this->date_of_signature_of_human_resource = $teachpermitdata->date_of_signature_of_human_resource;
+        // $this->date_of_signature_of_vp_for_academic_affair = $teachpermitdata->date_of_signature_of_vp_for_academic_affair;
+        // $this->date_of_signature_of_university_president = $teachpermitdata->date_of_signature_of_university_president;
 
-        $this->signature_of_head_office = $teachpermitdata->signature_of_head_office;
-        $this->signature_of_human_resource = $teachpermitdata->signature_of_human_resource;
-        $this->signature_of_vp_for_academic_affair = $teachpermitdata->signature_of_vp_for_academic_affair;
-        $this->signature_of_university_president = $teachpermitdata->signature_of_university_president;
+        // $this->signature_of_head_office = $teachpermitdata->signature_of_head_office;
+        // $this->signature_of_human_resource = $teachpermitdata->signature_of_human_resource;
+        // $this->signature_of_vp_for_academic_affair = $teachpermitdata->signature_of_vp_for_academic_affair;
+        // $this->signature_of_university_president = $teachpermitdata->signature_of_university_president;
 
         $this->subjectLoad = json_decode($teachpermitdata->load, true);
 
@@ -112,8 +115,21 @@ class TeachPermitUpdate extends Component
         }
     }
 
+    public function editForm(){
+        $form = Teachpermit::where('reference_num', $this->index)->first();
+        if(!$form){
+            abort(404);
+        }
+        // $this->leaverequest = $leaverequest;
+        return $form;
+    }
+
     public function getApplicantSignature(){
-        return Storage::disk('local')->get($this->applicant_signature);
+        $form = Teachpermit::where('reference_num', $this->index)->first();
+        if(!$form){
+            abort(404);
+        }
+        return $form->applicant_signature;
     }
 
     public function getHeadSignature(){
@@ -218,13 +234,8 @@ class TeachPermitUpdate extends Component
         
         foreach($this->rules as $rule => $validationRule){
             $this->validate([$rule => $validationRule]);
-            // $this->resetErrorBag();
             $this->resetValidation();
         }   
-
-       
-
-        // $this->validate();
 
         $days_and_time2 = array();
         $conflictFlag = False;
@@ -300,14 +311,14 @@ class TeachPermitUpdate extends Component
 
         $loggedInUser = auth()->user();
 
-        $teachpermitdata = Teachpermit::findOrFail($this->index);
+        $teachpermitdata = Teachpermit::where('reference_num', $this->index)->first();
 
-        $this->employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_name', 'current_position', 'employee_type' )
-                ->where('employee_id', $loggedInUser->employee_id)
-                ->get();   
+        // $employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_name', 'current_position', 'employee_type' )
+        //         ->where('employee_id', $loggedInUser->employee_id)
+        //         ->get();   
 
-        $teachpermitdata->employee_id = $loggedInUser->employee_id;
-        $teachpermitdata->application_date = $this->application_date;
+        // $teachpermitdata->employee_id = $loggedInUser->employee_id;
+        // $teachpermitdata->application_date = $this->application_date;
         $teachpermitdata->start_period_cover = $this->start_period_cover;
         $teachpermitdata->end_period_cover = $this->end_period_cover;
         $teachpermitdata->designation_rank = $this->designation_rank;
@@ -316,15 +327,9 @@ class TeachPermitUpdate extends Component
         $teachpermitdata->total_aggregate_load = $this->total_aggregate_load ? $this->total_aggregate_load : NULL;
         $teachpermitdata->total_load_plm = $this->total_load_plm ? $this->total_load_plm : NULL ;
         $teachpermitdata->total_load_otherunivs = $this->total_load_otherunivs ? $this->total_load_otherunivs : NULL ;
-        $teachpermitdata->status = 'Pending';
+        // $teachpermitdata->status = 'Pending';
         $teachpermitdata->total_units_enrolled = $this->total_units_enrolled;
         $teachpermitdata->available_units = $this->study_available_units;
-
-        $teachpermitdata->date_of_signature_of_head_office = $this->date_of_signature_of_head_office;
-        $teachpermitdata->date_of_signature_of_human_resource = $this->date_of_signature_of_human_resource;
-        $teachpermitdata->date_of_signature_of_vp_for_academic_affair = $this->date_of_signature_of_vp_for_academic_affair;
-        $teachpermitdata->date_of_signature_of_university_president = $this->date_of_signature_of_university_president;
-
 
         $properties = [
             'applicant_signature' => 'required|mimes:jpg,png|extensions:jpg,png|max:5120',
@@ -335,16 +340,15 @@ class TeachPermitUpdate extends Component
             // Check if the current property value is a string or an uploaded file
             if (is_string($this->$propertyName)) {
                 // If it's a string, assign it directly
-                $teachpermitdata->$propertyName = $this->$propertyName;
+                // $teachpermitdata->$propertyName = $$propertyName;
             } else {
                 // If it's an uploaded file, store it and apply validation rules
-                $teachpermitdata->$propertyName = $this->$propertyName ? $this->$propertyName->store('photos/teachpermit/' . $propertyName, 'local') : '';
+                $teachpermitdata->$propertyName = file_get_contents($this->$propertyName->getRealPath());
                 $this->validate([$propertyName => $validationRule]);
             }
         }
 
-       
-
+        
         foreach($this->subjectLoad as $load){
             $jsonSubjectLoad[] = [
                 'subject' => $load['subject'],
@@ -357,11 +361,33 @@ class TeachPermitUpdate extends Component
 
         $jsonSubjectLoad = json_encode($jsonSubjectLoad);
 
-        $teachpermitdata->load = $jsonSubjectLoad;
+        // $teachpermitdata->load = $jsonSubjectLoad;
 
-        $this->js("alert('Teach Permit submitted!')"); 
+        $updateData = [
+            'start_period_cover' => $this->start_period_cover,
+            'end_period_cover' => $this->end_period_cover,
+            'designation_rank' => $this->designation_rank,
+            'name_of_school_description' => $this->name_of_school_description,
+            'inside_outside_university' => $this->inside_outside_university,
+            'total_aggregate_load' => $this->total_aggregate_load ? $this->total_aggregate_load : NULL,
+            'total_load_plm' =>  $this->total_load_plm ? $this->total_load_plm : NULL ,
+            'total_load_otherunivs' => $this->total_load_otherunivs ? $this->total_load_otherunivs : NULL,
+            'total_units_enrolled' =>  $this->total_units_enrolled,
+            'available_units' => $this->study_available_units,
+            'applicant_signature' => $teachpermitdata->applicant_signature,
+            'load' => $jsonSubjectLoad,
+
+            'updated_at' => now(),
+          ];
+
+        
+        Teachpermit::where('reference_num', $this->index)
+                               ->update($updateData);
+
+
+        $this->js("alert('Teach Permit Updated!')"); 
  
-        $teachpermitdata->update();
+        // $teachpermitdata->update();
 
         return redirect()->to(route('TeachPermitTable'));
 
