@@ -8,6 +8,7 @@ use App\Models\Employee;
 use App\Models\Teachpermit;
 use Livewire\WithFileUploads;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 class TeachPermitForm extends Component
 {
@@ -45,16 +46,18 @@ class TeachPermitForm extends Component
 
     public function mount(){
         $loggedInUser = auth()->user();
-        $this->employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_name', 'current_position', 'employee_type', 'study_available_units' )
+        $employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_id', 'college_id', 'current_position', 'employee_type', 'study_available_units' )
                                     ->where('employee_id', $loggedInUser->employee_id)
-                                    ->get();   
-        $this->first_name = $this->employeeRecord[0]->first_name;
-        $this->middle_name = $this->employeeRecord[0]->middle_name;
-        $this->last_name = $this->employeeRecord[0]->last_name;
-        $this->department_name = $this->employeeRecord[0]->department_name;
-        $this->current_position = $this->employeeRecord[0]->current_position;
-        $this->employee_type = $this->employeeRecord[0]->employee_type;
-        $this->study_available_units = $this->employeeRecord[0]->study_available_units ?? 0;
+                                    ->first();   
+
+        $departmentName = DB::table('departments')->where('department_id', $employeeRecord->department_id)->value('department_name');
+        $this->first_name = $employeeRecord->first_name;
+        $this->middle_name = $employeeRecord->middle_name;
+        $this->last_name = $employeeRecord->last_name;
+        $this->department_name = $departmentName;
+        $this->current_position = $employeeRecord->current_position;
+        $this->employee_type = $employeeRecord->employee_type;
+        $this->study_available_units = $employeeRecord->study_available_units ?? 0;
         $dateToday = Carbon::now()->toDateString();
         $this->date = $dateToday;
         $this->start_period_cover = $dateToday;
@@ -118,6 +121,23 @@ class TeachPermitForm extends Component
 
     }
 
+    private function generateRefNumber(){
+        // Generate a random number
+         $characters = '0123456789';
+         $randomNumber = '';
+         for ($i = 0; $i < rand(10, 15); $i++) {
+             $randomNumber .= $characters[rand(0, strlen($characters) - 1)];
+         }
+ 
+         // Get the current year
+         $currentYear = date('Y');
+ 
+         // Concatenate the date and random number
+         $result = $currentYear . $randomNumber;
+ 
+         return $result;
+     }
+
 
     protected $rules = [
         'designation_rank' => 'required|min:2|max:150',
@@ -161,8 +181,6 @@ class TeachPermitForm extends Component
         $real_available_units = Employee::where('employee_id', $loggedInUser->employee_id)
                             ->get()->value('study_available_units');   
         $this->validate(['study_available_units' => 'lte:' . $real_available_units]);
-
-        // $this->validate();
 
         $days_and_time2 = array();
         $conflictFlag = False;
@@ -240,8 +258,21 @@ class TeachPermitForm extends Component
 
         $teachpermitdata = new Teachpermit();
 
-        $departmentName = Employee::where('employee_id', $loggedInUser->employee_id)->value('department_name');
+        $randomNumber = 0;
+        while(True) {
+            $randomNumber = $this->generateRefNumber();
+            $existingRecord = Teachpermit::where('reference_num', $randomNumber)->first();
+            if(!$existingRecord){
+                break;
+            }
+         
+        }
 
+        $departmentName = Employee::where('employee_id', $loggedInUser->employee_id)->value('department_id');
+
+        $departmentName = DB::table('departments')->where('department_id', $departmentName[0])->value('department_name');
+
+        $teachpermitdata->reference_num = $randomNumber;
         $teachpermitdata->employee_id = $loggedInUser->employee_id;
         $teachpermitdata->application_date = $this->application_date;
         $teachpermitdata->department_name = $departmentName;
@@ -254,7 +285,10 @@ class TeachPermitForm extends Component
         $teachpermitdata->total_load_plm = $this->total_load_plm ? $this->total_load_plm : NULL ;
         $teachpermitdata->total_load_otherunivs = $this->total_load_otherunivs ? $this->total_load_otherunivs : NULL ;
         
-        $teachpermitdata->applicant_signature = $this->applicant_signature->store('photos/studypermit/applicant_signature', 'local');
+        $imageData = file_get_contents($this->applicant_signature->getRealPath());
+        $teachpermitdata->applicant_signature = $imageData;
+
+        // $teachpermitdata->applicant_signature = $this->applicant_signature->store('photos/studypermit/applicant_signature', 'local');
         $teachpermitdata->status = 'Pending';
         $teachpermitdata->total_units_enrolled = $this->total_units_enrolled;
         $teachpermitdata->available_units = $this->study_available_units;
