@@ -40,6 +40,14 @@ class RequestDocumentUpdate extends Component
     public $purpose;
     public $signature_requesting_party;
 
+    public $certificate_of_employment;
+    public $certificate_of_employment_with_compensation;
+    public $service_record;
+    public $part_time_teaching_services;
+    public $milc_certification;
+    public $certificate_of_no_pending_administrative_case;
+    public $other_documents;
+
     public function mount($index){
 
         try {
@@ -73,6 +81,24 @@ class RequestDocumentUpdate extends Component
         $this->purpose = $documentrequestdata->purpose;
         if($documentrequestdata->signature_requesting_party){
             $this->signature_requesting_party = " ";
+        }
+        $properties = [
+            // 'signature_requesting_party' ,
+            'certificate_of_employment' ,
+            'certificate_of_employment_with_compensation' ,
+            'service_record' ,
+            'part_time_teaching_services' ,
+            'milc_certification' ,
+            'certificate_of_no_pending_administrative_case' ,
+            'other_documents',
+        ];
+
+        foreach ($properties as $propertyName) {
+            if (is_null($this->$propertyName)) {
+
+            } else {
+               $this->$propertyName = " ";
+            }
         }
     }
 
