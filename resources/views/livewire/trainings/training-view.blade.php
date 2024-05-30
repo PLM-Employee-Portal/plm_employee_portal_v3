@@ -39,7 +39,10 @@
         <div class=" px-1 mx-auto pt-8">
             <div class="grid grid-cols-2 ">
                 <div class="col-span-2 flex justify-center">
-                    <img class="w-full rounded-lg" src="{{ asset('storage/' . $trainingData->training_photo) }}" style="width: 500px;" alt="">
+                    @php
+                        $photo = $this->getTrainingPhoto($trainingData->training_id);
+                    @endphp
+                    <img class="w-full rounded-lg" src="data:image/gif;base64,{{ base64_encode($photo) }}" style="width: 500px;" alt="">
                 </div>
                 <div class="col-span-2 text-center">
                     <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">{{$trainingData->training_title}}</h1>

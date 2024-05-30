@@ -32,7 +32,7 @@ class ActivitiesUpdate extends Component
         $this->type = $activitydata->type;
         $this->title = $activitydata->title;
         $this->description = $activitydata->description;
-        $this->poster = $activitydata->poster;
+        $this->poster = $activitydata->poster ? " " : null; 
         $this->date = $activitydata->date;
         $this->start = $activitydata->start;
         $this->end = $activitydata->end;
@@ -42,7 +42,8 @@ class ActivitiesUpdate extends Component
     }
 
     public function getPoster(){
-        return Storage::disk('public')->get($this->poster);
+        $activitydata = Activities::findOrFail($this->index);
+        return $activitydata->poster;
     }
 
     protected $rules = [
@@ -71,24 +72,13 @@ class ActivitiesUpdate extends Component
         $activitydata->type = $this->type;
         $activitydata->title = $this->title;
         $activitydata->description = $this->description;
-        if(is_string($this->poster) == False){
-            $this->validate(['poster' => 'required|mimes:jpg,png|extensions:jpg,png']);
 
-            if($this->type == "Announcement"){
-                $activitydata->poster = $this->poster->store('photos/activities/announcement', 'public');
-            }
-            else if($this->type == "Event"){
-                $activitydata->poster = $this->poster->store('photos/activities/event', 'public');
-            }
-            else if($this->type == "Seminar"){
-                $activitydata->poster = $this->poster->store('photos/activities/seminar', 'public');
-            }
-            else if($this->type == "Training"){
-                $activitydata->poster = $this->poster->store('photos/activities/training', 'public');
-            }
-            else if($this->type == "Others"){
-                $activitydata->poster = $this->poster->store('photos/activities/others', 'public');
-            }
+        if(is_string($this->poster) ){
+
+        } else{
+            $this->validate(['poster' => 'required|mimes:jpg,png|extensions:jpg,png']);
+            $activitydata->poster = file_get_contents($this->poster->getRealPath());
+
         }
         $activitydata->date = $this->date;
         $activitydata->start = $this->start;
@@ -97,8 +87,26 @@ class ActivitiesUpdate extends Component
         $activitydata->is_featured = $this->is_featured;
         $activitydata->visible_to_list = $this->visible_to_list;
 
-        $this->js("alert('Activity Created!')"); 
-        $activitydata->update();
+        $updateData = [
+            'type' => $activitydata->type,
+            'title' => $activitydata->title,
+            'description' => $activitydata->description,
+            'poster' =>  $activitydata->poster,
+            'date' => $activitydata->date,
+            'start' => $activitydata->start,
+            'end' => $activitydata->end, 
+            'host' => $activitydata->host,
+            'is_featured' => $activitydata->is_featured , 
+            'visible_to_list' => $activitydata->visible_to_list, 
+            'updated_at' => now(),
+          ];
+        
+        Activities::where('activity_id', $this->index)
+                               ->update($updateData);
+
+
+        $this->js("alert('Activity Updated!')"); 
+        // $activitydata->update();
         return redirect()->to(route('ActivitiesGallery'));
     }
 

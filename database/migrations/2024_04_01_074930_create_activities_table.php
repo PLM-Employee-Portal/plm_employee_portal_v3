@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('type');
             $table->string('title');
             $table->longText('description');
-            $table->binary('poster');
+            $table->longText('poster')->charset('binary');
             $table->date('date');
             $table->time('start');
             $table->time('end');

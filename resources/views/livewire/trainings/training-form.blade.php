@@ -289,6 +289,50 @@
                     
             </div> --}}
 
+            <div class="grid grid-cols-2 gap-4  p-6 mt-5 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700">
+                <div class="grid min-[1000px]:grid-cols-3 gap-4  col-span-3  ">
+                    <div class="w-full">
+                        <label for="start"
+                            class="block  mb-2 text-sm font-medium text-gray-900 dark:text-white ">Start Time <span class="text-red-600">*</span></label>
+                        <input type="datetime-local" name="start" id="start" wire:model.blur="start_date" 
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                             required="" >
+                        @error('start_date')
+                            <div class="transition transform alert alert-danger"
+                                    x-init="$el.closest('form').scrollIntoView()">
+                                <span class="text-red-500 text-xs xl:whitespace-nowrap">{{$message }}</span>
+                            </div> 
+                        @enderror   
+                    </div>
+                    <div class="w-full">
+                        <label for="end"
+                            class="block  mb-2 text-sm font-medium text-gray-900 dark:text-white">End Time <span class="text-red-600">*</span></label>
+                        <input type="datetime-local" name="end" id="end" wire:model.blur="end_date"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                           required="">
+                        @error('end_date')   
+                            <div class="transition transform alert alert-danger text-sm "
+                            x-init="$el.closest('label').scrollIntoView()">
+                            <span class="text-red-500 text-xs xl:whitespace-nowrap">{{ $message }}</span>
+                            </div> 
+                         @enderror
+                    </div>
+                    <div class="w-full">
+                        <label for="location"
+                            class="block  mb-2 text-sm font-medium text-gray-900 dark:text-white"> Location<span class="text-red-600">*</span></label>
+                        <input type="text" name="location" id="location" wire:model.blur="location"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                           required="">
+                        @error('location')   
+                            <div class="transition transform alert alert-danger text-sm "
+                            x-init="$el.closest('label').scrollIntoView()">
+                            <span class="text-red-500 text-xs xl:whitespace-nowrap">{{ $message }}</span>
+                            </div> 
+                         @enderror
+                    </div>
+                </div>
+            </div>
+
             {{-- Host and visible to list --}}
             <div class="grid grid-cols-2 gap-4  p-6 mt-5 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700">
                 <div>

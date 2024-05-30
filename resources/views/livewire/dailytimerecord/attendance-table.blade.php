@@ -30,7 +30,7 @@
             </nav>
             <h2 class=" text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-3xl dark:text-white">Daily Time Record</h2>
         </div>
-    <!-- Modal toggle -->
+    {{-- <!-- Modal toggle -->
     <div class="grid grid-cols-1 mb-4">
         <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="block  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 justify-self-end" type="button">
             Export DTR
@@ -83,7 +83,7 @@
             </form>
         </div>
     </div>
-    </div> 
+    </div>  --}}
     <script>
         $(document).ready(function() {
             $('.js-example-basic-multiple').select2({
@@ -101,6 +101,7 @@
             });
         });
     </script>
+    <br><br>
     <div class=" overflow-x-auto shadow-md rounded-t-lg bg-white">
         <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4 p-4">
             <div>

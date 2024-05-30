@@ -66,21 +66,23 @@ class TrainingGallery extends Component
         $this->department_name = $employeeData->department_name;
         $collegeName = Employee::where('employee_id', $loggedInUser->employee_id)
                                 ->value('college_id');
-                                
-        if($this->filter != "All" && $this->filter != null){
+        if($loggedInUser->role_id == 0){
+            return Training::paginate(10);
+        }
+        else{
             return Training::where(function ($query) use ($collegeName) {
                 foreach ($collegeName as $college) {
                 $college_name = DB::table('colleges')->where('college_id', $college)->value('college_name');
                     $query->orWhereJsonContains('visible_to_list', $college_name);
                 }
             })
-            ->where('type', 'Announcement') // Add additional conditions if needed
+            // ->where('type', 'Announcement') // Add additional conditions if needed
             ->orderBy('created_at', 'desc')
             ->paginate(10);
         }
-        else {
-            return Training::whereJsonContains('visible_to_list', $employeeData->department_name)->orderBy('created_at', 'desc')->paginate(10);
-        }
+        // else {
+        //     return Training::whereJsonContains('visible_to_list', $employeeData->department_name)->orderBy('created_at', 'desc')->paginate(10);
+        // }
 
     }
 
@@ -89,8 +91,7 @@ class TrainingGallery extends Component
     }
 
     public function getActivityPhoto($index){
-        // $imageFile = $this->editLeaveRequest($this->index);
-        $imageFile = Training::where('activity_id', $index)->value('poster');
+        $imageFile = Training::where('training_id', $index)->value('training_photo');
         return $imageFile;
     }
 

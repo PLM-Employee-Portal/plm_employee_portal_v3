@@ -20,22 +20,38 @@ class TrainingView extends Component
 
     public function mount($index){
         $this->index = $index;
-        $this->trainingData = Training::findOrFail($index);
         $loggedInUser = auth()->user();
-        $employeeData = Employee::select('is_department_head_or_dean')
-                ->where('employee_id', $loggedInUser->employee_id)
-                ->first();
-        $head = explode(',', $employeeData->is_department_head_or_dean[0] ?? ' ');
-        $this->is_head = $head[0] == 1 || $head[1] == 1 || $loggedInUser->is_admin ? true : false;
-        $this->preTestAnswerExists = Traininganswer::where('employee_id', $loggedInUser->employeeId)
-            ->whereNotNull('pre_test_answers')
-            ->where('id', $this->trainingData->id)
-            ->exists();
-        $this->postTestAnswerExists = Traininganswer::where('employee_id', $loggedInUser->employeeId)
-            ->whereNotNull('post_test_answers')
-            ->where('id', $this->trainingData->id)
-            ->exists();
+        $loggedInEmployeeData = Employee::where('employee_id', $loggedInUser->employee_id)->first();
+        $this->trainingData = Training::where('training_id', $index)->first();
+            $dept_head_id = "Denied";
+            foreach($loggedInEmployeeData->is_department_head as $index => $department_id){
+                if($department_id == 1){
+                    $dept_head_id = True;
+                }
+            }
+    
+            $college_head_id = "Denied";
+            foreach($loggedInEmployeeData->is_college_head as $index => $college_id){
+                if($college_id == 1){
+                    $college_head_id = True;
+                }
+            }
+
+        $this->is_head = $college_head_id == 1 ||$dept_head_id == 1 || $loggedInUser->is_admin ? true : false;
+        // $this->preTestAnswerExists = Traininganswer::where('employee_id', $loggedInUser->employeeId)
+        //     ->whereNotNull('pre_test_answers')
+        //     ->where('id', $this->trainingData->id)
+        //     ->exists();
+        // $this->postTestAnswerExists = Traininganswer::where('employee_id', $loggedInUser->employeeId)
+        //     ->whereNotNull('post_test_answers')
+        //     ->where('id', $this->trainingData->id)
+        //     ->exists();
         // dd($this->activityData->poster);
+    }
+
+    public function getTrainingPhoto(){
+        $trainingdata = Training::findOrFail($this->index);
+        return $trainingdata->training_photo;
     }
 
     public function render()
