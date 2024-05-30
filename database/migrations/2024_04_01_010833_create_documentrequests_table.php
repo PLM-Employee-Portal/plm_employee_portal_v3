@@ -24,16 +24,17 @@ return new class extends Migration
             $table->longText('milc_description')->nullable();
             $table->longText('other_request')->nullable();
             $table->longText('purpose');
-            $table->binary('signature_requesting_party');
+            // $table->binary('signature_requesting_party');
+            $table->longText('signature_requesting_party')->charset('binary');
             $table->dateTime('deleted_at')->nullable();
 
-            $table->binary('certificate_of_employment')->nullable();
-            $table->binary('certificate_of_employment_with_compensation')->nullable();
-            $table->binary('service_record')->nullable();
-            $table->binary('part_time_teaching_services')->nullable();
-            $table->binary('milc_certification')->nullable();
-            $table->binary('certificate_of_no_pending_administrative_case')->nullable();
-            $table->longText('other_documents')->nullable();
+            $table->longText('certificate_of_employment')->charset('binary')->nullable();
+            $table->longText('certificate_of_employment_with_compensation')->charset('binary')->nullable();
+            $table->longText('service_record')->charset('binary')->nullable();
+            $table->longText('part_time_teaching_services')->charset('binary')->nullable();
+            $table->longText('milc_certification')->charset('binary')->nullable();
+            $table->longText('certificate_of_no_pending_administrative_case')->charset('binary')->nullable();
+            $table->longText('other_documents')->charset('binary')->nullable();
             $table->timestamps();
         });
     }

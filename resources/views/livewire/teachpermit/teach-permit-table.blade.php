@@ -270,7 +270,7 @@
                                                             </li>
                                                         @endif
                                                         <li>
-                                                            <a onclick="location.href='{{ route('TeachPermitPdf', ['index' => $teachpermit->reference_num]) }}'" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">PDF</a>
+                                                            <a target="_blank" href="{{route('downloadTeachPermit', [ 'index' => $teachpermit->reference_num])}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">PDF</a>
                                                         </li>
                                                     </ul>
                                                     <div class="py-2">

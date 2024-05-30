@@ -189,17 +189,16 @@ class LeaveRequestForm extends Component
 
         $leaverequestdata->office_department = $departmentName;
 
-        
-        $imageData = $this->commutation_signature_of_appli->store('photos\leaverequest\\', 'local');
+        //  In case something goes wrong, replace the storing of image with this.
+        // $imageData = $this->commutation_signature_of_appli->store('photos\leaverequest\\', 'local');
+        // $imageData = Storage::disk('local')->path($imageData);
+        // $imageData = file_get_contents($imageData);
+        // $imageData = base64_encode($imageData);
+        // $leaverequestdata->commutation_signature_of_appli = $imageData;
 
-        $imageData = Storage::disk('local')->path($imageData);
 
-        # here i am getting an error here file_get_contents(): Argument #1 ($filename) must not contain any null bytes
-
-        $imageData = file_get_contents($imageData);
-        $imageData = base64_encode($imageData);
-        $leaverequestdata->commutation_signature_of_appli = $imageData;
-
+        $imageData = file_get_contents($this->commutation_signature_of_appli->getRealPath());
+        $leaverequestdata->commutation_signature_of_appli  = base64_encode($imageData);
 
         $this->js("alert('Leave Request submitted!')"); 
        

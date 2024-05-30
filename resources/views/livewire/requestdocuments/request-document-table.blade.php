@@ -295,7 +295,7 @@
                                                             <a onclick="location.href='{{ route('RequestDocumentEdit', ['index' => $documentrequest->reference_num]) }}'"  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
                                                         </li>
                                                         <li>
-                                                            <a onclick="location.href='{{ route('RequestDocumentPdf', ['index' => $documentrequest->reference_num]) }}'" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">PDF</a>
+                                                            <a target="_blank" href="{{route('downloadDocumentRequestForm', [ 'index' => $documentrequest->reference_num])}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">PDF</a>
                                                         </li>
                                                     </ul>
                                                     <div class="py-2">

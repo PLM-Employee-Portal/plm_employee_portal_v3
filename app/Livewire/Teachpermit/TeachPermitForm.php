@@ -286,7 +286,7 @@ class TeachPermitForm extends Component
         $teachpermitdata->total_load_otherunivs = $this->total_load_otherunivs ? $this->total_load_otherunivs : NULL ;
         
         $imageData = file_get_contents($this->applicant_signature->getRealPath());
-        $teachpermitdata->applicant_signature = $imageData;
+        $teachpermitdata->applicant_signature = base64_encode($imageData);
 
         // $teachpermitdata->applicant_signature = $this->applicant_signature->store('photos/studypermit/applicant_signature', 'local');
         $teachpermitdata->status = 'Pending';

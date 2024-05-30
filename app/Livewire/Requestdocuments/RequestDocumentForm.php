@@ -129,7 +129,7 @@ class RequestDocumentForm extends Component
         $documentrequestdata->purpose = $this->purpose;
 
         $imageData = file_get_contents($this->signature_requesting_party->getRealPath());
-        $documentrequestdata->signature_requesting_party = $imageData;
+        $documentrequestdata->signature_requesting_party = base64_encode($imageData);
 
         // $documentrequestdata->signature_requesting_party = $this->signature_requesting_party->store('photos/documentrequest/signature_requesting_party', 'local');
         $documentrequestdata->save();

@@ -38,7 +38,7 @@ return new class extends Migration
             $table->boolean('final_rating_by_verdict')->nullable();
             $table->date('final_rating_by_date')->nullable();
             $table->dateTime('deleted_at')->nullable();
-            $table->binary('application_form')->nullable();
+            $table->longText('application_form')->charset('binary')->nullable();
             $table->timestamps();
         });
     }

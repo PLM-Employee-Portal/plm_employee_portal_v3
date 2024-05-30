@@ -344,6 +344,7 @@ class TeachPermitUpdate extends Component
             } else {
                 // If it's an uploaded file, store it and apply validation rules
                 $teachpermitdata->$propertyName = file_get_contents($this->$propertyName->getRealPath());
+                $teachpermitdata->$propertyName = base64_encode($teachpermitdata->$propertyName);
                 $this->validate([$propertyName => $validationRule]);
             }
         }

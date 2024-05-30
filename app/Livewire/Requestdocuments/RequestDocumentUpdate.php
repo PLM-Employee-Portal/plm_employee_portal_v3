@@ -147,7 +147,7 @@ class RequestDocumentUpdate extends Component
         } else{
             $this->validate(['signature_requesting_party' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf']);
             $documentrequestdata->signature_requesting_party = file_get_contents($this->signature_requesting_party->getRealPath());
-
+            $documentrequestdata->signature_requesting_party = base64_encode($documentrequestdata->signature_requesting_party);
         }
 
         $updateData = [

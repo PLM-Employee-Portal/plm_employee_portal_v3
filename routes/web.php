@@ -201,7 +201,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get("leaverequest/approve/{index}", ApproveLeaveRequestForm::class)->name('ApproveLeaveRequestForm'); 
 
-    Route::get('/leavereques/{index}', [LeaveRequestTable::class, 'download'])->name('downloadLeave');
+    Route::get('/leaverequest/{index}', [LeaveRequestTable::class, 'download'])->name('downloadLeave');
 
 
 });
@@ -236,6 +236,9 @@ Route::middleware('auth')->group(function (){
     Route::get("/teachpermit/requests", ApproveTeachPermitTable::class)->name('ApproveTeachPermitTable');
 
     Route::get("/teachpermit/approve/{index}", ApproveTeachPermitForm::class)->name('ApproveTeachPermitForm');
+
+    Route::get('/teachpermit/{index}', [TeachPermitTable::class, 'download'])->name('downloadTeachPermit');
+
 });
 
 
@@ -251,6 +254,9 @@ Route::middleware('auth')->group(function (){
     Route::get("/requestdocument/requests", ApproveRequestDocumentTable::class)->name('ApproveRequestDocumentTable');
 
     Route::get("/requestdocument/approve/{index}", ApproveRequestDocumentForm::class)->name('ApproveRequestDocumentForm');
+
+    Route::get('/requestdocument/{index}', [RequestDocumentTable::class, 'download'])->name('downloadDocumentRequestForm');
+
 });
 
 

@@ -187,6 +187,7 @@ class LeaveRequestUpdate extends Component
         } else{
             $this->validate(['commutation_signature_of_appli' => 'required|mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120']);
             $commutation_signature_of_appli = file_get_contents($this->commutation_signature_of_appli->getRealPath());
+            $commutation_signature_of_appli  = base64_encode($commutation_signature_of_appli);
         }
 
         $updateData = [

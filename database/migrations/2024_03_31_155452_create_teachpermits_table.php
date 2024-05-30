@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('total_load_plm')->nullable();
             $table->string('total_load_otherunivs')->nullable();
             $table->string('total_aggregate_load')->nullable();
-            $table->binary('applicant_signature');
+            $table->longText('applicant_signature')->charset('binary');
             $table->string('status')->default('reviewing');
             $table->decimal('total_units_enrolled', 10, 2)->nullable();
             $table->decimal('available_units', 10, 2)->nullable();
@@ -43,7 +43,7 @@ return new class extends Migration
             $table->string('signature_of_university_president')->nullable();
             $table->string('verdict_of_university_president')->nullable();
             $table->date('date_of_signature_of_university_president')->nullable();
-            $table->binary('permit_to_teach')->nullable();
+            $table->longText('permit_to_teach')->charset('binary')->nullable();
             
             $table->timestamps();
         });
