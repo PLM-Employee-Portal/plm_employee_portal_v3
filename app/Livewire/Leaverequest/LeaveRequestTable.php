@@ -2,12 +2,14 @@
 
 namespace App\Livewire\Leaverequest;
 
+use finfo;
 use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\Employee;
 use App\Models\Leaverequest;
 use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
+use Illuminate\Support\Facades\Response;
 
 class LeaveRequestTable extends Component
 {
@@ -99,6 +101,32 @@ class LeaveRequestTable extends Component
         return view('livewire.leaverequest.leave-request-table', [
             'LeaveRequestData' => $results,
         ]);
+    }
+
+    public function download($reference_num){
+        $leaveRequestData = Leaverequest::where('reference_num', $reference_num)->first();
+        $image = base64_decode($leaveRequestData->commutation_signature_of_appli);
+        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        $contentType = $finfo->buffer($image);
+        // dd($contentType);
+        switch($contentType){
+            case "application/pdf":
+                $fileName = "leaverequest.pdf";
+                break;
+            case "image/jpeg":
+                $fileName = "leaverequest.jpg";
+                break;
+            case "image/png":
+                $fileName = "leaverequest.png";
+                break;
+            default:
+                abort(404);
+        }
+        return Response::make($image, 200, [
+            'Content-Type' => $contentType,
+            'Content-Disposition' => 'attachment; filename="'.$fileName.'"'
+        ]);
+    
     }
 
     public function removeLeaveRequest($index){

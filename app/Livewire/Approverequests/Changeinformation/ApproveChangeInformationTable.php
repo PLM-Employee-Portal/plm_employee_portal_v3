@@ -21,7 +21,6 @@ class ApproveChangeInformationTable extends Component
         $loggedInUser = auth()->user();
         $changeinfoData = ChangeInformation::orderBy('created_at', 'desc');
 
-        
         switch ($this->filter) {
             case '1':
                 $changeinfoData->whereDate('created_at',  Carbon::today());
@@ -54,7 +53,7 @@ class ApproveChangeInformationTable extends Component
             $changeinfoData = $changeinfoData->orderBy('created_at', 'desc');
         }
         
-        if($loggedInUser->is_admin){
+        if($loggedInUser->is_admin == False){
             return view('livewire.approverequests.changeinformation.approve-change-information-table', [
                 'ChangeInformationData' => $changeinfoData->paginate(5),
             ]);

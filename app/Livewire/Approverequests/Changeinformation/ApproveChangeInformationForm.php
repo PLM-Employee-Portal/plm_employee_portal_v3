@@ -97,7 +97,7 @@ class ApproveChangeInformationForm extends Component
 
     public function removeArrayImage($index, $request, $insideIndex = null){
         // dump($this->cover_memo);
-            // dump($this->$requestName, $index, $insideIndex);
+        // dump($this->$requestName, $index, $insideIndex);
 
         $requestName = str_replace(' ', '_', $request);
         $requestName = strtolower($requestName);

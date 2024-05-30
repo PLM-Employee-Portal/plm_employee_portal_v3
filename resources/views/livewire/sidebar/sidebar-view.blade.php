@@ -34,7 +34,7 @@
 
                </button>
                <!-- Dropdown menu -->
-               <div wire:poll.visible.60s class="hidden overflow-y-auto z-50 my-4 max-w-sm text-base list-none bg-white rounded divide-y divide-gray-100 shadow-lg dark:divide-gray-600 dark:bg-gray-700" id="notification-dropdown">
+               <div wire:poll.visible.60s class="hidden rounded-lg overflow-y-auto z-50 my-4 max-w-sm text-base list-none bg-white  divide-y divide-gray-100 shadow-lg dark:divide-gray-600 dark:bg-gray-700" id="notification-dropdown">
                    <div class="block py-2 px-4 text-base font-medium text-center text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                        Notifications
                    </div>
@@ -188,10 +188,10 @@
                    <ul class="py-1 text-gray-500 dark:text-gray-400" aria-labelledby="dropdown">
                     <a href="{{ route('profile') }}" class="block ml-2 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">
                     <li class="flex items-center ml-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                         </svg>
-                       <span class="ml-2"> My profile</span>
+                       <span class="ml-2 text-gray-800"> My profile</span>
                     </li>
                     </a>
                    </ul>
@@ -201,7 +201,7 @@
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"/>
                               </svg>
-                            <span class="ml-2">Sign out</span>
+                            <span class="ml-2 text-gray-800">Sign out</span>
                         </li>
                     </a>
                    </ul>
@@ -284,7 +284,7 @@
                   </li>
             </ul>
             </li>
-            <li class="bg-white rounded">
+            {{-- <li class="bg-white rounded">
                 <a href="{{route('IpcrTable')}}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -299,7 +299,7 @@
                    </svg>                   
                   <span class="flex-1 ms-3 whitespace-nowrap">OPCR</span>
                </a>
-            </li>
+            </li> --}}
             @if ($is_admin == 0)
             <li class="bg-white rounded">
                 <button type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-requests" data-collapse-toggle="dropdown-requests">
@@ -320,14 +320,14 @@
                                
                              <span class="flex-1 ms-3 whitespace-nowrap">Leave Request</span></a>
                       </li>
-                      <li>
+                      {{-- <li>
                         <a href="{{route('StudyPermitTable')}}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                              <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
                            </svg>
                            
                              <span class="flex-1 ms-3 whitespace-nowrap">Study Permit</span></a>
-                      </li>
+                      </li> --}}
                       <li>
                          <a href="{{route('TeachPermitTable')}}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -346,6 +346,16 @@
                        </li>
                 </ul>
              </li>
+             <li class="bg-white rounded">
+                <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
+                      </svg>
+                      
+                   <span class="flex-1 ms-3 whitespace-nowrap">Learning/Development</span>
+                </a>
+             </li>
+             
             @endif
          
 
@@ -409,7 +419,7 @@
                                
                               <span class="flex-1 ms-3 text-center ">Approve <br> Work Document Requests</span></a>
                        </li>
-                     @if ($is_admin)
+                     {{-- @if ($is_admin) --}}
                      @php
                      $isActive = Route::currentRouteName() == 'ApproveChangeInformationTable';
                       @endphp
@@ -422,7 +432,7 @@
                               <span class="flex-1 ms-3 text-center">Approve Change <br> Information Requests</span>
                           </a>
                       </li>
-                     @endif
+                     {{-- @endif --}}
                 </ul>
             </li>
             

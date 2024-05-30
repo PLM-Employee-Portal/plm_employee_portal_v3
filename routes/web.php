@@ -201,6 +201,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get("leaverequest/approve/{index}", ApproveLeaveRequestForm::class)->name('ApproveLeaveRequestForm'); 
 
+    Route::get('/leavereques/{index}', [LeaveRequestTable::class, 'download'])->name('downloadLeave');
+
+
 });
 
 
