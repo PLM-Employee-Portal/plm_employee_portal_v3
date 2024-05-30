@@ -46,7 +46,6 @@ class Employeeinformation extends Component
         $this->empServiceRecordFromOtherGovtAgency = json_decode($employee->emp_service_record_from_other_govt_agency, true) ?? [];
         $this->empApprovedClearancePrevEmployer = json_decode($employee->emp_approved_clearance_prev_employer, true) ?? [];
         $this->otherDocuments = json_decode($employee->other_documents, true) ?? [];
-        
 
         // dd($this->employeeDiploma);
         if($this->employeeRecord->employee_history != null){
@@ -54,9 +53,9 @@ class Employeeinformation extends Component
         }
     }
 
-    public function privateStorage(Media $media){
-        return $media;
-    }
+    // public function privateStorage(Media $media){
+    //     return $media;
+    // }
 
     public function download($file, $index = 0){
         $employee_id = auth()->user()->employee_id;
@@ -78,6 +77,7 @@ class Employeeinformation extends Component
             $file = "emp_tor";
             $imageFile = Employee::where('employee_id', $employee_id)->first();
             $imageFile = json_decode($imageFile->$file, true); 
+            dd($imageFile);
             $fileName = "tor.jpg";
             return Response::make(base64_decode($imageFile[$index]), 200, [
                 'Content-Type' => 'image/jpeg',

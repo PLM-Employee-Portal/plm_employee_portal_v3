@@ -8,6 +8,7 @@ use App\Models\Employee;
 use App\Models\Leaverequest;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class LeaveRequestForm extends Component
 {
@@ -188,9 +189,15 @@ class LeaveRequestForm extends Component
 
         $leaverequestdata->office_department = $departmentName;
 
-      
+        
+        $imageData = $this->commutation_signature_of_appli->store('photos\leaverequest\\', 'local');
 
-        $imageData = file_get_contents($this->commutation_signature_of_appli->getRealPath());
+        $imageData = Storage::disk('local')->path($imageData);
+
+        # here i am getting an error here file_get_contents(): Argument #1 ($filename) must not contain any null bytes
+
+        $imageData = file_get_contents($imageData);
+        $imageData = base64_encode($imageData);
         $leaverequestdata->commutation_signature_of_appli = $imageData;
 
 

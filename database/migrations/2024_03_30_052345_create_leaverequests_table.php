@@ -26,7 +26,7 @@ return new class extends Migration
             $table->dateTime('inclusive_start_date')->default(now()->timezone('Asia/Manila'));
             $table->dateTime('inclusive_end_date')->default(now()->timezone('Asia/Manila'));
             $table->string('commutation');
-            $table->binary('commutation_signature_of_appli');
+            $table->longText('commutation_signature_of_appli');
             $table->dateTime('deleted_at')->nullable();
 
             // Approve Requests
