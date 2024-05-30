@@ -1,4 +1,4 @@
-<div class="main-content p-4">
+ <div class="main-content p-4">
         <div class="rounded-lg dark:border-gray-700">
             <nav class="flex mb-2" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-3 rtl:space-x-reverse">
@@ -183,18 +183,25 @@
                         Date
                     </th>
                     <th scope="col" class="px-6 py-3 text-center">
+                        Status
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-center">
+                        Late\On-Time
+                    </th>
+                    {{-- <th scope="col" class="px-6 py-3 text-center">
                         Time In
                     </th>
                     <th scope="col" class="px-6 py-3 text-center">
                         Time Out
-                    </th>
-                    
+                    </th> --}}
                     <th scope="col" class="px-6 py-3 text-center">
-                        Late\On-Time
+                        Undertime
                     </th>
                     <th scope="col" class="px-6 py-3 text-center">
-                        Status
+                        Overtime
                     </th>
+                   
+                   
                     
                 </tr>
             </thead>
@@ -244,18 +251,26 @@
                                         {{$data->attendance_date }}
                                     </span>
                                 </th>
-                                <td class="px-6 py-4 text-center whitespace-nowrap">
-                                    {{$data->time_in}}
-                                </td>
-                                <td class="px-6 py-4 text-center whitespace-nowrap">
-                                    {{$data->time_out}}
+                                <td class="px-6 py-4 text-center">
+                                    {{$data->status ? 'In' : 'Out'}}
                                 </td>
                                 <td class="px-6 py-4 text-center">
                                     {{$data->late ? 'Late' : 'On-Time'}}
                                 </td>
-                                <td class="px-6 py-4 text-center">
-                                    {{$data->status ? 'In' : 'Out'}}
+                                {{-- <td class="px-6 py-4 text-center whitespace-nowrap">
+                                    {{$data->time_in}}
                                 </td>
+                                <td class="px-6 py-4 text-center whitespace-nowrap">
+                                    {{$data->time_out}}
+                                </td> --}}
+                                <td class="px-6 py-4 text-center whitespace-nowrap">
+                                    {{$data->overtime}}
+                                </td>
+                                <td class="px-6 py-4 text-center whitespace-nowrap">
+                                    {{$data->undertime}}
+                                </td>
+                                
+                              
                                     {{-- <a onclick="location.href='{{ route('ipcredit', ['index' =>$data->id]) }}'"  class="cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> --}}
                                     {{-- <a href="{{route('ipcredit',$data)}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> --}}
                                     {{-- <a wire:click="removeIpcr({{$data->id}})" class="cursor-pointer font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Remove</a> --}}   

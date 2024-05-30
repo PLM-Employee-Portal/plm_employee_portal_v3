@@ -145,7 +145,7 @@ class ChangeInformation extends Component
 
     public function removeImage($item){
         $this->$item = null;
-        $this->$item = array_filter($this->$item);
+        // $this->$item = array_filter($this->$item);
     }
     
     public function getArrayImage($item, $index){
@@ -379,7 +379,7 @@ class ChangeInformation extends Component
             ];
         }
 
-        $jsonEmployeeHistory = json_encode($jsonEmployeeHistory);
+        $jsonEmployeeHistory = json_encode($jsonEmployeeHistory ?? ' ') ;
 
         $employee->employee_history = $jsonEmployeeHistory;
 

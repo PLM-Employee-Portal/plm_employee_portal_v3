@@ -195,7 +195,9 @@ class ApproveTeachPermitForm extends Component
                 if($this->$propertyName){
                 $targetUser->notify(new SignedNotifcation($loggedInUser->employee_id, 'Teach Permit', 'Signed', $teachpermitdata->id, $signedIn,  $this->$name_of_verdict));
                 }
-                $teachpermitdata->$propertyName = $this->$propertyName ? $this->$propertyName->store('photos/teachpermit/' . $propertyName, 'local') : '';
+                $teachpermitdata->$propertyName = file_get_contents($this->$propertyName->getRealPath());
+                $teachpermitdata->$propertyName = base64_encode($teachpermitdata->$propertyName);
+                // $teachpermitdata->$propertyName = $this->$propertyName ? $this->$propertyName->store('photos/teachpermit/' . $propertyName, 'local') : '';
             }
         }
 

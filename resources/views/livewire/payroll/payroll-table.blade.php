@@ -154,7 +154,8 @@
                                 @php
                                     $ctr = $ctr + 1;
                                 @endphp
-                                    <tr wire:click="view('{{$data->date}}')"  class="hover:cursor-pointer bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                {{-- wire:click="view('{{$data->date}}')" --}}
+                                    <tr   class="hover:cursor-pointer bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                         <th scope="row" class="px-6 py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {{$pageIndex + $ctr}}
                                         </th>

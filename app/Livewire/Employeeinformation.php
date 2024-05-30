@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Employee;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 use App\Models\Employeeinformation as empInformation;
@@ -29,10 +30,18 @@ class Employeeinformation extends Component
     public $empApprovedClearancePrevEmployer;
     public $otherDocuments;
     
+    public $departmentName;
+    
+    public $collegeName;
     public function mount(){
         $employee_id = auth()->user()->employee_id;
         $employee = Employee::where('employee_id', $employee_id)->first(); // Replace $employee_id with the actual employee ID
         $this->employeeImage = $employee->emp_image;
+        $departmentName = DB::table('departments')->where('department_id', $employee->department_id[0])->value('department_name');
+        $collegeName = DB::table('colleges')->where('college_id', $employee->college_id[0])->value('college_name');
+
+        $this->departmentName = $departmentName;
+        $this->collegeName = $collegeName;
         $this->employeeRecord = Employee::where('employee_id', $employee_id)->first();
         $this->empDiploma = json_decode($employee->emp_diploma, true) ?? [];
         $this->emp_tor = json_decode($employee->emp_tor, true) ?? [];
@@ -77,7 +86,6 @@ class Employeeinformation extends Component
             $file = "emp_tor";
             $imageFile = Employee::where('employee_id', $employee_id)->first();
             $imageFile = json_decode($imageFile->$file, true); 
-            dd($imageFile);
             $fileName = "tor.jpg";
             return Response::make(base64_decode($imageFile[$index]), 200, [
                 'Content-Type' => 'image/jpeg',

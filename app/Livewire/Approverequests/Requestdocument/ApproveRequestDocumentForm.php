@@ -218,7 +218,7 @@ class ApproveRequestDocumentForm extends Component
             } else {
                 $this->validate([$propertyName => $validationRule]);
                 if($this->$propertyName){
-                $targetUser->notify(new SignedNotifcation($loggedInUser->employee_id, 'Request Document', 'Signed', $documentrequestdata->id, $signedIn, $documentrequestdata->$propertyName != null ? 1 : 0));
+                $targetUser->notify(new SignedNotifcation($loggedInUser->employee_id, 'Request Document', 'Signed', $documentrequestdata->reference_num, $signedIn, $documentrequestdata->$propertyName != null ? 1 : 0));
                 }
                 $file = file_get_contents($this->$propertyName->getRealPath());
                 $documentrequestdata->$propertyName   = base64_encode($file);

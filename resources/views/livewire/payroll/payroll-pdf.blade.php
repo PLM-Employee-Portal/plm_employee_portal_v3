@@ -99,7 +99,7 @@
   
     <div style="text-align: right; margin-right:100px;  vertical-align: top; ">
         <div style="display: inline-block; margin-right:15px">
-            <img src="data:image/gif;base64,{{ base64_encode($sign) }}" alt="Image Description" width="90" height="110" style=" ">
+            {{-- <img src="data:image/gif;base64,{{ base64_encode($sign) }}" alt="Image Description" width="90" height="110" style=" "> --}}
         </div>
             <p style="margin: 5px;">Herminia D. Nuñez <br> <span style="margin-right:45px">Chief</span></p>
     </div>

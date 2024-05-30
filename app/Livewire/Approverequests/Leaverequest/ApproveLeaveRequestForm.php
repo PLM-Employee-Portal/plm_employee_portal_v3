@@ -238,12 +238,13 @@ class ApproveLeaveRequestForm extends Component
                 }
                 else {
                     // If it's an uploaded file, store it and apply validation rules
+                    $this->validate([$propertyName => $validationRule[0]]);
                     if($this->$propertyName){
                         $name_of_verdict = $validationRule[1];
                         $targetUser->notify(new SignedNotifcation($loggedInUser->employee_id, 'Leave Request', 'Signed', $leaveRequest->reference_num, $signedIn, $this->$name_of_verdict == 'Approved' ? 1 : 0));
                     }
                     $leaveRequest->$propertyName = file_get_contents($this->$propertyName->getRealPath());
-                    $this->validate([$propertyName => $validationRule[0]]);
+                    $leaveRequest->$propertyName = base64_encode($leaveRequest->$propertyName);
                 }
                 
         }

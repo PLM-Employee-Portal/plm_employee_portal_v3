@@ -55,8 +55,8 @@
                             <figure class="items-center justify-center pl-8 mt-6 text-left bg-white border-b border-gray-800 md:rounded-es-lg md:border-b-0  dark:bg-gray-800 dark:border-gray-700">
                                 <blockquote class="max-w-2xl mx-auto mb-4 text-gray-900 lg:mb-8  dark:text-gray-400">
                                     <h3 class="text-xl font-semibold text-blue-700 dark:text-white">Designation: </h3>
-                                    <p class="my-4"><b>Department Name:</b> {{$employeeRecord->department_name}}</p>
-                                    <p class="my-4"><b>Department Head:</b> {{$employeeRecord->department_head}}</p>
+                                    <p class="my-4"><b>Department Name:</b> {{$departmentName}}</p>
+                                    <p class="my-4"><b>Department Head:</b> {{$collegeName}}</p>
                                     <p class="my-4"><b>Faculty/Non Faculty:</b> {{$employeeRecord->faculty_or_not ? 'Faculty' : 'Not a Faculty' }}</p>
                                     <p class="my-4"><b>Employee ID:</b> {{$employeeRecord->employee_id}} </p>
                                 </blockquote>

@@ -637,7 +637,7 @@
                             <div id="emp_cert_of_trainings_seminars_container"
                                 class="grid grid-cols-1  p-4 gap-4 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 ">
                                 <label for="emp_cert_of_trainings_seminars"
-                                    class="block text-sm font-medium text-gray-900 dark:text-white">3. Certificate of Trainings and Seminars<span class="text-red-600">*</span></label>
+                                    class="block text-sm font-medium text-gray-900 dark:text-white">3. Certificate of Trainings and Seminars</label>
                                 <div class="grid grid-cols-1   w-full">
                                 @if ($emp_cert_of_trainings_seminars)
                                     @foreach ($emp_cert_of_trainings_seminars as $index => $item)
@@ -948,7 +948,7 @@
                         <div id="emp_auth_copy_of_prc_board_rating_container"
                             class="grid grid-cols-1  p-4 gap-4 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 ">
                             <label for="emp_auth_copy_of_prc_board_rating"
-                                class="block text-sm font-medium text-gray-900 dark:text-white">5. Authenticated Copy of PRC Board Rating<span class="text-red-600">*</span></label>
+                                class="block text-sm font-medium text-gray-900 dark:text-white">5. Authenticated Copy of PRC Board Rating</label>
                             <div class="grid grid-cols-1   w-full">
                             @if ($emp_auth_copy_of_prc_board_rating)
                                 @foreach ($emp_auth_copy_of_prc_board_rating as $index => $item)
@@ -1571,7 +1571,7 @@
                         <div id="emp_psa_marriage_certif_container"
                             class="grid grid-cols-1  p-4 gap-4 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 ">
                             <label for="emp_psa_marriage_certif"
-                                class="block text-sm font-medium text-gray-900 dark:text-white">9. PSA Marriage Certificate<span class="text-red-600">*</span></label>
+                                class="block text-sm font-medium text-gray-900 dark:text-white">9. PSA Marriage Certificate</label>
                             <div class="grid grid-cols-1   w-full">
                             @if ($emp_psa_marriage_certif)
                                 @foreach ($emp_psa_marriage_certif as $index => $item)
@@ -1725,7 +1725,7 @@
                         <div id="emp_service_record_from_other_govt_agency_container"
                             class="grid grid-cols-1  p-4 gap-4 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 ">
                             <label for="emp_service_record_from_other_govt_agency"
-                                class="block text-sm font-medium text-gray-900 dark:text-white">10. Service Record From Other Government Agency<span class="text-red-600">*</span></label>
+                                class="block text-sm font-medium text-gray-900 dark:text-white">10. Service Record From Other Government Agency</label>
                             <div class="grid grid-cols-1   w-full">
                             @if ($emp_service_record_from_other_govt_agency)
                                 @foreach ($emp_service_record_from_other_govt_agency as $index => $item)
@@ -1882,7 +1882,7 @@
                         <div id="emp_approved_clearance_prev_employer_container"
                             class="grid grid-cols-1  p-4 gap-4 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 ">
                             <label for="emp_approved_clearance_prev_employer"
-                                class="block text-sm font-medium text-gray-900 dark:text-white">11. Approved Clearance from Previous Employer<span class="text-red-600">*</span></label>
+                                class="block text-sm font-medium text-gray-900 dark:text-white">11. Approved Clearance from Previous Employer</label>
                             <div class="grid grid-cols-1   w-full">
                             @if ($emp_approved_clearance_prev_employer)
                                 @foreach ($emp_approved_clearance_prev_employer as $index => $item)
