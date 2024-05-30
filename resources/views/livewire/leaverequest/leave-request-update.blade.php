@@ -307,7 +307,7 @@
                                                         @php
                                                             $signature = $this->getApplicantSignature();
                                                         @endphp
-                                                        <img src="data:image/gif;base64,{{ base64_encode($signature) }}" alt="Image Description" class="w-full h-full object-contain"> 
+                                                        <img src="data:image/gif;base64,{{ $signature }}" alt="Image Description" class="w-full h-full object-contain"> 
                                                     @else
                                                         <img src="{{ $commutation_signature_of_appli->temporaryUrl() }}" class="w-full h-full object-contain" alt="Uploaded Image">
                                                     @endif

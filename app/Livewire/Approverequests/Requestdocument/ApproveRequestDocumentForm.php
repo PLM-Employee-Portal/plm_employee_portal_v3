@@ -74,7 +74,6 @@ class ApproveRequestDocumentForm extends Component
         $this->employee_type = $employeeRecord->employee_type;
 
         $this->date_of_filling = $documentrequestdata->date_of_filling;
-        $this->ref_number = $documentrequestdata->ref_number;
         $this->status = $documentrequestdata->status;
         $this->requests = $documentrequestdata->requests;
         $this->milc_description = $documentrequestdata->milc_description;
@@ -100,16 +99,16 @@ class ApproveRequestDocumentForm extends Component
             }
         }
 
-        // $this->signature_requesting_party = $documentrequestdata->signature_requesting_party;
-        // $this->certificate_of_employment = $documentrequestdata->certificate_of_employment;
-        // $this->certificate_of_employment_with_compensation = $documentrequestdata->certificate_of_employment_with_compensation;
-        // $this->certificate_of_employment = $documentrequestdata->certificate_of_employment;
-        // $this->certificate_of_employment_with_compensation = $documentrequestdata->certificate_of_employment_with_compensation;
-        // $this->service_record = $documentrequestdata->service_record;
-        // $this->part_time_teaching_services = $documentrequestdata->part_time_teaching_services;
-        // $this->milc_certification = $documentrequestdata->milc_certification;
-        // $this->certificate_of_no_pending_administrative_case = $documentrequestdata->certificate_of_no_pending_administrative_case;
-        // $this->other_documents = $documentrequestdata->other_documents ?? [];
+        $this->signature_requesting_party = $documentrequestdata->signature_requesting_party;
+        $this->certificate_of_employment = $documentrequestdata->certificate_of_employment;
+        $this->certificate_of_employment_with_compensation = $documentrequestdata->certificate_of_employment_with_compensation;
+        $this->certificate_of_employment = $documentrequestdata->certificate_of_employment;
+        $this->certificate_of_employment_with_compensation = $documentrequestdata->certificate_of_employment_with_compensation;
+        $this->service_record = $documentrequestdata->service_record;
+        $this->part_time_teaching_services = $documentrequestdata->part_time_teaching_services;
+        $this->milc_certification = $documentrequestdata->milc_certification;
+        $this->certificate_of_no_pending_administrative_case = $documentrequestdata->certificate_of_no_pending_administrative_case;
+        $this->other_documents = $documentrequestdata->other_documents ?? [];
 
     }
 
@@ -128,30 +127,44 @@ class ApproveRequestDocumentForm extends Component
     }
     
     public function getCertificateOfEmployment(){
-        return Storage::disk('local')->get($this->certificate_of_employment);
+        $imageFile = $this->editDocumentRequest($this->index);
+        return $imageFile->certificate_of_employment;
+        // return Storage::disk('local')->get($this->certificate_of_employment);
     }
 
     public function getCertificateOfEmploymentWithCompensation(){
-        return Storage::disk('local')->get($this->certificate_of_employment_with_compensation);
+        $imageFile = $this->editDocumentRequest($this->index);
+        return $imageFile->certificate_of_employment_with_compensation;
+        // return Storage::disk('local')->get($this->certificate_of_employment_with_compensation);
     }
 
     public function getServiceRecord(){
-        return Storage::disk('local')->get($this->service_record);
+        $imageFile = $this->editDocumentRequest($this->index);
+        return $imageFile->service_record;
+        // return Storage::disk('local')->get($this->service_record);
     }
 
     public function getPartTimeTeachingServices(){
-        return Storage::disk('local')->get($this->part_time_teaching_services);
+        $imageFile = $this->editDocumentRequest($this->index);
+        return $imageFile->part_time_teaching_services;
+        // return Storage::disk('local')->get($this->part_time_teaching_services);
     }
 
     public function getMilcCertification(){
-        return Storage::disk('local')->get($this->milc_certification);
+        $imageFile = $this->editDocumentRequest($this->index);
+        return $imageFile->milc_certification;
+        // return Storage::disk('local')->get($this->milc_certification);
     }
 
     public function getCertificateNoPending(){
-        return Storage::disk('local')->get($this->certificate_of_no_pending_administrative_case);
+        $imageFile = $this->editDocumentRequest($this->index);
+        return $imageFile->certificate_of_no_pending_administrative_case;
+        // return Storage::disk('local')->get($this->certificate_of_no_pending_administrative_case);
     }
 
     // public function getOtherDocuments(){
+            // $imageFile = $this->editDocumentRequest($this->index);
+            // return $imageFile->certificate_of_employment;
     //     return Storage::disk('local')->get($this->other_documents);
     // }
 
@@ -180,7 +193,7 @@ class ApproveRequestDocumentForm extends Component
 
         $loggedInUser = auth()->user();
 
-        $documentrequestdata = Documentrequest::findOrFail($this->index);
+        $documentrequestdata = Documentrequest::where('reference_num', $this->index)->first();
 
         $Names = Employee::select('first_name', 'middle_name', 'last_name')
             ->where('employee_id', $loggedInUser->employee_id)
@@ -201,16 +214,19 @@ class ApproveRequestDocumentForm extends Component
         
         foreach ($properties as $propertyName => $validationRule) {
             if (is_string($this->$propertyName)) {
-                $documentrequestdata->$propertyName = $this->$propertyName;
+                // $documentrequestdata->$propertyName = $this->$propertyName;
             } else {
                 $this->validate([$propertyName => $validationRule]);
                 if($this->$propertyName){
                 $targetUser->notify(new SignedNotifcation($loggedInUser->employee_id, 'Request Document', 'Signed', $documentrequestdata->id, $signedIn, $documentrequestdata->$propertyName != null ? 1 : 0));
                 }
-                $documentrequestdata->$propertyName = $this->$propertyName ? $this->$propertyName->store('photos/documentrequest/' . $propertyName, 'local') : '';
+                $file = file_get_contents($this->$propertyName->getRealPath());
+                $documentrequestdata->$propertyName   = base64_encode($file);
+                // $documentrequestdata->$propertyName = $this->$propertyName ? $this->$propertyName->store('photos/documentrequest/' . $propertyName, 'local') : '';
             }
         }
 
+      
         $fileFields = [
             'other_documents' => 'nullable|mimes:jpg,png,pdf|extensions:jpg,png',
         ];
@@ -266,9 +282,22 @@ class ApproveRequestDocumentForm extends Component
             $documentrequestdata->status = "Pending";
         }
 
-        $this->js("alert('Document Request has been submitted!')"); 
+        $updateData = [
+            // 'signature_requesting_party',
+            'certificate_of_employment' => $documentrequestdata->certificate_of_employment,
+            'certificate_of_employment_with_compensation' => $documentrequestdata->certificate_of_employment_with_compensation,
+            'service_record' => $documentrequestdata->service_record,
+            'part_time_teaching_services' => $documentrequestdata->part_time_teaching_services,
+            'milc_certification' => $documentrequestdata->milc_certification,
+            'certificate_of_no_pending_administrative_case' => $documentrequestdata->certificate_of_no_pending_administrative_case,
+        ];
+
+        Documentrequest::where('reference_num', $this->index)
+                               ->update($updateData);
+
+        $this->js("alert('Document Request has been Updated!')"); 
  
-        $documentrequestdata->update();
+        // $documentrequestdata->update();
 
         return redirect()->to(route('ApproveRequestDocumentTable'));
 

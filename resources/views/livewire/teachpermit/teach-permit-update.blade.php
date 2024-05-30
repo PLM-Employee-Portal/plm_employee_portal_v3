@@ -410,7 +410,7 @@
                                                         @php
                                                             $applicant_signature = $this->getApplicantSignature();
                                                         @endphp
-                                                        <img src="data:image/gif;base64,{{ base64_encode($applicant_signature) }}" alt="Image Description" class="w-full h-full object-contain"> 
+                                                        <img src="data:image/gif;base64,{{ $applicant_signature }}" alt="Image Description" class="w-full h-full object-contain"> 
                                                     @else
                                                         <img src="{{ $applicant_signature->temporaryUrl() }}" class="w-full h-full object-contain" alt="Uploaded Image">
                                                     @endif

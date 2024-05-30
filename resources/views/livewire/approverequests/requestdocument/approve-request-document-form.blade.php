@@ -40,7 +40,8 @@
                             <div class="grid grid-cols-2 gap-4 min-[1000px]:grid-cols-2  col-span-3 p-6 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700">
                                 <div class="w-full">
                                     <h2><b>Reference Number</b></h2>
-                                    <input type="text" wire:model="ref_number" 
+                                  
+                                    <input type="number" value="{{$ref_number}}" 
                                         class="bg-gray-50 border mt-4 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                          required disabled>
                                 </div>
@@ -200,7 +201,7 @@
                                                         @php
                                                             $signature_requesting_party = $this->getApplicantSignature();
                                                         @endphp
-                                                        <img src="data:image/gif;base64,{{ base64_encode($signature_requesting_party) }}" alt="Image Description" class="w-full h-full object-contain"> 
+                                                        <img src="data:image/gif;base64,{{ $signature_requesting_party }}" alt="Image Description" class="w-full h-full object-contain"> 
                                                     @else
                                                         <img src="{{ $signature_requesting_party->temporaryUrl() }}" class="w-full h-full object-contain" alt="Uploaded Image">
                                                     @endif
@@ -251,12 +252,12 @@
                                                         @php
                                                             $certificate_of_employment = $this->getCertificateOfEmployment();
                                                         @endphp
-                                                        <img src="data:image/gif;base64,{{ base64_encode($certificate_of_employment) }}" alt="Image Description" class="w-full h-full object-contain"> 
+                                                        <img src="data:image/gif;base64,{{ $certificate_of_employment }}" alt="Image Description" class="w-full h-full object-contain"> 
                                                     @elseif(is_string($certificate_of_employment) == True)
                                                         @php
                                                             $certificate_of_employment = $this->getCertificateOfEmployment();
                                                         @endphp
-                                                        <img src="data:image/gif;base64,{{ base64_encode($certificate_of_employment) }}" alt="Image Description" class="w-full h-full object-contain"> 
+                                                        <img src="data:image/gif;base64,{{ $certificate_of_employment }}" alt="Image Description" class="w-full h-full object-contain"> 
                                                     @else
                                                         <img src="{{ $certificate_of_employment->temporaryUrl() }}" class="w-full h-full object-contain" alt="Uploaded File">
                                                     @endif
@@ -303,7 +304,7 @@
                                                             @php
                                                                 $certificate_of_employment_with_compensation = $this->getCertificateOfEmploymentWithCompensation();
                                                             @endphp
-                                                            <img src="data:image/gif;base64,{{ base64_encode($certificate_of_employment_with_compensation) }}" alt="Image Description" class="w-full h-full object-contain"> 
+                                                            <img src="data:image/gif;base64,{{ $certificate_of_employment_with_compensation }}" alt="Image Description" class="w-full h-full object-contain"> 
                                                         @else
                                                             <img src="{{ $certificate_of_employment_with_compensation->temporaryUrl() }}" class="w-full h-full object-contain" alt="Uploaded File">
                                                         @endif
@@ -350,7 +351,7 @@
                                                     @php
                                                         $service_record = $this->getServiceRecord();
                                                     @endphp
-                                                    <img src="data:image/gif;base64,{{ base64_encode($service_record) }}" alt="Image Description" class="w-full h-full object-contain"> 
+                                                    <img src="data:image/gif;base64,{{ $service_record }}" alt="Image Description" class="w-full h-full object-contain"> 
                                                 @elseif(str_ends_with($service_record, 'pdf'))
                                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 17v-5h1.5a1.5 1.5 0 1 1 0 3H5m12 2v-5h2m-2 3h2M5 10V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1v6M5 19v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1M10 3v4a1 1 0 0 1-1 1H5m6 4v5h1.375A1.627 1.627 0 0 0 14 15.375v-1.75A1.627 1.627 0 0 0 12.375 12H11Z"/>
@@ -399,7 +400,7 @@
                                                 @php
                                                     $part_time_teaching_services = $this->getPartTimeTeachingServices();
                                                 @endphp
-                                                <img src="data:image/gif;base64,{{ base64_encode($part_time_teaching_services) }}" alt="Image Description" class="w-full h-full object-contain"> 
+                                                <img src="data:image/gif;base64,{{ $part_time_teaching_services }}" alt="Image Description" class="w-full h-full object-contain"> 
                                             @elseif(str_ends_with($part_time_teaching_services, 'pdf'))
                                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 17v-5h1.5a1.5 1.5 0 1 1 0 3H5m12 2v-5h2m-2 3h2M5 10V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1v6M5 19v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1M10 3v4a1 1 0 0 1-1 1H5m6 4v5h1.375A1.627 1.627 0 0 0 14 15.375v-1.75A1.627 1.627 0 0 0 12.375 12H11Z"/>
@@ -449,7 +450,7 @@
                                                 @php
                                                     $milc_certification = $this->getMilcCertification();
                                                 @endphp
-                                                <img src="data:image/gif;base64,{{ base64_encode($milc_certification) }}" alt="Image Description" class="w-full h-full object-contain"> 
+                                                <img src="data:image/gif;base64,{{ $milc_certification }}" alt="Image Description" class="w-full h-full object-contain"> 
                                             @elseif(str_ends_with($milc_certification, 'pdf'))
                                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 17v-5h1.5a1.5 1.5 0 1 1 0 3H5m12 2v-5h2m-2 3h2M5 10V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1v6M5 19v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1M10 3v4a1 1 0 0 1-1 1H5m6 4v5h1.375A1.627 1.627 0 0 0 14 15.375v-1.75A1.627 1.627 0 0 0 12.375 12H11Z"/>
@@ -499,7 +500,7 @@
                                                     @php
                                                         $certificate_of_no_pending_administrative_case = $this->getCertificateNoPending();
                                                     @endphp
-                                                    <img src="data:image/gif;base64,{{ base64_encode($certificate_of_no_pending_administrative_case) }}" alt="Image Description" class="w-full h-full object-contain"> 
+                                                    <img src="data:image/gif;base64,{{ $certificate_of_no_pending_administrative_case }}" alt="Image Description" class="w-full h-full object-contain"> 
                                                 @elseif(str_ends_with($certificate_of_no_pending_administrative_case, 'pdf'))
                                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 17v-5h1.5a1.5 1.5 0 1 1 0 3H5m12 2v-5h2m-2 3h2M5 10V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1v6M5 19v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1M10 3v4a1 1 0 0 1-1 1H5m6 4v5h1.375A1.627 1.627 0 0 0 14 15.375v-1.75A1.627 1.627 0 0 0 12.375 12H11Z"/>
@@ -568,7 +569,7 @@
                                                                  d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                                                          </svg>
                                                      </button>
-                                                     <img src="data:image/gif;base64,{{ base64_encode($image) }}"
+                                                     <img src="data:image/gif;base64,{{ $image }}"
                                                          alt="Image Description"
                                                          class="w-full h-full object-contain p-1">
                                                      <input id="other_documents_{{ $index }}" type="file" class="hidden"
@@ -705,7 +706,7 @@
                                                     @php
                                                         $others = $this->getOtherDocuments();
                                                     @endphp
-                                                    <img src="data:image/gif;base64,{{ base64_encode($others) }}" alt="Image Description" class="w-full h-full object-contain"> 
+                                                    <img src="data:image/gif;base64,{{ $others }}" alt="Image Description" class="w-full h-full object-contain"> 
                                                 @elseif(str_ends_with($others, 'pdf'))
                                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 17v-5h1.5a1.5 1.5 0 1 1 0 3H5m12 2v-5h2m-2 3h2M5 10V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1v6M5 19v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1M10 3v4a1 1 0 0 1-1 1H5m6 4v5h1.375A1.627 1.627 0 0 0 14 15.375v-1.75A1.627 1.627 0 0 0 12.375 12H11Z"/>
