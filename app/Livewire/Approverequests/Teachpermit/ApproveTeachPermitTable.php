@@ -62,14 +62,17 @@ class ApproveTeachPermitTable extends Component
         }
 
         // Check if condition for department head is true
+        // if($loggedInEmployeeData->role_id == 0){
+        //     // $teachPermitData = Teachpermit::paginate(10);
+        // }
         if ($college_head_id != "Denied" && $dept_head_id != "Denied"){
-            $teachPermitData = Teachpermit::join('employees', 'employees.employee_id', 'teachpermitss.employee_id')
+            $teachPermitData = Teachpermit::join('employees', 'employees.employee_id', 'teachpermits.employee_id')
                     ->where(function ($query) use ($collegeDeanId, $departmentHeadId) {
                         $query->whereJsonContains('employees.department_id', $departmentHeadId)
                             ->orwhereJsonContains('employees.college_id',  $collegeDeanId);
                     })
-                    ->select('teachpermits.*') // Select only documentrequest columns
-                    ->distinct() // Ensure unique records
+                    ->select('teachpermits.*') 
+                    ->distinct() 
                     ->orderBy('created_at', 'desc');
         }
         else if ($dept_head_id != "Denied") {
@@ -77,30 +80,29 @@ class ApproveTeachPermitTable extends Component
                 ->where(function ($query) use ($departmentHeadId) {
                     $query->whereJsonContains('employees.department_id', $departmentHeadId);
                 })
-                ->select('teachpermits.*') // Select only Teachpermit columns
-                ->distinct() // Ensure unique records
+                ->select('teachpermits.*') 
+                ->distinct() 
                 ->orderBy('created_at', 'desc');
         }
-
         // Check if condition for college dean is true
         else if ($college_head_id != "Denied") {
             $teachPermitData = Teachpermit::join('employees', 'employees.employee_id', 'teachpermits.employee_id')
                 ->where(function ($query) use ($collegeDeanId) {
                     $query->whereJsonContains('employees.college_id',  $collegeDeanId);
                 })
-                ->select('teachpermits.*') // Select only Teachpermit columns
-                ->distinct() // Ensure unique records
+                ->select('teachpermits.*')
+                ->distinct()
                 ->orderBy('created_at', 'desc');
         }
-        // else if ($loggedInUser->is_admin == 1) {
-        //     $teachPermitData = Teachpermit::orderBy('created_at', 'desc');
-        // } 
+        else if ($loggedInUser->role_id == 0) {
+            $teachPermitData = Teachpermit::orderBy('created_at', 'desc');
+        } 
         else{
             abort(404);
         }
 
-        $loggedInUser = auth()->user();
-        $teachPermitData = Teachpermit::where('employee_id', $loggedInUser->employee_id);
+        // $loggedInUser = auth()->user();
+        // $teachPermitData = Teachpermit::where('employee_id', $loggedInUser->employee_id);
         switch ($this->date_filter) {
             case '1':
                 $teachPermitData->whereDate('date_of_filling',  Carbon::today());

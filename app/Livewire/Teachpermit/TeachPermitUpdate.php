@@ -132,21 +132,21 @@ class TeachPermitUpdate extends Component
         return $form->applicant_signature;
     }
 
-    public function getHeadSignature(){
-        return Storage::disk('local')->get($this->signature_of_head_office);
-    }
+    // public function getHeadSignature(){
+    //     return Storage::disk('local')->get($this->signature_of_head_office);
+    // }
 
-    public function getHumanResourceSignature(){
-        return Storage::disk('local')->get($this->signature_of_human_resource);
-    }
+    // public function getHumanResourceSignature(){
+    //     return Storage::disk('local')->get($this->signature_of_human_resource);
+    // }
 
-    public function getVpAcademicAffairsSignature(){
-        return Storage::disk('local')->get($this->signature_of_vp_for_academic_affair);
-    }
+    // public function getVpAcademicAffairsSignature(){
+    //     return Storage::disk('local')->get($this->signature_of_vp_for_academic_affair);
+    // }
 
-    public function getPresidentSignature(){
-        return Storage::disk('local')->get($this->signature_of_university_president);
-    }
+    // public function getPresidentSignature(){
+    //     return Storage::disk('local')->get($this->signature_of_university_president);
+    // }
   
 
     public function addSubjectLoad(){

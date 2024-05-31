@@ -19,10 +19,10 @@
         </li>
         <li aria-current="page">
             <div class="flex items-center">
-            <svg class="w-3 h-3 text-gray-400 mx-1 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <svg class="w-3 h-3 text-gray-900 mx-1 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
             </svg>
-            <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">Approve</span>
+            <span class="ms-1 text-sm font-semibold text-gray-900 md:ms-2 dark:text-gray-400">Approve</span>
             </div>
         </li>
         </ol>
@@ -330,7 +330,7 @@
                                                         @php
                                                             $applicant_signature = $this->getApplicantSignature();
                                                         @endphp
-                                                        <img src="data:image/gif;base64,{{ base64_encode($applicant_signature) }}" alt="Image Description" class="w-full h-full object-contain"> 
+                                                        <img src="data:image/gif;base64,{{ $applicant_signature }}" alt="Image Description" class="w-full h-full object-contain"> 
                                                     @else
                                                         <img src="{{ $applicant_signature->temporaryUrl() }}" class="w-full h-full object-contain" alt="Uploaded Image">
                                                     @endif
@@ -413,7 +413,7 @@
                                                         @php
                                                             $signature_of_head_office = $this->getHeadSignature();
                                                         @endphp
-                                                        <img src="data:image/gif;base64,{{ base64_encode($signature_of_head_office) }}" alt="Image Description" class="w-full h-full object-contain"> 
+                                                        <img src="data:image/gif;base64,{{ $signature_of_head_office }}" alt="Image Description" class="w-full h-full object-contain"> 
                                                     @else
                                                         <img src="{{ $signature_of_head_office->temporaryUrl() }}" class="w-full h-full object-contain" alt="Uploaded Image">
                                                     @endif
@@ -495,7 +495,7 @@
                                                         @php
                                                             $signature_of_human_resource = $this->getHumanResourceSignature();
                                                         @endphp
-                                                        <img src="data:image/gif;base64,{{ base64_encode($signature_of_human_resource) }}" alt="Image Description" class="w-full h-full object-contain"> 
+                                                        <img src="data:image/gif;base64,{{ $signature_of_human_resource }}" alt="Image Description" class="w-full h-full object-contain"> 
                                                     @else
                                                         <img src="{{ $signature_of_human_resource->temporaryUrl() }}" class="w-full h-full object-contain" alt="Uploaded Image">
                                                     @endif
@@ -576,7 +576,7 @@
                                                         @php
                                                             $signature_of_vp_for_academic_affair = $this->getVpAcademicAffairsSignature();
                                                         @endphp
-                                                        <img src="data:image/gif;base64,{{ base64_encode($signature_of_vp_for_academic_affair) }}" alt="Image Description" class="w-full h-full object-contain"> 
+                                                        <img src="data:image/gif;base64,{{ $signature_of_vp_for_academic_affair }}" alt="Image Description" class="w-full h-full object-contain"> 
                                                     @else
                                                         <img src="{{ $signature_of_vp_for_academic_affair->temporaryUrl() }}" class="w-full h-full object-contain" alt="Uploaded Image">
                                                     @endif
@@ -658,7 +658,7 @@
                                                         @php
                                                             $signature_of_university_president = $this->getPresidentSignature();
                                                         @endphp
-                                                        <img src="data:image/gif;base64,{{ base64_encode($signature_of_university_president) }}" alt="Image Description" class="w-full h-full object-contain"> 
+                                                        <img src="data:image/gif;base64,{{ $signature_of_university_president }}" alt="Image Description" class="w-full h-full object-contain"> 
                                                     @else
                                                         <img src="{{ $signature_of_university_president->temporaryUrl() }}" class="w-full h-full object-contain" alt="Uploaded Image">
                                                     @endif

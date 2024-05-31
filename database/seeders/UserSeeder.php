@@ -254,7 +254,6 @@ class UserSeeder extends Seeder
 
         $employee->save();
 
-       
         // User::create([
         //     'name'     => 'Don',
         //     'email'    => 'donfelipe@plm.edu.ph',
@@ -269,8 +268,6 @@ class UserSeeder extends Seeder
             'role_id' => 1,
         ]);
 
-      
-
         User::create([
             'email'    => 'employee@plm.edu.ph',
             'password' => bcrypt('secret'),
@@ -284,11 +281,5 @@ class UserSeeder extends Seeder
             'employee_id' => '200000001',
             'role_id' => 0,
         ]);
-
-       
-
-       
-
-       
     }
 }

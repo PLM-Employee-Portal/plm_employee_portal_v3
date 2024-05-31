@@ -59,21 +59,21 @@
                 </div>
 
                 <div class="flex items-center justify-between mt-6">
-                    <div class="flex items-center">
+                    {{-- <div class="flex items-center">
                         <input wire:model.lazy="remember" id="remember" type="checkbox" class="form-checkbox w-4 h-4 text-blue-600 transition duration-150 ease-in-out" />
                         <label for="remember" class="block ml-2 text-sm text-gray-900 leading-5">
                             Remember
                         </label>
-                    </div>
+                    </div> --}}
 
-                    <div class="text-sm leading-5">
+                    {{-- <div class="text-sm leading-5"> --}}
                         {{-- <a href="{{ route('password.request') }}" class="font-medium text-blue-600 hover:text-blue-800 focus:outline-none focus:underline transition ease-in-out duration-150">
                             Forgot your password?
                         </a> --}}
-                        <a href="#" class="font-medium text-blue-600 hover:text-blue-800 focus:outline-none focus:underline transition ease-in-out duration-150">
+                        {{-- <a href="#" class="font-medium text-blue-600 hover:text-blue-800 focus:outline-none focus:underline transition ease-in-out duration-150">
                             Forgot your password?
                         </a>
-                    </div>
+                    </div> --}}
                 </div>
 
                 <div class="mt-6">
