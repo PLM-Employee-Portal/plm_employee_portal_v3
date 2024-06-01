@@ -122,20 +122,15 @@ class TeachPermitForm extends Component
     }
 
     private function generateRefNumber(){
-        // Generate a random number
-         $characters = '0123456789';
-         $randomNumber = '';
-         for ($i = 0; $i < rand(10, 15); $i++) {
-             $randomNumber .= $characters[rand(0, strlen($characters) - 1)];
-         }
- 
-         // Get the current year
-         $currentYear = date('Y');
- 
-         // Concatenate the date and random number
-         $result = $currentYear . $randomNumber;
- 
-         return $result;
+        $today = date('Ymd');
+
+        $randomDigits = '';
+        for ($i = 0; $i < 5; $i++) {
+            $randomDigits .= random_int(0, 9); // More secure random number generation
+        }
+        // Combine the date and random digits
+        $referenceNumber = $today . $randomDigits;
+        return $referenceNumber;
      }
 
 

@@ -14,7 +14,7 @@
             <svg class="w-3 h-3 text-gray-400 mx-1 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
             </svg>
-            <a href="{{route('TeachPermitTable')}}" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Teach Permit</a>
+            <a href="{{route('TeachPermitTable')}}" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Permit to Teach</a>
             </div>
         </li>
         <li aria-current="page">
@@ -27,7 +27,7 @@
         </li>
         </ol>
     </nav> 
-    <h2 class="mb-4 text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-3xl dark:text-white">Create a new Teach Permit</h2>
+    <h2 class="mb-4 text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-3xl dark:text-white">Create a new Permit to Teach Request</h2>
     <section class="bg-white dark:bg-gray-900 pb-24 px-8  rounded-lg">
         <div class=" px-1 mx-auto pt-8">
             <form wire:submit.prevent="submit" method="POST">
@@ -173,7 +173,7 @@
                                     </div>
 
                                     <div class="grid grid-cols-1 gap-4 p-6 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700">
-                                        <h2><b>Teach Permit Description</b></h2>
+                                        <h2><b>Permit to Teach Description</b></h2>
                                         <div>
                                             <label for="name_of_school_description"
                                             class="block mb-2 pt-4 text-sm font-medium  text-gray-900 dark:text-white">Indicate the degree program and school where employee intends to enroll. (Please indicate address and contact numbers if outside the University.) <span class="text-red-600">*</span></label>
@@ -444,7 +444,7 @@
                     </div>
                 </div>
                 <button type="submit"  class="inline-flex items-center float-right px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
-                    Submit Teach Permit
+                    Submit Permit to Teach
             </button>
             </form>
             {{-- <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/js/multi-select-tag.js"></script>

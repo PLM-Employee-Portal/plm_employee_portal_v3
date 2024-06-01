@@ -55,6 +55,8 @@ class LeaveRequestUpdate extends Component
     public $disapprove_reason;
     public $auth_off_sig_c_and_d;
 
+    public $is_faculty;
+
     public $index;
 
 
@@ -70,7 +72,7 @@ class LeaveRequestUpdate extends Component
 
         $this->index = $index;
         
-        $employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_id', 'employee_id', 'current_position', 'salary', 'vacation_credits', 'sick_credits')
+        $employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_id', 'employee_id', 'current_position', 'salary', 'vacation_credits', 'sick_credits', 'is_faculty')
                                     ->where('employee_id', $loggedInUser->employee_id)
                                     ->first();   
 
@@ -84,6 +86,7 @@ class LeaveRequestUpdate extends Component
         $this->department_name = $departmentName;
         $this->current_position = $employeeRecord->current_position;
         $this->salary = $employeeRecord->salary;
+        $this->is_faculty = $employeeRecord->is_faculty;
 
         
         $this->date_of_filling = $leaverequest->date_of_filling;
@@ -152,11 +155,10 @@ class LeaveRequestUpdate extends Component
     protected $rules = [
         'type_of_leave' => 'required|in:Others,Vacation Leave,Mandatory/Forced Leave,Sick Leave,Maternity Leave,Paternity Leave,Special Privilege Leave,Solo Parent Leave,Study Leave,10-Day VAWC Leave,Rehabilitation Privilege,Special Leave Benefits for Women,Special Emergency Leave,Adoption Leave',
         'type_of_leave_others' => 'required_if:type_of_leave,Others|max:100',
-        'type_of_leave_sub_category' => 'required|in:Within the Philippines,Abroad,In Hospital,Out Patient,Special Leave Benefits for Women,Completion of Master\'s degree,BAR/Board Examination Review,Monetization of leave credits,Terminal Leave',
-        'type_of_leave_description' => 'max:500',
+        'type_of_leave_sub_category' => 'nullable|in:Others,Within the Philippines,Abroad,Out Patient,Special Leave Benefits for Women,Completion of Master\'s degree,BAR/Board Examination Review,Monetization of leave credits,Terminal Leave,In Hospital',
+        'type_of_leave_description' => 'required_if:type_of_leave_sub_category,Others|min:10|max:500',
         'inclusive_start_date' => 'required|after_or_equal:date_of_filling|before_or_equal:inclusive_end_date',
         'inclusive_end_date' => 'required|after_or_equal:inclusive_start_date',
-        'num_of_days_work_days_applied' => 'required|lte:available_credits',
         'commutation' => 'required|in:not requested,requested',
         
     ];
@@ -170,12 +172,15 @@ class LeaveRequestUpdate extends Component
 
     public function submit(){
         // dd($this->type_of_leave);
+        // dd($this->type_of_leave_sub_category);
         foreach($this->rules as $rule => $validationRule){
             $this->validate([$rule => $validationRule]);
             $this->resetValidation();
         }   
 
-        $loggedInUser = auth()->user();
+        if (in_array($this->type_of_leave, ['Vacation Leave', 'Mandatory/Forced Leave', 'Sick Leave'])) {
+            $this->validate(['num_of_days_work_days_applied' => 'required|lte:available_credits',]);
+        }
 
         $leaverequestdata = Leaverequest::where('reference_num', $this->index)->first();
         if(!$leaverequestdata){
@@ -191,9 +196,6 @@ class LeaveRequestUpdate extends Component
         }
 
         $updateData = [
-            // 'employee_id' => $loggedInUser->employee_id,
-            // 'status' => "",
-            // 'date_of_filling' => $this->date_of_filling,
             'type_of_leave' => $this->type_of_leave,
             'type_of_leave_others' => $this->type_of_leave_others, 
             'type_of_leave_sub_category' => $this->type_of_leave_sub_category, 

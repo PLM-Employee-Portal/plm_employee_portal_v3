@@ -68,32 +68,27 @@ class RequestDocumentForm extends Component
     }
 
     private function generateRefNumber(){
-       // Generate a random number
-        $characters = '0123456789';
-        $randomNumber = '';
-        for ($i = 0; $i < rand(11, 12); $i++) {
-            $randomNumber .= $characters[rand(0, strlen($characters) - 1)];
+        $today = date('Ymd');
+
+        $randomDigits = '';
+        for ($i = 0; $i < 5; $i++) {
+            $randomDigits .= random_int(0, 9); // More secure random number generation
         }
-
-        // Get the current year
-        $currentYear = date('Y');
-
-        // Concatenate the date and random number
-        $result = $currentYear . $randomNumber;
-
-        return $result;
+        // Combine the date and random digits
+        $referenceNumber = $today . $randomDigits;
+        return $referenceNumber;
     }
 
     protected $rules = [
-        'reference_num' => 'required|min:15|max:16',
+        'reference_num' => 'required|min:13|max:13',
         'requests' => 'required|array|min:1',
-        'requests.*' => 'in:Certificate of Employment,Certificate of Employment with Compensation,Service Record,Part time Teaching Services,MILC Certification,Certificate of No Pending Administrative Case,Others',
+        // 'requests.*' => 'in:Certificate of Employment,Certificate of Employment with Compensation,Service Record,Part time Teaching Services,MILC Certification,Certificate of No Pending Administrative Case,Others',
+        'requests.*' => 'in:Certificate of Employment,Certificate of Employment with Compensation,Service Record,Part time Teaching Services,MILC Certification,Others',
         'purpose' => 'required|min:2|max:1000', 
         'signature_requesting_party' => 'required|mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120'
     ];
 
     public function submit(){
-        
         $properties = [
             'milc_description' => 'MILC Certification',
             'other_request' => 'Others',

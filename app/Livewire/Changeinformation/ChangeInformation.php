@@ -168,9 +168,9 @@ class ChangeInformation extends Component
 
     protected $rules = [
         'phone' => 'required|numeric',
-        'age' => 'required|numeric|min:1|max:120',
+        // 'age' => 'required|numeric|min:1|max:120',
         'gender' => 'required|in:Male,Female,M,F',
-        'birth_date' => 'required|date',
+        // 'birth_date' => 'required|date',
         'personal_email' => 'required|email:rfc,dns',
         'address' => 'required|min:10|max:500',
         'employeeHistory' => 'nullable|array|max:5',
@@ -179,42 +179,42 @@ class ChangeInformation extends Component
         'employeeHistory.*.start_date' => 'required|date|before_or_equal:employeeHistory.*.end_date',
         'employeeHistory.*.end_date' => 'required|date|after_or_equal:employeeHistory.*.start_date',
 
-        'emp_diploma' => 'nullable|array|min:1|max:3',
-        'emp_diploma.*' => 'required',
-        'emp_diploma.*.*' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120',
-        'emp_tor' => 'nullable|array|min:1|max:3',
-        'emp_tor.*' => 'required',
-        'emp_tor.*.*' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120',
-        'emp_cert_of_trainings_seminars' => 'nullable|array|max:3',
-        'emp_cert_of_trainings_seminars.*' => 'required',
-        'emp_cert_of_trainings_seminars.*.*' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120',
-        'emp_auth_copy_of_csc_or_prc' => 'nullable|array|min:1|max:3',
-        'emp_auth_copy_of_csc_or_prc.*' => 'required',
-        'emp_auth_copy_of_csc_or_prc.*.*' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120',
-        'emp_auth_copy_of_prc_board_rating' => 'nullable|array|min:1|max:3',
-        'emp_auth_copy_of_prc_board_rating.*' => 'required',
-        'emp_auth_copy_of_prc_board_rating.*.*' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120',
-        'emp_med_certif' => 'nullable|array|min:1|max:3',
-        'emp_med_certif.*' => 'required',
-        'emp_med_certif.*.*' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120',
-        'emp_nbi_clearance' => 'nullable|array|min:1|max:3',
-        'emp_nbi_clearance.*' => 'required',
-        'emp_nbi_clearance.*.*' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120',
-        'emp_psa_birth_certif' => 'nullable|array|min:1|max:3',
-        'emp_psa_birth_certif.*' => 'required',
-        'emp_psa_birth_certif.*.*' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120',
-        'emp_psa_marriage_certif' => 'nullable|array|min:1|max:3',
-        'emp_psa_marriage_certif.*' => 'required',
-        'emp_psa_marriage_certif.*.*' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120',
-        'emp_service_record_from_other_govt_agency' => 'nullable|array|min:1|max:3',
-        'emp_service_record_from_other_govt_agency.*' => 'required',
-        'emp_service_record_from_other_govt_agency.*.*' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120',
-        'emp_approved_clearance_prev_employer' => 'nullable|array|min:1|max:3',
-        'emp_approved_clearance_prev_employer.*' => 'required',
-        'emp_approved_clearance_prev_employer.*.*' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120',
-        'other_documents' => 'nullable|array|max:5',
-        'other_documents.*' => 'required',
-        'other_documents.*.*' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120',
+        // 'emp_diploma' => 'nullable|array|min:1|max:3',
+        // 'emp_diploma.*' => 'required',
+        // 'emp_diploma.*.*' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120',
+        // 'emp_tor' => 'nullable|array|min:1|max:3',
+        // 'emp_tor.*' => 'required',
+        // 'emp_tor.*.*' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120',
+        // 'emp_cert_of_trainings_seminars' => 'nullable|array|max:3',
+        // 'emp_cert_of_trainings_seminars.*' => 'required',
+        // 'emp_cert_of_trainings_seminars.*.*' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120',
+        // 'emp_auth_copy_of_csc_or_prc' => 'nullable|array|min:1|max:3',
+        // 'emp_auth_copy_of_csc_or_prc.*' => 'required',
+        // 'emp_auth_copy_of_csc_or_prc.*.*' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120',
+        // 'emp_auth_copy_of_prc_board_rating' => 'nullable|array|min:1|max:3',
+        // 'emp_auth_copy_of_prc_board_rating.*' => 'required',
+        // 'emp_auth_copy_of_prc_board_rating.*.*' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120',
+        // 'emp_med_certif' => 'nullable|array|min:1|max:3',
+        // 'emp_med_certif.*' => 'required',
+        // 'emp_med_certif.*.*' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120',
+        // 'emp_nbi_clearance' => 'nullable|array|min:1|max:3',
+        // 'emp_nbi_clearance.*' => 'required',
+        // 'emp_nbi_clearance.*.*' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120',
+        // 'emp_psa_birth_certif' => 'nullable|array|min:1|max:3',
+        // 'emp_psa_birth_certif.*' => 'required',
+        // 'emp_psa_birth_certif.*.*' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120',
+        // 'emp_psa_marriage_certif' => 'nullable|array|min:1|max:3',
+        // 'emp_psa_marriage_certif.*' => 'required',
+        // 'emp_psa_marriage_certif.*.*' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120',
+        // 'emp_service_record_from_other_govt_agency' => 'nullable|array|min:1|max:3',
+        // 'emp_service_record_from_other_govt_agency.*' => 'required',
+        // 'emp_service_record_from_other_govt_agency.*.*' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120',
+        // 'emp_approved_clearance_prev_employer' => 'nullable|array|min:1|max:3',
+        // 'emp_approved_clearance_prev_employer.*' => 'required',
+        // 'emp_approved_clearance_prev_employer.*.*' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120',
+        // 'other_documents' => 'nullable|array|max:5',
+        // 'other_documents.*' => 'required',
+        // 'other_documents.*.*' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120',
         
     ];
 
@@ -225,34 +225,34 @@ class ChangeInformation extends Component
         'employeeHistory.*.end_date' => 'Finished Date',
         'employeeHistory.*.start_date' => 'Start Date',
         'emp_image' => 'Employee Image',
-        'emp_diploma' => 'Employee Diploma',
-        'emp_tor' => 'Employee TOR',
-        'emp_cert_of_trainings_seminars' => 'Employee Certificate of Trainings Seminars',
-        'emp_auth_copy_of_csc_or_prc' => 'Employee Auth Copy of CSC or PRC',
-        'emp_auth_copy_of_prc_board_rating' => 'Employee Auth Copy of PRC Board Rating',
-        'emp_med_certif' => 'Employee Medical Certificate',
-        'emp_nbi_clearance' => 'Employee NBI Clearance',
-        'emp_psa_birth_certif' => 'Employee PSA Birth Certificate',
-        'emp_psa_marriage_certif' => 'Employee PSA Marriage Certificate',
-        'emp_service_record_from_other_govt_agency' => 'Employee Service Record from Other Govt Agency',
-        'emp_approved_clearance_prev_employer' => 'Employee Approved Clearance from Previous Employer',
-        'other_documents' => 'Other Documents'
+        // 'emp_diploma' => 'Employee Diploma',
+        // 'emp_tor' => 'Employee TOR',
+        // 'emp_cert_of_trainings_seminars' => 'Employee Certificate of Trainings Seminars',
+        // 'emp_auth_copy_of_csc_or_prc' => 'Employee Auth Copy of CSC or PRC',
+        // 'emp_auth_copy_of_prc_board_rating' => 'Employee Auth Copy of PRC Board Rating',
+        // 'emp_med_certif' => 'Employee Medical Certificate',
+        // 'emp_nbi_clearance' => 'Employee NBI Clearance',
+        // 'emp_psa_birth_certif' => 'Employee PSA Birth Certificate',
+        // 'emp_psa_marriage_certif' => 'Employee PSA Marriage Certificate',
+        // 'emp_service_record_from_other_govt_agency' => 'Employee Service Record from Other Govt Agency',
+        // 'emp_approved_clearance_prev_employer' => 'Employee Approved Clearance from Previous Employer',
+        // 'other_documents' => 'Other Documents'
     ];
 
-    protected $messages = [
-        'emp_diploma.*' => 'The Employee Diploma must be less than 3',
-        'emp_tor.*' => 'The Employee TOR must be less than 3',
-        'emp_cert_of_trainings_seminars.*' => 'The Employee Certificate of Trainings/Seminars must be less than 3',
-        'emp_auth_copy_of_csc_or_prc.*' => 'The Employee Authorization Copy of CSC or PRC must be less than 3',
-        'emp_auth_copy_of_prc_board_rating.*' => 'The Employee Authorization Copy of PRC Board Rating must be less than 3',
-        'emp_med_certif.*' => 'The Employee Medical Certificate must be less than 3',
-        'emp_nbi_clearance.*' => 'The Employee NBI Clearance must be less than 3',
-        'emp_psa_birth_certif.*' => 'The Employee PSA Birth Certificate must be less than 3',
-        'emp_psa_marriage_certif.*' => 'The Employee PSA Marriage Certificate must be less than 3',
-        'emp_service_record_from_other_govt_agency.*' => 'The Employee Service Record from Other Government Agency must be less than 3',
-        'emp_approved_clearance_prev_employer.*' => 'The Employee Approved Clearance from Previous Employer must be less than 3',
-        'other_documents.*' => 'Other documents must be less than 5'
-    ];
+    // protected $messages = [
+    //     'emp_diploma.*' => 'The Employee Diploma must be less than 3',
+    //     'emp_tor.*' => 'The Employee TOR must be less than 3',
+    //     'emp_cert_of_trainings_seminars.*' => 'The Employee Certificate of Trainings/Seminars must be less than 3',
+    //     'emp_auth_copy_of_csc_or_prc.*' => 'The Employee Authorization Copy of CSC or PRC must be less than 3',
+    //     'emp_auth_copy_of_prc_board_rating.*' => 'The Employee Authorization Copy of PRC Board Rating must be less than 3',
+    //     'emp_med_certif.*' => 'The Employee Medical Certificate must be less than 3',
+    //     'emp_nbi_clearance.*' => 'The Employee NBI Clearance must be less than 3',
+    //     'emp_psa_birth_certif.*' => 'The Employee PSA Birth Certificate must be less than 3',
+    //     'emp_psa_marriage_certif.*' => 'The Employee PSA Marriage Certificate must be less than 3',
+    //     'emp_service_record_from_other_govt_agency.*' => 'The Employee Service Record from Other Government Agency must be less than 3',
+    //     'emp_approved_clearance_prev_employer.*' => 'The Employee Approved Clearance from Previous Employer must be less than 3',
+    //     'other_documents.*' => 'Other documents must be less than 5'
+    // ];
 
     public function submit(){
         foreach($this->rules as $rule => $validationRule){
@@ -292,83 +292,83 @@ class ChangeInformation extends Component
         }
         
 
-        $fileFields = [
-            'emp_diploma',
-            'emp_tor',
-            'emp_cert_of_trainings_seminars',
-            'emp_auth_copy_of_csc_or_prc',
-            'emp_auth_copy_of_prc_board_rating',
-            'emp_med_certif',
-            'emp_nbi_clearance',
-            'emp_psa_birth_certif',
-            'emp_psa_marriage_certif',
-            'emp_service_record_from_other_govt_agency',
-            'emp_approved_clearance_prev_employer',
-            'other_documents'
-        ];
+        // $fileFields = [
+        //     'emp_diploma',
+        //     'emp_tor',
+        //     'emp_cert_of_trainings_seminars',
+        //     'emp_auth_copy_of_csc_or_prc',
+        //     'emp_auth_copy_of_prc_board_rating',
+        //     'emp_med_certif',
+        //     'emp_nbi_clearance',
+        //     'emp_psa_birth_certif',
+        //     'emp_psa_marriage_certif',
+        //     'emp_service_record_from_other_govt_agency',
+        //     'emp_approved_clearance_prev_employer',
+        //     'other_documents'
+        // ];
 
 
         
         
-        foreach ($fileFields as $field) {
-            $fileNames = [];            
-            $ctrField = count($this->$field) - 1 ;
-            $ctr = 0;
-            foreach($this->$field as $index => $item){
-                if(is_string($item)){
-                    $ctr += 1;
-                    // dump($field, $item);
-                    // $fileNames[] = $item;  
-                }
-                else if(is_array($item)){
-                    if (is_null($item)){
-                        dd('test');
-                    }
-                    else{
-                    foreach($item as $file){
-                        if (is_null($file)){
-                            dd('test');
-                        }
-                        else if(is_string($item)){
-                            // $fileNames[] = $file;
-                            $ctr += 1;
-                        }
-                        else{ 
-                            $ctr += 1;
-                            $imageData = file_get_contents($file->getRealPath());
-                            // $itemName = $file->store("photos/changeinformation/$field", 'local');
-                            $fileNames[] = base64_encode($imageData);;
-                            if($employee->$field != null && $ctr <= $ctrField){
-                                Storage::delete($employee->$field[$index]);
-                            }
-                        }
-                    }
-                }
-                }
-                else{
-                    $this->resetValidation();
-                    if (!is_array($item) && !is_string($item)) {
-                        $this->addError($field . '.' . $index, 'The' . $field . 'must be a string or an array.');
-                    }
-                }
-                if($field == "other_documents"){
-                    if($ctr > 5){
-                        $this->validate([$field => [Rule::prohibitedIf(true)]]);
-                    }
-                }
-                if($ctr > 3){
-                    dump($ctr);
-                    // $this->addError("{$field}", "{$field} must be less than or equal to 3.");   
-                    $this->validate([$field => [Rule::prohibitedIf(true)]]);
-                }
+        // foreach ($fileFields as $field) {
+        //     $fileNames = [];            
+        //     $ctrField = count($this->$field) - 1 ;
+        //     $ctr = 0;
+        //     foreach($this->$field as $index => $item){
+        //         if(is_string($item)){
+        //             $ctr += 1;
+        //             // dump($field, $item);
+        //             // $fileNames[] = $item;  
+        //         }
+        //         else if(is_array($item)){
+        //             if (is_null($item)){
+        //                 dd('test');
+        //             }
+        //             else{
+        //             foreach($item as $file){
+        //                 if (is_null($file)){
+        //                     dd('test');
+        //                 }
+        //                 else if(is_string($item)){
+        //                     // $fileNames[] = $file;
+        //                     $ctr += 1;
+        //                 }
+        //                 else{ 
+        //                     $ctr += 1;
+        //                     $imageData = file_get_contents($file->getRealPath());
+        //                     // $itemName = $file->store("photos/changeinformation/$field", 'local');
+        //                     $fileNames[] = base64_encode($imageData);;
+        //                     if($employee->$field != null && $ctr <= $ctrField){
+        //                         Storage::delete($employee->$field[$index]);
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //         }
+        //         else{
+        //             $this->resetValidation();
+        //             if (!is_array($item) && !is_string($item)) {
+        //                 $this->addError($field . '.' . $index, 'The' . $field . 'must be a string or an array.');
+        //             }
+        //         }
+        //         if($field == "other_documents"){
+        //             if($ctr > 5){
+        //                 $this->validate([$field => [Rule::prohibitedIf(true)]]);
+        //             }
+        //         }
+        //         if($ctr > 3){
+        //             dump($ctr);
+        //             // $this->addError("{$field}", "{$field} must be less than or equal to 3.");   
+        //             $this->validate([$field => [Rule::prohibitedIf(true)]]);
+        //         }
 
-            }
+        //     }
 
-            if(count($fileNames) > 0){
-                $employee->$field = json_encode($fileNames, true);        
-                // dd($employee->$field, $fileNames);
-            }
-        }
+        //     if(count($fileNames) > 0){
+        //         $employee->$field = json_encode($fileNames, true);        
+        //         // dd($employee->$field, $fileNames);
+        //     }
+        // }
         
         foreach($this->employeeHistory as $history){
             $jsonEmployeeHistory[] = [

@@ -15,7 +15,7 @@
                     <svg class="w-3 h-3 text-gray-600 mx-1 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                     </svg>
-                    <a href="{{route('TeachPermitTable')}}" class="ms-1 text-sm font-semibold text-gray-900 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Teach Permit</a>
+                    <a href="{{route('TeachPermitTable')}}" class="ms-1 text-sm font-semibold text-gray-900 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Permit to Teach</a>
                     </div>
                 </li>
                 {{-- <li aria-current="page">
@@ -28,11 +28,11 @@
                 </li> --}}
                 </ol>
             </nav>
-            <h2 class="mb-4 text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-3xl dark:text-white">Teach Permit</h2>
+            <h2 class="mb-4 text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-3xl dark:text-white">Permit To Teach</h2>
   
             
             <div class="flex justify-end">
-                <button type="button" onclick="location.href='{{ route('TeachPermitForm') }}'" class="text-white mb-8 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create Teach Permit</button>
+                <button type="button" onclick="location.href='{{ route('TeachPermitForm') }}'" class="text-white mb-8 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create Permit to Teach Request</button>
                 {{-- <button type="button" onclick="location.href='{{ route('ipcrform', ['type' => 'rated']) }}'" class="text-blue-700 border h-10 border-blue-400 hover:text-white hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 me-2 mb-2 dark:text-blue-300 dark:border-blue-300 dark:hover:text-white dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create Rated IPCR</button> --}}
             
             </div>

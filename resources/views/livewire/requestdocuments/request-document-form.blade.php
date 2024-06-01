@@ -102,7 +102,7 @@
                         </div>
                         
                         <div class="grid grid-cols-1 mt-6 col-span-3 p-6 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 ">
-                            <h2><b>Request For<span class="text-red-600">*</span></b></h2>
+                            <h2><b>Request For<span class="text-red-600"> *</span></b></h2>
                             <div class="grid grid-cols-2 gap-4" id="requests_container">
                                 <div class="grid grid-cols-1 gap-4">
                                     <div class="flex items-center mt-4 ">
@@ -117,27 +117,27 @@
                                         <input id="request3" type="checkbox" value="Service Record" wire:model="requests" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="request3" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Service Record</label>
                                     </div>  
-                                    <div class="flex items-center">
+                                    {{-- <div class="flex items-center">
                                         <input id="request4" type="checkbox" value="Part time Teaching Services" wire:model="requests" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="request4" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Part-time Teaching Services</label>
-                                    </div>  
+                                    </div>   --}}
                                 </div>
                                 <div class="grid grid-cols-1 gap-4">
                                     <div class="flex items-center mt-4 ">
+                                        <input id="request4" type="checkbox" value="Part time Teaching Services" wire:model="requests" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="request4" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Part-time Teaching Services</label>
+                                    </div>   
+                                    <div class="flex items-center ">
                                         <input id="request5" type="checkbox" value="MILC Certification" wire:model.live="requests" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="request5" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">MILC Certification</label>
                                     </div>
                                     <div class="flex items-center">
-                                        <input id="request6" type="checkbox" value="Certificate of No Pending Administrative Case" wire:model="requests" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="request" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Certificate of No Pending Administrative Case</label>
-                                    </div>  
-                                    <div class="flex items-center">
                                         <input id="request7" type="checkbox" value="Others" wire:model.live="requests" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="request" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Others</label>
                                     </div>  
-                                    <div class="flex items-center">
+                                    {{-- <div class="flex items-center">
                                         &nbsp;
-                                    </div>  
+                                    </div>   --}}
                                 </div>
                             </div>
                             @error('requests')   

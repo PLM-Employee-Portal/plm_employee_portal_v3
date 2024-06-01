@@ -115,28 +115,23 @@ class LeaveRequestForm extends Component
     }
 
     private function generateRefNumber(){
-        // Generate a random number
-         $characters = '0123456789';
-         $randomNumber = '';
-         for ($i = 0; $i < rand(10, 15); $i++) {
-             $randomNumber .= $characters[rand(0, strlen($characters) - 1)];
-         }
- 
-         // Get the current year
-         $currentYear = date('Y');
- 
-         // Concatenate the date and random number
-         $result = $currentYear . $randomNumber;
- 
-         return $result;
+        $today = date('Ymd');
+
+        $randomDigits = '';
+        for ($i = 0; $i < 5; $i++) {
+            $randomDigits .= random_int(0, 9); // More secure random number generation
+        }
+        // Combine the date and random digits
+        $referenceNumber = $today . $randomDigits;
+        return $referenceNumber;
      }
 
 
     protected $rules = [
         'type_of_leave' => 'required|in:Others,Vacation Leave,Mandatory/Forced Leave,Sick Leave,Maternity Leave,Paternity Leave,Special Privilege Leave,Solo Parent Leave,Study Leave,10-Day VAWC Leave,Rehabilitation Privilege,Special Leave Benefits for Women,Special Emergency Leave,Adoption Leave',
         'type_of_leave_others' => 'required_if:type_of_leave,Others|max:100',
-        'type_of_leave_sub_category' => 'required|in:Within the Philippines,Abroad,Out Patient,Special Leave Benefits for Women,Completion of Master\'s degree,BAR/Board Examination Review,Monetization of leave credits,Terminal Leave,In Hospital',
-        'type_of_leave_description' => 'max:500',
+        'type_of_leave_sub_category' => 'nullable|in:Others,Within the Philippines,Abroad,Out Patient,Special Leave Benefits for Women,Completion of Master\'s degree,BAR/Board Examination Review,Monetization of leave credits,Terminal Leave,In Hospital',
+        'type_of_leave_description' => 'required_if:type_of_leave_sub_category,Others|min:10|max:500',
         'inclusive_start_date' => 'required|after_or_equal:date_of_filling|before_or_equal:inclusive_end_date',
         'inclusive_end_date' => 'required|after_or_equal:inclusive_start_date',
         'num_of_days_work_days_applied' => 'required|lte:available_credits',

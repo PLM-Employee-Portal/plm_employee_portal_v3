@@ -156,24 +156,29 @@
                                     <div class="grid grid-cols-1 w-full col-span-1 gap-4 min-[902px]:grid-cols-2 p-6 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 ">
                                         <div class="w-full col-span-2">
                                             <label id="type_of_leave_sub_category" name="type_of_leave_sub_category" wire:model.live="type_of_leave_sub_category" 
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Leave Type Sub Category<span class="text-red-600">*</span></label>
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Leave Type Sub Category</label>
                                             <select id="type_of_leave_sub_category" name="type_of_leave_sub_category" wire:model.live="type_of_leave_sub_category" 
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                 @if($type_of_leave == "Vacation Leave" || $type_of_leave == "Special Privilege Leave" )
                                                     <option value="Within the Philippines">Within the Philippines</option>
                                                     <option value="Abroad">Abroad</option>
+                                                    <option value="Others" selected>Others</option>
                                                 @elseif($type_of_leave == "Sick Leave")
                                                     <option value="In Hospital">In Hospital</option>
                                                     <option value="Out Patient">Out Patient</option>
+                                                    <option value="Others" selected>Others</option>
                                                 @elseif($type_of_leave == "Special Leave Benefits for Women")
                                                     <option value="Special Leave Benefits for Women">Special Leave Benefits for Women</option>
+                                                    <option value="Others" selected>Others</option>
                                                 @elseif($type_of_leave == "Study Leave")
                                                     <option value="Completion of Master's degree">Completion of Master's degree</option>
                                                     <option value="BAR/Board Examination Review">BAR/Board Examination Review</option>
+                                                    <option value="Others" selected>Others</option>
                                                 @else
-                                                    <option selected>Select an Option</option>
+                                                    <option>Select an Option</option>
                                                     <option value="Monetization of leave credits">Monetization of leave credits</option>
                                                     <option value="Terminal Leave">Terminal Leave</option>
+                                                    <option selected value="Others">Others</option>
                                                 @endif
                                             </select>
                                             @error('type_of_leave_sub_category')   

@@ -359,7 +359,7 @@
             @endif
          
 
-        @if($departmentHeadId == 1 || $collegeDeanId == 1 || $is_admin)
+        @if($departmentHeadId == 1 || $collegeDeanId == 1 || $role_id == 0)
             <li class="bg-white rounded" wire:ignore>
                 <button type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-requests" data-collapse-toggle="dropdown-approverequests">
                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">

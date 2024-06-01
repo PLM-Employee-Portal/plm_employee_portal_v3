@@ -15,7 +15,7 @@
                     <svg class="w-3 h-3 text-gray-600 mx-1 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                     </svg>
-                    <a href="{{route('StudyPermitTable')}}" class="ms-1 text-sm font-semibold text-gray-900 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Approve Teach Permit Requests</a>
+                    <a href="{{route('StudyPermitTable')}}" class="ms-1 text-sm font-semibold text-gray-900 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Approve Permit to Teach Requests</a>
                     </div>
                 </li>
                 {{-- <li aria-current="page">
@@ -28,7 +28,7 @@
                 </li> --}}
                 </ol>
             </nav>
-            <h2 class="mb-4 text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-3xl dark:text-white">Approve Teach Permit Requests</h2>
+            <h2 class="mb-4 text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-3xl dark:text-white">Approve Permit to Teach Requests</h2>
             <br><br>
             
             <div class="overflow-x-auto shadow-md rounded-t-lg bg-white pb-4">

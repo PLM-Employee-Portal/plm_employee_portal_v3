@@ -57,29 +57,29 @@ class ApproveChangeInformationForm extends Component
         $this->first_name = $employee->first_name;
         $this->middle_name = $employee->middle_name;
         $this->last_name = $employee->last_name;
-        $this->age = number_format($employee->age, 0);
+        // $this->age = number_format($employee->age, 0);
         $this->gender = $employee->gender;
         $this->personal_email = $employee->personal_email;
         $this->phone = $employee->phone;
-        $this->birth_date = $employee->birth_date;
+        // $this->birth_date = $employee->birth_date;
         $this->address = $employee->address;
 
 
-        $this->emp_image= $employee->emp_image ;
+        $this->emp_image= $employee->emp_image;
+        // dd($employee->emp_image);
 
-        $this->emp_diploma = $employee->emp_diploma ?? [];
-        $this->emp_TOR = $employee->emp_TOR ?? [];
-        $this->emp_cert_of_trainings_seminars = $employee->emp_cert_of_trainings_seminars ?? [];
-        $this->emp_auth_copy_of_csc_or_prc = $employee->emp_auth_copy_of_csc_or_prc ?? [];
-        $this->emp_auth_copy_of_prc_board_rating = $employee->emp_auth_copy_of_prc_board_rating ?? [];
-        $this->emp_med_certif = $employee->emp_med_certif ?? [];
-        $this->emp_nbi_clearance = $employee->emp_nbi_clearance ?? [];
-        $this->emp_psa_birth_certif = $employee->emp_psa_birth_certif ?? [];
-        $this->emp_psa_marriage_certif = $employee->emp_psa_marriage_certif ?? [];
-        $this->emp_service_record_from_other_govt_agency = $employee->emp_service_record_from_other_govt_agency ?? [];
-        $this->emp_approved_clearance_prev_employer = $employee->emp_approved_clearance_prev_employer ?? [];
-        $this->other_documents = json_decode($employee->other_documents, true) ?? [];
-        // dd($this->other_documents);
+        $this->emp_diploma = $employee->emp_diploma ;
+        $this->emp_TOR = $employee->emp_TOR ;
+        $this->emp_cert_of_trainings_seminars = $employee->emp_cert_of_trainings_seminars ;
+        $this->emp_auth_copy_of_csc_or_prc = $employee->emp_auth_copy_of_csc_or_prc ;
+        $this->emp_auth_copy_of_prc_board_rating = $employee->emp_auth_copy_of_prc_board_rating ;
+        $this->emp_med_certif = $employee->emp_med_certif ;
+        $this->emp_nbi_clearance = $employee->emp_nbi_clearance ;
+        $this->emp_psa_birth_certif = $employee->emp_psa_birth_certif ;
+        $this->emp_psa_marriage_certif = $employee->emp_psa_marriage_certif ;
+        $this->emp_service_record_from_other_govt_agency = $employee->emp_service_record_from_other_govt_agency ;
+        $this->emp_approved_clearance_prev_employer = $employee->emp_approved_clearance_prev_employer ;
+        $this->other_documents = $employee->other_documents;
         if($employee->employee_history != null){
             $this->employeeHistory = json_decode($employee->employee_history, true);
         }
@@ -207,11 +207,11 @@ class ApproveChangeInformationForm extends Component
         $employee->first_name = $this->first_name;
         $employee->middle_name = $this->middle_name;
         $employee->last_name = $this->last_name;
-        $employee->age = $this->age;
+        // $employee->age = $this->age;
         $employee->gender = $this->gender;
         $employee->personal_email = $this->personal_email;
         $employee->phone = $this->phone;
-        $employee->birth_date = $this->birth_date;
+        // $employee->birth_date = $this->birth_date;
         $employee->address = $this->address;
 
         if(is_string($this->emp_image) == True){
@@ -220,46 +220,46 @@ class ApproveChangeInformationForm extends Component
         }
         
 
-        $fileFields = [
-            'emp_diploma',
-            'emp_TOR',
-            'emp_cert_of_trainings_seminars',
-            'emp_auth_copy_of_csc_or_prc',
-            'emp_auth_copy_of_prc_board_rating',
-            'emp_med_certif',
-            'emp_nbi_clearance',
-            'emp_psa_birth_certif',
-            'emp_psa_marriage_certif',
-            'emp_service_record_from_other_govt_agency',
-            'emp_approved_clearance_prev_employer',
-            'other_documents'
-        ];
+        // $fileFields = [
+        //     'emp_diploma',
+        //     'emp_TOR',
+        //     'emp_cert_of_trainings_seminars',
+        //     'emp_auth_copy_of_csc_or_prc',
+        //     'emp_auth_copy_of_prc_board_rating',
+        //     'emp_med_certif',
+        //     'emp_nbi_clearance',
+        //     'emp_psa_birth_certif',
+        //     'emp_psa_marriage_certif',
+        //     'emp_service_record_from_other_govt_agency',
+        //     'emp_approved_clearance_prev_employer',
+        //     'other_documents'
+        // ];
         
         
-        foreach ($fileFields as $field) {
-            $fileNames = [];            
-            $ctrField = count($this->$field) - 1 ;
-            $ctr = 0;
-            foreach($this->$field as $index => $item){
-                $ctr += 1;
-                if(is_null($item)){
-                }
-                else if(is_string($item)){
-                    // $fileNames[] = $item;
-                }
-                else{
-                    $this->resetValidation();
-                    if (!is_array($item) && !is_string($item)) {
-                        $this->addError($field . '.' . $index, 'The' . $field . 'must be a string or an array.');
-                    }
-                }
-            }
-            if(count($fileNames) > 0){
-                $employee->$field = json_encode($fileNames, true);        
-            } else{
+        // foreach ($fileFields as $field) {
+        //     $fileNames = [];            
+        //     $ctrField = count($this->$field) - 1 ;
+        //     $ctr = 0;
+        //     foreach($this->$field as $index => $item){
+        //         $ctr += 1;
+        //         if(is_null($item)){
+        //         }
+        //         else if(is_string($item)){
+        //             // $fileNames[] = $item;
+        //         }
+        //         else{
+        //             $this->resetValidation();
+        //             if (!is_array($item) && !is_string($item)) {
+        //                 $this->addError($field . '.' . $index, 'The' . $field . 'must be a string or an array.');
+        //             }
+        //         }
+        //     }
+        //     if(count($fileNames) > 0){
+        //         $employee->$field = json_encode($fileNames, true);        
+        //     } else{
 
-            }
-        }
+        //     }
+        // }
        
         
         foreach($this->employeeHistory as $history){
