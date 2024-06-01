@@ -35,6 +35,7 @@ return new class extends Migration
             $table->longText('milc_certification')->charset('binary')->nullable();
             $table->longText('certificate_of_no_pending_administrative_case')->charset('binary')->nullable();
             $table->longText('other_documents')->charset('binary')->nullable();
+            $table->longText('request_document_form')->charset('binary')->nullable();
             $table->timestamps();
         });
     }

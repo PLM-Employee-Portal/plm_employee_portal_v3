@@ -24,6 +24,8 @@ class SidebarView extends Component
     public $collegeDeanId;
 
     public $is_admin;
+
+    public $employee_id;
     public function mount(){
         $loggedInUser = auth()->user();
         $this->is_admin = $loggedInUser->is_admin;
@@ -46,6 +48,11 @@ class SidebarView extends Component
                 $this->collegeDeanId = 1;
             }
         }
+
+        $this->role = $loggedInUser->role_id;
+        $this->employee_id = $loggedInUser->employee_id;
+        // dd($this->departmentHeadId, $this->collegeDeanId, $this->role);
+
     }
 
     public function render()

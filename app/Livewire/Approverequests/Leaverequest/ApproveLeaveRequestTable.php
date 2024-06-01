@@ -80,7 +80,6 @@ class ApproveLeaveRequestTable extends Component
                 ->distinct() // Ensure unique records
                 ->orderBy('created_at', 'desc');
         }
-
         // Check if condition for college dean is true
         else if ($college_head_id != "Denied") {
             $leaveRequestData = Leaverequest::join('employees', 'employees.employee_id', 'leaverequests.employee_id')
@@ -91,7 +90,7 @@ class ApproveLeaveRequestTable extends Component
                 ->distinct() // Ensure unique records
                 ->orderBy('created_at', 'desc');
         }
-        else if ($loggedInUser->is_admin == 1) {
+        else if ($loggedInUser->role_id == 1) { // Change to role id of an HR Admin
             $leaveRequestData = Leaverequest::orderBy('created_at', 'desc');
         } 
         else{

@@ -19,6 +19,9 @@ class ApproveChangeInformationTable extends Component
     public function render()
     {
         $loggedInUser = auth()->user();
+        if($loggedInUser->role_id != 1){ // Change to role id of an ICTO admin
+            abort(404);
+        }
         $changeinfoData = ChangeInformation::orderBy('created_at', 'desc');
 
         switch ($this->filter) {

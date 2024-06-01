@@ -130,7 +130,7 @@ class RequestDocumentTable extends Component
 
     public function download($reference_num){
         $leaveRequestData = Documentrequest::where('reference_num', $reference_num)->first();
-        $image = base64_decode($leaveRequestData->signature_requesting_party);
+        $image = base64_decode($leaveRequestData->request_document_form);
         $finfo = new finfo(FILEINFO_MIME_TYPE);
         $contentType = $finfo->buffer($image);
         // dd($contentType);

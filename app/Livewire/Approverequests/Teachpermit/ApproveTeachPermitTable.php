@@ -94,7 +94,7 @@ class ApproveTeachPermitTable extends Component
                 ->distinct()
                 ->orderBy('created_at', 'desc');
         }
-        else if ($loggedInUser->role_id == 0) {
+        else if ($loggedInUser->role_id == 1) { // Change to role id of an HR Admin
             $teachPermitData = Teachpermit::orderBy('created_at', 'desc');
         } 
         else{

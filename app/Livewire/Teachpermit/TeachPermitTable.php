@@ -90,7 +90,7 @@ class TeachPermitTable extends Component
 
     public function download($reference_num){
         $teachpermitData = Teachpermit::where('reference_num', $reference_num)->first();
-        $image = base64_decode($teachpermitData->applicant_signature);
+        $image = base64_decode($teachpermitData->permit_to_teach);
         $finfo = new finfo(FILEINFO_MIME_TYPE);
         $contentType = $finfo->buffer($image);
         switch($contentType){
