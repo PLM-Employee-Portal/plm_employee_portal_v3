@@ -46,7 +46,7 @@ class TeachPermitForm extends Component
 
     public function mount(){
         $loggedInUser = auth()->user();
-        $employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_id', 'college_id', 'current_position', 'employee_type', 'study_available_units' )
+        $employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_id', 'college_id', 'current_position', 'employee_type', 'teach_available_units' )
                                     ->where('employee_id', $loggedInUser->employee_id)
                                     ->first();   
 
