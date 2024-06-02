@@ -57,7 +57,7 @@ class TeachPermitForm extends Component
         $this->department_name = $departmentName;
         $this->current_position = $employeeRecord->current_position;
         $this->employee_type = $employeeRecord->employee_type;
-        $this->study_available_units = $employeeRecord->study_available_units ?? 0;
+        $this->study_available_units = $employeeRecord->teach_available_units ?? 0;
         $dateToday = Carbon::now()->toDateString();
         $this->date = $dateToday;
         $this->start_period_cover = $dateToday;

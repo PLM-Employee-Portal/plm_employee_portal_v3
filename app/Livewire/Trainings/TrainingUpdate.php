@@ -5,6 +5,7 @@ namespace App\Livewire\Trainings;
 use Livewire\Component;
 use App\Models\Training;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class TrainingUpdate extends Component
@@ -37,6 +38,11 @@ class TrainingUpdate extends Component
 
     public $dateToday;
 
+    
+    public $colleges;
+
+    public $departments;
+
 
     public function mount($index){
         $this->index = $index;
@@ -47,6 +53,9 @@ class TrainingUpdate extends Component
         $this->start_date = $trainingdata->start_date;
         $this->end_date = $trainingdata->end_date;
         $this->location = $trainingdata->location;
+
+        $this->colleges = DB::table('colleges')->orderBy('college_name', 'asc')->pluck('college_name');
+        $this->departments = DB::table('departments')->orderBy('department_name', 'asc')->pluck('department_name');
 
         // $this->pre_test_title = $trainingdata->pre_test_title;
         // $this->post_test_title = $trainingdata->post_test_title;
@@ -109,7 +118,7 @@ class TrainingUpdate extends Component
         'location' => 'required|min:5|max:500',
         'is_featured' => 'required|boolean',
         'visible_to_list' => 'required|array',
-        'visible_to_list.*' => 'required|in:College of Information System and Technology Management,College of Engineering,College of Business Administration,College of Liberal Arts,College of Sciences,College of Education,Finance Department,Human Resources Department,Information Technology Department,Legal Department',
+        'visible_to_list.*' => 'required',
     ];
 
     // protected $validationAttributes = [

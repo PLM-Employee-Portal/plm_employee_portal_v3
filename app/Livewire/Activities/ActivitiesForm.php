@@ -5,8 +5,9 @@ namespace App\Livewire\Activities;
 use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\Activities;
-use Database\Seeders\ActivitiesSeeder;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\DB;
+use Database\Seeders\ActivitiesSeeder;
 
 class ActivitiesForm extends Component
 {
@@ -23,6 +24,18 @@ class ActivitiesForm extends Component
     public $is_featured;
     public $visible_to_list;
 
+    public $colleges;
+
+    public $departments;
+
+    // public $hosts;
+
+    public function mount(){
+        $this->colleges = DB::table('colleges')->orderBy('college_name', 'asc')->pluck('college_name');
+        $this->departments = DB::table('departments')->orderBy('department_name', 'asc')->pluck('department_name');
+        // $this->hosts = array_merge($this->colleges, $this->departments);
+    }
+
     protected $rules = [
         'type' => 'required|in:Announcement,Event,Seminar,Training,Others',
         'title' => 'required|min:2|max:150',
@@ -31,9 +44,10 @@ class ActivitiesForm extends Component
         'start' => 'required|before_or_equal:end',
         'end' => 'required|after_or_equal:start',
         'is_featured' => 'required|boolean',
-        'host' => 'required|in:College of Information System and Technology Management,College of Engineering,College of Business Administration,College of Liberal Arts,College of Sciences,College of Education,Finance Department,Human Resources Department,Information Technology Department,Legal Department',
+        // 'host' => 'required',
+        // 'host' => 'required|in:College of Information System and Technology Management,College of Engineering,College of Business Administration,College of Liberal Arts,College of Sciences,College of Education,Finance Department,Human Resources Department,Information Technology Department,Legal Department',
         'visible_to_list' => 'required|array|min:1',
-        'visible_to_list.*' => 'required|in:College of Information System and Technology Management,College of Engineering,College of Business Administration,College of Liberal Arts,College of Sciences,College of Education,Finance Department,Human Resources Department,Information Technology Department,Legal Department'
+        'visible_to_list.*' => 'required'
         
     ];
 

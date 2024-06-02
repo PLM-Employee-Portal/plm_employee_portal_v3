@@ -79,7 +79,7 @@
         @foreach ($trainings as $training)
             <div class="swiper-slide w-full" data-swiper-autoplay="2000">
                 <a href="{{route('TrainingView', ['index' => $training->training_id])}}">
-                    <img src="{{ asset('storage/' . $training->training_photo) }}" class="h-full w-full object-cover" alt="...">
+                    <img src="data:image/gif;base64,{{ base64_encode( $training->training_photo) }}" class="h-full w-full object-cover" alt="...">
                 </a>
             </div>
         @endforeach

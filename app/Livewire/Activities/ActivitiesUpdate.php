@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\Activities;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ActivitiesUpdate extends Component
@@ -25,6 +26,10 @@ class ActivitiesUpdate extends Component
 
     public $index;
 
+    public $colleges;
+
+    public $departments;
+
 
     public function mount($index){
         $this->index = $index;
@@ -39,7 +44,9 @@ class ActivitiesUpdate extends Component
         $this->host = $activitydata->host;
         $this->is_featured = ( $activitydata->is_featured == 1) ? true : false;
         $this->visible_to_list = $activitydata->visible_to_list;
-    }
+        $this->colleges = DB::table('colleges')->orderBy('college_name', 'asc')->pluck('college_name');
+        $this->departments = DB::table('departments')->orderBy('department_name', 'asc')->pluck('department_name');
+}
 
     public function getPoster(){
         $activitydata = Activities::findOrFail($this->index);
@@ -53,9 +60,9 @@ class ActivitiesUpdate extends Component
         'start' => 'required|before_or_equal:end',
         'end' => 'required|after_or_equal:start',
         'is_featured' => 'required|boolean',
-        'host' => 'required|in:College of Information System and Technology Management,College of Engineering,College of Business Administration,College of Liberal Arts,College of Sciences,College of Education,Finance Department,Human Resources Department,Information Technology Department,Legal Department',
+        'host' => 'required',
         'visible_to_list' => 'required|array|min:1',
-        'visible_to_list.*' => 'required|in:College of Information System and Technology Management,College of Engineering,College of Business Administration,College of Liberal Arts,College of Sciences,College of Education,Finance Department,Human Resources Department,Information Technology Department,Legal Department'
+        'visible_to_list.*' => 'required'
         
     ];
 

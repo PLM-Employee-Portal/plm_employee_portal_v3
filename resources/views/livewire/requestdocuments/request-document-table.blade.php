@@ -291,12 +291,17 @@
                                                 <div class=" hidden  top-0 right-0 mt-2 z-20 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700" id="dropdown{{$loop->index}}">
                                                     <!-- Dropdown content -->
                                                     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
-                                                        <li>
-                                                            <a onclick="location.href='{{ route('RequestDocumentEdit', ['index' => $documentrequest->reference_num]) }}'"  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                                        </li>
+                                                        @if (is_null($documentrequest->request_document_form))
+                                                            <li>
+                                                                <a onclick="location.href='{{ route('RequestDocumentEdit', ['index' => $documentrequest->reference_num]) }}'"  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
+                                                            </li>
+                                                        @endif
+                                                        @if ($documentrequest->request_document_form)
                                                         <li>
                                                             <a target="_blank" href="{{route('downloadDocumentRequestForm', [ 'index' => $documentrequest->reference_num])}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">PDF</a>
                                                         </li>
+                                                        @endif
+
                                                     </ul>
                                                     <div class="py-2">
                                                         <a wire:click="removeRequestDocument('{{$documentrequest->reference_num}}')" wire:confirm="Are you sure you want to delete this post?" class="block px-4 py-2 text-black hover:bg-red-600 hover:text-white dark:hover:bg-gray-600 dark:hover:text-white">Delete</a>

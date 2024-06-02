@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\Training;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\DB;
 
 class TrainingForm extends Component
 {
@@ -37,8 +38,10 @@ class TrainingForm extends Component
 
     public $dateToday;
 
+    
+    public $colleges;
 
-
+    public $departments;
     public function mount(){
         // $this->preTest = [
         //     ['question' => '', 'answer' => '']
@@ -46,6 +49,8 @@ class TrainingForm extends Component
         // $this->postTest = [
         //     ['question' => '', 'answer' => '']
         // ];
+        $this->colleges = DB::table('colleges')->orderBy('college_name', 'asc')->pluck('college_name');
+        $this->departments = DB::table('departments')->orderBy('department_name', 'asc')->pluck('department_name');
         $this->dateToday = Carbon::now();
     }
 
@@ -84,17 +89,17 @@ class TrainingForm extends Component
         'end_date' => 'required|after:start_date|after:dateToday',
         'location' => 'required|min:5|max:500',
         'is_featured' => 'required|boolean',
-        'host' => 'required|in:College of Information System and Technology Management,College of Engineering,College of Business Administration,College of Liberal Arts,College of Sciences,College of Education,Finance Department,Human Resources Department,Information Technology Department,Legal Department',
+        'host' => 'required',
         'visible_to_list' => 'required|array',
-        'visible_to_list.*' => 'required|in:College of Information System and Technology Management,College of Engineering,College of Business Administration,College of Liberal Arts,College of Sciences,College of Education,Finance Department,Human Resources Department,Information Technology Department,Legal Department',
+        'visible_to_list.*' => 'required',
     ];
 
-    protected $validationAttributes = [
-        'preTest.*.question' => 'Pre-Test Question',
-        'preTest.*.answer' => 'Pre-Test Answer',
-        'postTest.*.question' => 'Post-Test Question',
-        'postest.*.answer' => 'Post-Test Answer',
-    ];
+    // protected $validationAttributes = [
+    //     'preTest.*.question' => 'Pre-Test Question',
+    //     'preTest.*.answer' => 'Pre-Test Answer',
+    //     'postTest.*.question' => 'Post-Test Question',
+    //     'postest.*.answer' => 'Post-Test Answer',
+    // ];
 
     private function generateRefNumber(){
         // Generate a random number

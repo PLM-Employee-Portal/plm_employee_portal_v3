@@ -341,16 +341,14 @@
                         <select id="host" name="host" wire:model="host"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option selected>Select a Host</option>
-                            <option value="College of Information System and Technology Management">College of Information System and Technology Management</option>
-                            <option value="College of Engineering">College of Engineering</option>
-                            <option value="College of Business Administration">College of Business Administration</option>
-                            <option value="College of Liberal Arts">College of Liberal Arts</option>
-                            <option value="College of Sciences">College of Sciences</option>
-                            <option value="College of Education">College of Education</option>
-                            <option value="Finance Department">Finance Department</option>
-                            <option value="Human Resources Department">Human Resources Department</option>
-                            <option value="Information Technology Department">Information Technology Department</option>
-                            <option value="Legal Department">Legal Department</option>                        
+                            @foreach ($colleges as $college){
+                                <option value="{{$college}}">{{$college}}</option>
+                            }
+                            @endforeach
+                            @foreach ($departments as $department){
+                                <option value="{{$department}}">{{$department}}</option>
+                            }
+                            @endforeach             
                         </select>
                         @error('host')
                             <div class="transition transform alert alert-danger text-sm"
@@ -378,16 +376,14 @@
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Visible To List<span class="text-red-600">*</span></label>
                         <select multiple id="visible_to_list" name="visible_to_list" wire:model.blur="visible_to_list"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option value="College of Information System and Technology Management">College of Information System and Technology Management</option>
-                            <option value="College of Engineering">College of Engineering</option>
-                            <option value="College of Business Administration">College of Business Administration</option>
-                            <option value="College of Liberal Arts">College of Liberal Arts</option>
-                            <option value="College of Sciences">College of Sciences</option>
-                            <option value="College of Education">College of Education</option>
-                            <option value="Finance Department">Finance Department</option>
-                            <option value="Human Resources Department">Human Resources Department</option>
-                            <option value="Information Technology Department">Information Technology Department</option>
-                            <option value="Legal Department">Legal Department</option>                        
+                            @foreach ($colleges as $college){
+                                <option value="{{$college}}">{{$college}}</option>
+                            }
+                            @endforeach
+                            @foreach ($departments as $department){
+                                <option value="{{$department}}">{{$department}}</option>
+                            }
+                            @endforeach               
                         </select>
                         @error('visible_to_list')
                             <div class="transition transform alert alert-danger text-sm"

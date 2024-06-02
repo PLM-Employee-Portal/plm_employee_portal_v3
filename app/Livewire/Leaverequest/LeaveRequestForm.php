@@ -56,7 +56,8 @@ class LeaveRequestForm extends Component
         $loggedInUser = auth()->user();
         $employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_id', 'employee_id', 'current_position', 'salary', 'vacation_credits', 'sick_credits')
                                     ->where('employee_id', $loggedInUser->employee_id)
-                                    ->first();   
+                                    ->first(); 
+                          
 
         $departmentName = DB::table('departments')->where('department_id', $employeeRecord->department_id[0])->value('department_name');
         $this->available_credits = $employeeRecord->vacation_credits + $employeeRecord->sick_credits;

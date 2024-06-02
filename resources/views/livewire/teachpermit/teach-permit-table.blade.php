@@ -269,9 +269,12 @@
                                                                 <a onclick="location.href='{{ route('TeachPermitEdit', ['index' => $teachpermit->reference_num]) }}'"  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
                                                             </li>
                                                         @endif
+                                                        @if ($teachpermit->permit_to_teach)
                                                         <li>
                                                             <a target="_blank" href="{{route('downloadTeachPermit', [ 'index' => $teachpermit->reference_num])}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">PDF</a>
                                                         </li>
+                                                        @endif
+
                                                     </ul>
                                                     <div class="py-2">
                                                         <a wire:click="removeTeachPermit('{{$teachpermit->reference_num}}')" wire:confirm="Are you sure you want to delete this post?" class="block px-4 py-2 text-black hover:bg-red-600 hover:text-white dark:hover:bg-gray-600 dark:hover:text-white">Delete</a>

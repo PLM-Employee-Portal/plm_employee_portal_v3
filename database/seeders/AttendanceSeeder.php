@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Carbon\Carbon;
+use App\Models\Employee;
 use App\Models\Dailytimerecord;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -14,6 +15,7 @@ class AttendanceSeeder extends Seeder
      */
     public function run(): void
     {
+        $employee = Employee::first();
         for ($i = 0; $i <= 275; $i++) {
             $randomLate = rand(0, 1); // Random late status (0 or 1)
             $randomHour = rand(0, 23); // Random hour (0 to 23)
@@ -23,7 +25,7 @@ class AttendanceSeeder extends Seeder
             $attendanceDate = Carbon::createFromDate(2024, $randomMonth, $randomDay);
             
             Dailytimerecord::create([
-                'employee_id' => '202132321',
+                'employee_id' => $employee->employee_id,
                 'attendance_date' => $attendanceDate,
                 'job_id' => rand(1,10),
                 'absent' => rand(1,2),
