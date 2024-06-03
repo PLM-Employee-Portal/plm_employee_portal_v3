@@ -293,15 +293,6 @@ class ChangeInformation extends Component
             $employee->emp_photo = $this->emp_image;
         }
 
-
-        $updateData = [
-            'emp_image' => base64_encode($imageData),
-          ];
-
-        
-        Employee::where('employee_id', auth()->user()->employee_id)->update($updateData);
-        
-
         // $fileFields = [
         //     'emp_diploma',
         //     'emp_tor',

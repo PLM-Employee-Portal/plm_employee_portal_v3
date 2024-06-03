@@ -175,7 +175,16 @@
                </div> --}}
                <button type="button" class="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown">
                    <span class="sr-only">Open user menu</span>
-                   <img src="{{ asset($employeeImage ? 'storage/' . $employeeImage : 'photos/avatar/default.png') }}" class="w-10 h-10 shadow-xl rounded-full" alt="User Avatar" />
+                   @if(is_null($employeeImage) == False)
+                   <img
+                       class="w-10 h-10 shadow-xl rounded-full" 
+                       src="data:image/gif;base64,{{ $employeeImage }}"
+                       alt="Employee Image"
+                   />
+                   @else
+                   <img class="w-10 h-10 shadow-xl rounded-full"  src="{{ asset( 'storage/photos/avatar/default.png') }}" alt="Employee Image"/> 
+                   @endif
+                   {{-- <img src="{{ asset($employeeImage ? 'storage/' . $employeeImage : 'photos/avatar/default.png') }}" class="w-10 h-10 shadow-xl rounded-full" alt="User Avatar" /> --}}
 
                    {{-- <img src="{{asset('storage/'. $employeeImage)}}" class=" w-10 h-10  shadow-xl rounded-full" alt="User Avatar" /> --}}
                </button>
