@@ -34,16 +34,16 @@ class Employeeinformation extends Component
     
     public $collegeName;
     public function mount(){
-        $employee_id = auth()->user()->employee_id;
-        $employee = Employee::where('employee_id', $employee_id)->first(); // Replace $employee_id with the actual employee ID\
+        $loggedInUser = auth()->user();
+        $employee = Employee::where('employee_id', $loggedInUser->employee_id)->first(); // Replace $employee_id with the actual employee ID\
+        
         $this->employeeImage = $employee->emp_image;
-        // dd($employee->emp_image);
         $departmentName = DB::table('departments')->where('department_id', $employee->department_id[0])->value('department_name');
         $collegeName = DB::table('colleges')->where('college_id', $employee->college_id[0])->value('college_name');
 
         $this->departmentName = $departmentName;
         $this->collegeName = $collegeName;
-        $this->employeeRecord = Employee::where('employee_id', $employee_id)->first();
+        $this->employeeRecord = Employee::where('employee_id', $loggedInUser->employee_id)->first();
         $this->empDiploma = $employee->emp_diploma;
         $this->emp_tor = $employee->emp_tor;
         $this->empCertOfTrainingsSeminars = $employee->emp_cert_of_trainings_seminars;

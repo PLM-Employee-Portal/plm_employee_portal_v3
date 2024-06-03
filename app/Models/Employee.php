@@ -16,7 +16,7 @@ class Employee extends Model
         'department_id' => 'array',
         'is_department_head' => 'array',
         'is_college_head' => 'array',
-        'emp_image' => 'array',
+        // 'emp_image' => 'array',
         'emp_diploma' => 'array',
         'emp_tor' => 'array',
         'emp_cert_of_trainings_seminars' => 'array',

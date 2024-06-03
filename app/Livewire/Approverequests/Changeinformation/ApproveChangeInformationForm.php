@@ -275,8 +275,7 @@ class ApproveChangeInformationForm extends Component
 
         $employee->employee_history = $jsonEmployeeHistory;  
         
-        dd($changeInformationStatus->emp_photo);
-
+        // dd(base64_encode($changeInformationStatus->emp_photo));
         $updateData = [
             'first_name' =>  $employee->first_name,
             'middle_name' => $employee->middle_name,
@@ -287,6 +286,7 @@ class ApproveChangeInformationForm extends Component
             'phone'  => $employee->phone,
             'birth_date' => $employee->birth_date,
             'address' => $employee->address,
+            'employee_history' => $changeInformationStatus->employee_history,
             'emp_image' => $changeInformationStatus->emp_photo,
             'emp_diploma' => json_encode($employee->emp_diploma, true),
             'emp_tor' => json_encode($employee->emp_tor, true),
@@ -314,7 +314,7 @@ class ApproveChangeInformationForm extends Component
                                                     ->update(['Status' => "Approved",
                                                                'updated_at' => now() ]);
         
-        return redirect()->to(route('profile'));
+        return redirect()->to(route('ApproveChangeInformationTable'));
     }
     
     public function render()

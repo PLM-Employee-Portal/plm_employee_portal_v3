@@ -43,9 +43,7 @@ return new class extends Migration
             $table->decimal('salary', 10, 2);
             $table->decimal('cto', 8, 2);
             $table->boolean('active');
-            
-            //Documents
-            $table->longText('emp_image')->charset('binary')->nullable();
+            $table->binary('emp_image')->nullable();
             $table->boolean('emp_diploma')->nullable();
             $table->boolean('emp_tor')->nullable();
             $table->boolean('emp_cert_of_trainings_seminars')->nullable();

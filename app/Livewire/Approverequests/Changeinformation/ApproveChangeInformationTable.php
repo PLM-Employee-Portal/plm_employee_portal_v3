@@ -55,7 +55,9 @@ class ApproveChangeInformationTable extends Component
         if(strlen($this->search) >= 1){
             $changeinfoData = $changeinfoData->where('created_at', 'like', '%' . $this->search . '%')->where('employee_id', '!=', $loggedInUser->employee_id)->orderBy('created_at', 'desc');
         } else {
-            $changeinfoData = $changeinfoData->orderBy('created_at', 'desc')->where('employee_id', '!=', $loggedInUser->employee_id);
+            // $changeinfoData = $changeinfoData->orderBy('created_at', 'desc')->where('employee_id', '!=', $loggedInUser->employee_id);
+            $changeinfoData = $changeinfoData->orderBy('created_at', 'desc');
+            
         }
         
         if($loggedInUser->role_id == 27 || $loggedInUser->role_id == 28){

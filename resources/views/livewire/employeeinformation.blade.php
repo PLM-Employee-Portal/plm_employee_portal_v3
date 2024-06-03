@@ -45,7 +45,15 @@
                     </div>
                     <div class="grid grid-cols-1 min-[900px]:grid-cols-2 p-4 ">
                         <div class="flex justify-center min-[900px]:flex min-[900px]:justify-end">
-                            <img class="ml-8 w-36 h-36 mb-3 shadow-xl rounded-full" src="{{ asset($employeeImage ? 'storage/' . $employeeImage : 'photos/avatar/default.png') }}" alt="Employee Image"/> 
+                            @if(is_null($employeeImage) == False)
+                            <img
+                                class="ml-8 w-36 h-36 mb-3 shadow-xl rounded-full"
+                                src="data:image/gif;base64,{{ $employeeImage }}"
+                                alt="Employee Image"
+                            />
+                            @else
+                            <img class="ml-8 w-36 h-36 mb-3 shadow-xl rounded-full" src="{{ asset( 'storage/photos/avatar/default.png') }}" alt="Employee Image"/> 
+                            @endif
                         </div>
                         <div class="inline-flex items-center justify-center min-[900px]:justify-start">
                            <div class="ml-8 text-center">
