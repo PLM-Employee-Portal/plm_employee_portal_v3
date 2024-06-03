@@ -16,8 +16,8 @@ return new class extends Migration
             $table->bigInteger('job_id');
             $table->longText('employee_type');
             $table->string('school_email')->nullable();
-            $table->string('religion')->nullable();
-            $table->string('civil_status')->nullable();
+            $table->string('religion');
+            $table->string('civil_status');
             $table->json('college_id')->nullable();
             $table->json('department_id')->nullable();
             $table->json('is_college_head')->nullable();
@@ -45,7 +45,7 @@ return new class extends Migration
             $table->boolean('active');
             
             //Documents
-            $table->string('emp_image')->nullable();
+            $table->longText('emp_image')->charset('binary')->nullable();
             $table->boolean('emp_diploma')->nullable();
             $table->boolean('emp_tor')->nullable();
             $table->boolean('emp_cert_of_trainings_seminars')->nullable();

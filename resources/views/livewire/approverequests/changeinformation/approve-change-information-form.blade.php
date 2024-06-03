@@ -74,9 +74,9 @@
                                     @if($emp_image)
                                             @if(is_string($emp_image) == True)
                                                 @php
-                                                    $emp_image = $this->getImage('emp_image');
+                                                    $emp_photo = $this->getImage('emp_photo');
                                                 @endphp
-                                                <img src="data:image/gif;base64,{{ $emp_image }}" alt="Image Description" class="w-full h-full object-contain"> 
+                                                <img src="data:image/gif;base64,{{ $emp_photo }}" alt="Image Description" class="w-full h-full object-contain"> 
                                             @else
                                                 <img src="{{ $emp_image->temporaryUrl() }}" class="w-full h-full object-contain" alt="Uploaded Image">
                                             @endif
@@ -144,24 +144,9 @@
                                         </div> 
                                     @enderror
                                 </div>
-
-                                <div class="w-full" id="email_container">
-                                    <label for="firstname"
-                                        class="block mb-2 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
-                                        Personal Email <span class="text-red-600">*</span></label>
-                                    <input type="text" name="personalemail" id="personalemail"  wire:model="personal_email"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                         required="" >
-                                    @error('personal_email')
-                                         <div class="transition transform alert alert-danger text-sm"
-                                             x-data x-init="document.getElementById('email_container').scrollIntoView({ behavior: 'smooth', block: 'center' }); document.getElementById('email_container').focus();">
-                                             <span class="text-red-500 text-xs "> {{$message}}</span>
-                                         </div> 
-                                     @enderror
-                                </div>
                             </div>
                             <div class="grid grid-cols-1 gap-4 p-6 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 ">
-                                <div class="w-full" id="age_container">
+                                {{-- <div class="w-full" id="age_container">
                                     <label for="agenum"
                                         class="block mb-2 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
                                         Age <span class="text-red-600">*</span></label>
@@ -188,7 +173,7 @@
                                              <span class="text-red-500 text-xs "> {{$message}}</span>
                                          </div> 
                                      @enderror
-                                </div>
+                                </div> --}}
                                 
                                 <div class="w-full" id="address_container">
                                     <label for="address"
@@ -200,6 +185,20 @@
                                     @error('address')
                                          <div class="transition transform alert alert-danger text-sm"
                                              x-data x-init="document.getElementById('address_container').scrollIntoView({ behavior: 'smooth', block: 'center' }); document.getElementById('address_container').focus();">
+                                             <span class="text-red-500 text-xs "> {{$message}}</span>
+                                         </div> 
+                                     @enderror
+                                </div>
+                                <div class="w-full" id="email_container">
+                                    <label for="firstname"
+                                        class="block mb-2 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                                        Personal Email <span class="text-red-600">*</span></label>
+                                    <input type="text" name="personalemail" id="personalemail"  wire:model="personal_email"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                         required="" >
+                                    @error('personal_email')
+                                         <div class="transition transform alert alert-danger text-sm"
+                                             x-data x-init="document.getElementById('email_container').scrollIntoView({ behavior: 'smooth', block: 'center' }); document.getElementById('email_container').focus();">
                                              <span class="text-red-500 text-xs "> {{$message}}</span>
                                          </div> 
                                      @enderror

@@ -35,8 +35,9 @@ class Employeeinformation extends Component
     public $collegeName;
     public function mount(){
         $employee_id = auth()->user()->employee_id;
-        $employee = Employee::where('employee_id', $employee_id)->first(); // Replace $employee_id with the actual employee ID
+        $employee = Employee::where('employee_id', $employee_id)->first(); // Replace $employee_id with the actual employee ID\
         $this->employeeImage = $employee->emp_image;
+        // dd($employee->emp_image);
         $departmentName = DB::table('departments')->where('department_id', $employee->department_id[0])->value('department_name');
         $collegeName = DB::table('colleges')->where('college_id', $employee->college_id[0])->value('college_name');
 

@@ -359,7 +359,7 @@
             @endif
          
         {{-- Change to a role of an Admin --}}
-        @if($departmentHeadId == 1 || $collegeDeanId == 1 || $role == 1) 
+        @if($role_id == 27 || $role_id == 28) 
             <li class="bg-white rounded" wire:ignore>
                 <button type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-requests" data-collapse-toggle="dropdown-approverequests">
                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -419,7 +419,7 @@
                                
                               <span class="flex-1 ms-3 text-center ">Approve <br> Work Document Requests</span></a>
                        </li> --}}
-                     {{-- @if ($is_admin) --}}
+                     @if ($role_id == 27 || $role_id == 28 )
                      @php
                      $isActive = Route::currentRouteName() == 'ApproveChangeInformationTable';
                       @endphp
@@ -432,7 +432,7 @@
                               <span class="flex-1 ms-3 text-center">Approve Change <br> Information Requests</span>
                           </a>
                       </li>
-                     {{-- @endif --}}
+                     @endif
                 </ul>
             </li>
             

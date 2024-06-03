@@ -40,18 +40,18 @@ return new class extends Migration
             $table->json('rated_ipcr');
 
             // Approve requests
-            $table->decimal('discount_entitlement', 10, 2)->nullable();
-            $table->integer('maximum_units')->nullable();
-            $table->string('signature_head_office_unit')->nullable();
-            $table->date('date_head_office_unit')->nullable();
-            $table->string('signature_endorsed_by')->nullable();
-            $table->date('date_endorsed_by')->nullable();
-            $table->boolean('verdict_recommended_by')->nullable();
-            $table->boolean('verdict_endorsed_by')->nullable();
-            $table->string('signature_recommended_by')->nullable();
-            $table->date('date_recommended_by')->nullable();
-            $table->string('signature_univ_pres')->nullable();
-            $table->date('date_univ_pres')->nullable();
+            // $table->decimal('discount_entitlement', 10, 2)->nullable();
+            // $table->integer('maximum_units')->nullable();
+            // $table->string('signature_head_office_unit')->nullable();
+            // $table->date('date_head_office_unit')->nullable();
+            // $table->string('signature_endorsed_by')->nullable();
+            // $table->date('date_endorsed_by')->nullable();
+            // $table->boolean('verdict_recommended_by')->nullable();
+            // $table->boolean('verdict_endorsed_by')->nullable();
+            // $table->string('signature_recommended_by')->nullable();
+            // $table->date('date_recommended_by')->nullable();
+            // $table->string('signature_univ_pres')->nullable();
+            // $table->date('date_univ_pres')->nullable();
             $table->longText('permit_to_study')->charset('binary')->nullable();
             $table->timestamps();
         });

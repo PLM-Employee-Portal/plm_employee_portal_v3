@@ -65,21 +65,20 @@ class ApproveChangeInformationForm extends Component
         $this->address = $employee->address;
 
 
-        $this->emp_image= $employee->emp_image;
-        // dd($employee->emp_image);
+        $this->emp_image = $employee->emp_photo ? ' ' : null;
 
-        $this->emp_diploma = $employee->emp_diploma ;
-        $this->emp_TOR = $employee->emp_TOR ;
-        $this->emp_cert_of_trainings_seminars = $employee->emp_cert_of_trainings_seminars ;
-        $this->emp_auth_copy_of_csc_or_prc = $employee->emp_auth_copy_of_csc_or_prc ;
-        $this->emp_auth_copy_of_prc_board_rating = $employee->emp_auth_copy_of_prc_board_rating ;
-        $this->emp_med_certif = $employee->emp_med_certif ;
-        $this->emp_nbi_clearance = $employee->emp_nbi_clearance ;
-        $this->emp_psa_birth_certif = $employee->emp_psa_birth_certif ;
-        $this->emp_psa_marriage_certif = $employee->emp_psa_marriage_certif ;
-        $this->emp_service_record_from_other_govt_agency = $employee->emp_service_record_from_other_govt_agency ;
-        $this->emp_approved_clearance_prev_employer = $employee->emp_approved_clearance_prev_employer ;
-        $this->other_documents = $employee->other_documents;
+        // $this->emp_diploma = $employee->emp_diploma ;
+        // $this->emp_TOR = $employee->emp_TOR ;
+        // $this->emp_cert_of_trainings_seminars = $employee->emp_cert_of_trainings_seminars ;
+        // $this->emp_auth_copy_of_csc_or_prc = $employee->emp_auth_copy_of_csc_or_prc ;
+        // $this->emp_auth_copy_of_prc_board_rating = $employee->emp_auth_copy_of_prc_board_rating ;
+        // $this->emp_med_certif = $employee->emp_med_certif ;
+        // $this->emp_nbi_clearance = $employee->emp_nbi_clearance ;
+        // $this->emp_psa_birth_certif = $employee->emp_psa_birth_certif ;
+        // $this->emp_psa_marriage_certif = $employee->emp_psa_marriage_certif ;
+        // $this->emp_service_record_from_other_govt_agency = $employee->emp_service_record_from_other_govt_agency ;
+        // $this->emp_approved_clearance_prev_employer = $employee->emp_approved_clearance_prev_employer ;
+        // $this->other_documents = $employee->other_documents;
         if($employee->employee_history != null){
             $this->employeeHistory = json_decode($employee->employee_history, true);
         }
@@ -115,7 +114,8 @@ class ApproveChangeInformationForm extends Component
     }
 
     public function getImage($item){
-        return Storage::disk('public')->get($this->$item);
+        $imageFile = $this->editChangeInformation($this->index);
+        return $imageFile->$item;
     }
 
     public function removeImage($item){
@@ -273,7 +273,9 @@ class ApproveChangeInformationForm extends Component
 
         $jsonEmployeeHistory = json_encode($jsonEmployeeHistory);
 
-        $employee->employee_history = $jsonEmployeeHistory;        
+        $employee->employee_history = $jsonEmployeeHistory;  
+        
+        dd($changeInformationStatus->emp_photo);
 
         $updateData = [
             'first_name' =>  $employee->first_name,
@@ -285,6 +287,7 @@ class ApproveChangeInformationForm extends Component
             'phone'  => $employee->phone,
             'birth_date' => $employee->birth_date,
             'address' => $employee->address,
+            'emp_image' => $changeInformationStatus->emp_photo,
             'emp_diploma' => json_encode($employee->emp_diploma, true),
             'emp_tor' => json_encode($employee->emp_tor, true),
             'emp_cert_of_trainings_seminars' => json_encode($employee->emp_cert_of_trainings_seminars, true),

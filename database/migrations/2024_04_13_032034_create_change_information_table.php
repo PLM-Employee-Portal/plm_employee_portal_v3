@@ -18,19 +18,18 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('middle_name');
             $table->string('last_name');
-            $table->decimal('age');
-            $table->enum('gender', ['Male', 'Female', 'Would Rather Not Say'])
-                ->default('Would Rather Not say');
+            // $table->decimal('age');
+            $table->string('gender')->default('Would Rather Not say');
             $table->string('personal_email');
             $table->string('phone');
-            $table->date('birth_date');
+            // $table->date('birth_date');
             $table->string('address');
             $table->json('employee_history')->nullable();
             $table->dateTime('deleted_at')->nullable();
 
 
              //Documents
-            $table->string('emp_photo')->nullable();
+            $table->longText('emp_photo')->charset('binary')->nullable();
             $table->json('emp_diploma')->nullable();
             $table->json('emp_tor')->nullable();
             $table->json('emp_cert_of_trainings_seminars')->nullable();

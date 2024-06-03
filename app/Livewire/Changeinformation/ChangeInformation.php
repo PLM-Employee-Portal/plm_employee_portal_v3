@@ -17,11 +17,11 @@ class ChangeInformation extends Component
     public $first_name;
     public $middle_name;
     public $last_name;
-    public $age;
+    // public $age;
     public $gender;
     public $personal_email;
     public $phone;
-    public $birth_date;
+    // public $birth_date;
     public $address;
 
     public $placeholder_first_name;
@@ -60,11 +60,11 @@ class ChangeInformation extends Component
         $this->first_name = $employee->first_name;
         $this->middle_name = $employee->middle_name;
         $this->last_name = $employee->last_name;    
-        $this->age = number_format($employee->age, 0);
+        // $this->age = number_format($employee->age, 0);
         $this->gender = $employee->gender;
         $this->personal_email = $employee->personal_email;
         $this->phone = $employee->phone;
-        $this->birth_date = $employee->birth_date;
+        // $this->birth_date = $employee->birth_date;
         $this->address = $employee->address;
 
         // $this->placeholder_first_name = $employee->first_name;
@@ -277,16 +277,18 @@ class ChangeInformation extends Component
         $employee->middle_name = $this->middle_name;
         $employee->last_name = $this->last_name;
         $employee->status = 'Pending';
-        $employee->age = $this->age;
+        // $employee->age = $this->age;
         $employee->gender = $this->gender;
         $employee->personal_email = $this->personal_email;
         $employee->phone = $this->phone;
-        $employee->birth_date = $this->birth_date;
+        // $employee->birth_date = $this->birth_date;
         $employee->address = $this->address;
 
         if(is_string($this->emp_image) != True){
             $this->validate(['emp_image' => 'required|mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120']);
-            $employee->emp_photo = $this->emp_image->store('photos/changeinformation/emp_image');
+            // $employee->emp_photo = $this->emp_image->store('photos/changeinformation/emp_image');
+            $imageData = file_get_contents($this->emp_image->getRealPath());
+            $employee->emp_photo = base64_encode($imageData);
         }else{
             $employee->emp_photo = $this->emp_image;
         }
