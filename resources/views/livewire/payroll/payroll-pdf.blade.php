@@ -82,11 +82,11 @@
     <h2  style="text-align: center;  letter-spacing: 5px; font-family: 'Times New Roman', Times, serif; text-decoration: underline;">CERTIFICATION</h2>
 
     <div>
-       <pre style="font-family: 'Times New Roman', Times, serif;  margin-left:60px">
+       <pre style="font-family: 'Times New Roman', Times, serif;  margin-left:30px">
         Sir/Madam: 
 
                       This is to certify that according to our records, {{$employee->first_name}} {{$employee->middle_name}} {{$employee->last_name}} is presently rendering
-        part-time teaching services as {{$employee->current_position}} at the {{$employee->department_name}} since {{$employee->start_of_employment}}.
+        part-time teaching services as {{$employee->current_position}} at the {{$dept_name}} since {{$employee->start_of_employment}}.
         Unless renewed, her/his Contract of Service will expire on {{$employee->end_of_employment}}.
               
                       This certification is being issued upon the request of Ms/Mr {{$employee->last_name}} for 

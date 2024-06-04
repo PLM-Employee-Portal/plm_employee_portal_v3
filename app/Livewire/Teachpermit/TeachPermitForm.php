@@ -49,7 +49,6 @@ class TeachPermitForm extends Component
         $employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_id', 'college_id', 'current_position', 'employee_type', 'teach_available_units' )
                                     ->where('employee_id', $loggedInUser->employee_id)
                                     ->first();   
-
         $departmentName = DB::table('departments')->where('department_id', $employeeRecord->department_id)->value('department_name');
         $this->first_name = $employeeRecord->first_name;
         $this->middle_name = $employeeRecord->middle_name;
