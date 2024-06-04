@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class EmployeeFactory extends Factory
 {
     protected $model = Employee::class;
+
+    protected static $employeeCounter = 10000;
     /**
      * Define the model's default state.
      *
@@ -53,9 +55,67 @@ class EmployeeFactory extends Factory
                 array_push($is_department_head, 0);
             }
         }
+
+        $employeeId = '2024' . static::$employeeCounter++;
+        
+        $roles = [
+            "Regular Employee",
+            "Accounting Office Staff",
+            "VP of Finance",
+            "Senior Computer Op",
+            "Budgeting Office Staff",
+            "Treasurer's Office Staff",
+            "Property and Supply Office Staff",
+            "Cash Office Staff",
+            "Accounting (same kaya ito as 1)",
+            "Head of Accounting View",
+            "OVFP View",
+            "Purchasing Admin",
+            "Purchasing User",
+            "Inventory User",
+            "Proj Cost Admin",
+            "Proj cost user",
+            "Section Heads and Canvassers",
+            "Head of the Procurement Office",
+            "Procurement users",
+            "Asset Management user",
+            "Supplies Management User",
+            "Student Perf Admin",
+            "College Chairperson",
+            "Registrar",
+            "Part-Time Faculty",
+            "Full-Time Faculty",
+            "College Dean",
+            "Faculty Admin",
+            "HR Admin",
+            "Employee with High Position (Department Head and Dean)",
+            "HR Employee",
+            "Alumni Admin",
+            "Alumni",
+            "OPA",
+            "OSDS Staff",
+            "OSDS Dean",
+            "College Dean",
+            "USO",
+            "OSDS Secretariat",
+            "Student Officer",
+            "Nurse",
+            "Doctor",
+            "Library Admin",
+            "Counselor",
+            "Counselor Head",
+            "Legal Admin",
+            "L&D Admin",
+            "HR Chief",
+            "Recruitment Admin",
+            "Personnel Management Admin",
+            "Compensation and Benefits Admin",
+            "Recruitment Staff",
+            "Admission Admin"
+        ];
         
         return [
-            'employee_id' => '2024' . $this->faker->unique()->numberBetween(10000, 99999),
+            'employee_id' => $employeeId,
             'job_id' => $this->faker->numberBetween(1, 100),
             'employee_type' => $this->faker->word,
             'school_email' => $this->faker->unique()->safeEmail,

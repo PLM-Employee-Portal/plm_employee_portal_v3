@@ -30,10 +30,11 @@ return new class extends Migration
             $table->string('comments_and_reco')->nullable();
             $table->binary('discussed_with');
             $table->date('disscused_with_date');
+            $table->float('final_rating')->nullable();
+
             // $table->string('assessed_by')->nullable();
             // $table->date('assessed_by_date')->nullable();
             // $table->boolean('assessed_by_verdict')->nullable();
-            // $table->float('final_rating')->nullable();
             // $table->string('final_rating_by')->nullable();
             // $table->boolean('final_rating_by_verdict')->nullable();
             // $table->date('final_rating_by_date')->nullable();

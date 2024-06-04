@@ -44,13 +44,13 @@
                     <button type="button" wire:click="fillerSetter('Training')" class="text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700  focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800 {{ $filter === 'Training' ? 'bg-blue-500 text-white' : 'bg-white' }}">Training</button>
                     <button type="button" wire:click="fillerSetter('Others')" class="text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700  focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800 {{ $filter === 'Others' ? 'bg-blue-500 text-white' : 'bg-white' }}">Others</button>
                 </div>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 w-full h-auto">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 w-full h-1/2">
                     @foreach ($ActivitiesData as $data)
-                        <div>
+                        <div class="h-1/2 object-cover">
                             @php
                                 $photo = $this->getActivityPhoto($data->activity_id);
                             @endphp
-                            <a href="{{route('ActivitiesView', ['index' => $data->activity_id])}}"><img class="h-full w-full object-cover rounded-lg" src="data:image/gif;base64,{{ base64_encode($photo) }}" alt=""></a>
+                            <a href="{{route('ActivitiesView', ['index' => $data->activity_id])}}"><img class="h-full w-full rounded-lg" src="data:image/gif;base64,{{ base64_encode($photo) }}" alt=""></a>
                         </div>
                     @endforeach
                 </div>

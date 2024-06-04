@@ -1,11 +1,11 @@
 {{-- <div class=" p-4 sm:ml-64" style="margin-top: 55px"> --}}
-<div class="grid grid-cols-3 gap-4"> 
+<div class="grid grid-cols-3 gap-4 mt-1"> 
     <style>
     .swiper {
         /* max-width: 1600px;*/ */
         /* max-width: 100px; */
         width: 1700px;
-        height: 100%; 
+        height: 340px; 
     }
     .swiper-wrapper{
         width:100%;
@@ -14,7 +14,7 @@
         border-width: 1px;
         --tw-border-opacity: 1;
         border-color: rgb(63 131 248 / var(--tw-border-opacity));
-        object-fit: cover;
+        /* object-fit: none; */
         border-radius: 0.5rem;
         height: 100%;
         width: 100%;
@@ -29,29 +29,32 @@
         outline: 10px solid transparent;
         /* outline-offset: 2px; */
     }
-    @media (max-width: 1120px) {
-            #user_avatar {
-                display: none;
-            }
+    @media (max-width: 1119px) {
+        #user_avatar {
+            display: none;
+            column-span: 0;
+          }
+          #good_morning {
+          white-space: inherit; 
+          column-span: all;
         }
-        #good_morning {
-          white-space: noraml; 
-          column-span: 5; 
-      }
+        }
 
       @media (min-width: 850px){
-          #good_morning {
-          white-space: nowrap; 
-          column-span: 5; 
-      }
+         
       }
   
 
 
     @media (min-width: 1120px) {
       #good_morning {
-        white-space: nowrap ;
+        white-space: nowrap;
+        column-span: 2;
       }
+      #user_avatar {
+        column-span: all;
+      }
+      
     }
    
     </style>
@@ -66,20 +69,29 @@
      <span class="text-blue-500 font-semibold items-center ml-3"> No Events Available. Stay tuned for Future Events</span>
   </div>
   @else
-  <div class="swiper w-full h-full">
+  <div class="swiper w-full h-1/2">
     <!-- Additional required wrapper -->
+    @php
+      $ctr = 0;
+    @endphp
     <div class="swiper-wrapper p-2">
         @foreach ($activities as $activity)
-            <div class="swiper-slide w-full" data-swiper-autoplay="2000">
+            <div class="swiper-slide w-full object-none" data-swiper-autoplay="2000">
                 <a href="{{route('ActivitiesView', ['index' => $activity->activity_id])}}">
-                    <img src="data:image/gif;base64,{{ base64_encode($activity->poster) }}" class="h-full w-full object-cover" alt="...">
+                    <img src="data:image/gif;base64,{{ base64_encode($activity->poster) }}" class="h-full w-full  " alt="Activity Image">
                 </a>
             </div>
+            @php
+              $ctr += 1;
+            @endphp
+            @if ($ctr > 8)
+              @break
+            @endif
         @endforeach
         @foreach ($trainings as $training)
             <div class="swiper-slide w-full" data-swiper-autoplay="2000">
                 <a href="{{route('TrainingView', ['index' => $training->training_id])}}">
-                    <img src="data:image/gif;base64,{{ base64_encode( $training->training_photo) }}" class="h-full w-full object-cover" alt="...">
+                    <img src="data:image/gif;base64,{{ base64_encode( $training->training_photo) }}" class="h-full w-full object-cover" alt="Training Image">
                 </a>
             </div>
         @endforeach
@@ -142,10 +154,12 @@
     </div>
   </div>
 
-  <div x class="grid grid-cols-1 p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-    <div class="grid grid-cols-5 mb-4  items-center">
-        <div class="h-full col-span-2 x" id="good_morning">
-          <h2 class=" font-semibold text-blue-500 text-lg min-[1475px]:text-2xl" >Good {{$period}}, {{$firstName}}. </h2>
+  <div  class="grid grid-cols-1 p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+    {{-- <div class="grid grid-cols-5 mb-4 items-center"> --}}
+    <div class="mb-4 items-center">
+
+        <div class="h-full col-span-5" id="good_morning">
+          <h2 class=" font-semibold text-blue-500 text-lg min-[1475px]:text-4xl" >Good {{$period}}, {{$firstName}}. </h2>
           <h1 class="text-base">Ready to Start your Day?</h1>
           <p class="text-sm mt-4">"<span class="text-blue-500">Tough times</span> never last,</p>
           <span class="text-sm ">but <span class="text-blue-700">tough people</span> do"</span>
@@ -161,13 +175,13 @@
             </div>
         </div>
        
-        <div class="mb-4 ml-8  col-span-3" id="user_avatar"> 
+        {{-- <div class="mb-4 ml-8" id="user_avatar"> 
           @if ($gender == "Female")
             <img src="{{asset('storage\EmployeeImages\girl.png')}}"  style="width:500px ;height: 200px" alt="...">
           @else
               <img src="{{asset('storage\EmployeeImages\boy.png')}}"  style="width:500px ;height: 200px" alt="...">
           @endif
-        </div>
+        </div> --}}
         
     </div>
 </div>

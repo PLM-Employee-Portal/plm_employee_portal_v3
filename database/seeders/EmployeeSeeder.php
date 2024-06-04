@@ -14,7 +14,7 @@ class EmployeeSeeder extends Seeder
      */
     public function run(): void
     {
-        $employees = Employee::factory()->count(5)->create();
+        $employees = Employee::factory()->count(100)->create();
 
         foreach ($employees as $employee) {
             User::factory()->create([
