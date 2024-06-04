@@ -29,27 +29,40 @@
         outline: 10px solid transparent;
         /* outline-offset: 2px; */
     }
-    @media (max-width: 1119px) {
+    @media (max-width: 1450px) {
         #user_avatar {
-            display: none;
+            /* display: visible; */
             column-span: 0;
           }
-          #good_morning {
-          white-space: inherit; 
-          column-span: all;
-        }
         }
 
-      @media (min-width: 850px){
-         
+      @media (max-width: 850px){
+        #good_morning {
+          column-span: 5;
+        }
+       
       }
-  
 
+      @media (max-width: 1250px){
+        #user_avatar {
+           display: none;
+        }
+        #good_morning {
+          white-space: break-word; 
+        }
+        #good {
+          white-space: inherit;
+        }
+        
+      } 
 
     @media (min-width: 1120px) {
       #good_morning {
         white-space: nowrap;
         column-span: 2;
+      }
+      #good {
+        font-size: 1.5rem;
       }
       #user_avatar {
         column-span: all;
@@ -110,9 +123,9 @@
   @endif
 </div>
 
- <div class="grid grid-cols-3 col-span-3 gap-4 h-auto">
+ <div class="grid grid-cols-3 col-span-3 gap-4">
   <div wire:ignore class="w-full col-span-2 bg-white rounded-lg shadow pb-4 dark:bg-gray-800 p-4 md:p-4 ">
-    <div class="flex justify-between ">
+    <div class="flex justify-between">
       <div>
         <p class=" text-xl font-bold text-gray-800 dark:text-gray-400">Attendance Chart</p>
       </div>
@@ -133,7 +146,6 @@
           data-dropdown-placement="bottom"
           class="text-sm font-medium text-gray-900  dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white mt-2"
           type="button" >
-          {{-- <p class="text-capitalize"> {{$filter}}</p> --}}
           <svg class="w-2.5 m-2.5 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
           </svg>
@@ -153,38 +165,37 @@
       </div>
     </div>
   </div>
-
-  <div  class="grid grid-cols-1 p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-    {{-- <div class="grid grid-cols-5 mb-4 items-center"> --}}
-    <div class="mb-4 items-center">
-
-        <div class="h-full col-span-5" id="good_morning">
-          <h2 class=" font-semibold text-blue-500 text-lg min-[1475px]:text-4xl" >Good {{$period}}, {{$firstName}}. </h2>
-          <h1 class="text-base">Ready to Start your Day?</h1>
-          <p class="text-sm mt-4">"<span class="text-blue-500">Tough times</span> never last,</p>
-          <span class="text-sm ">but <span class="text-blue-700">tough people</span> do"</span>
+  <div class="grid grid-cols-1 p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+    <div class="mb-4 items-center grid grid-cols-5" id="intro_container">
+        <div class="h-full col-span-2" id="good_morning">
+          <h2 class=" font-semibold text-blue-500 text-2xl" id="good" >Good {{$period}}, {{$firstName}}. </h2>
+          <h1 class="text-lg" id="ready">Ready to Start your Day?</h1>
+          <p class="text-lg mt-4" id="quote1">"<span class="text-blue-500" >Tough times</span> never last,</p>
+          <span class="text-lg " id="quote2">but <span class="text-blue-700" >tough people</span> do"</span>
           <div wire:poll.1s class="text-xl p-0 font-semibold text-blue-700">
             <br> 
             @php
-              $currentDate = \Illuminate\Support\Carbon::now()->toDateString(); // Get current date in YYYY-MM-DD format
-              $currentTime = \Illuminate\Support\Carbon::now()->toTimeString();
+              $currentDate =  \Illuminate\Support\Carbon::now()->format('F j, Y'); // e.g., "June 4, 2024"
+              $currentTime =  \Illuminate\Support\Carbon::now()->toTimeString(); // e.g., "14:30:45"
+              $currentDayOfWeek =  \Illuminate\Support\Carbon::now()->format('l'); // e.g., "Tuesday"
+
               // $currentTime = \Illuminate\Support\Carbon::now()
             @endphp
-              <p class="text-blue-500 text-sm">Date: <span class="text-gray-900">{{$currentDate}}</span></p>  
-              <p class="text-blue-500 text-sm">Time: <span class="text-gray-900">{{$currentTime}}</span></p> 
+              <p class="text-blue-500 text-base" id="date1">Date: <span class="text-gray-900">{{$currentDate}}</span></p>  
+              <p class="text-blue-500 text-base" id="date2">Weekday: <span class="text-gray-900">{{$currentDayOfWeek}}</span></p>  
+              <p class="text-blue-500 text-base" id="date3">Time: <span class="text-gray-900">{{$currentTime}}</span></p> 
             </div>
         </div>
        
-        {{-- <div class="mb-4 ml-8" id="user_avatar"> 
-          @if ($gender == "Female")
-            <img src="{{asset('storage\EmployeeImages\girl.png')}}"  style="width:500px ;height: 200px" alt="...">
-          @else
-              <img src="{{asset('storage\EmployeeImages\boy.png')}}"  style="width:500px ;height: 200px" alt="...">
-          @endif
-        </div> --}}
-        
-    </div>
-</div>
+        <div class="mt-4 ml-8 col-span-3" id="user_avatar"> 
+            @if ($gender == "Female")
+              <img src="{{asset('storage\EmployeeImages\girl.png')}}"  style="width:500px ;height: 220px" alt="Avatar">
+            @else
+                <img src="{{asset('storage\EmployeeImages\boy.png')}}"  style="width:500px ;height: 220px" alt="Avatar">
+            @endif
+        </div>
+  </div>
+ </div>
  
  </div>
 </div>
@@ -192,7 +203,8 @@
 <script>
 const options = {
   chart: {
-    height: "75%",
+    height: "100%",
+    maxHeight: "100%",
     maxWidth: "100%",
     type: "area",
     fontFamily: "Inter, sans-serif",

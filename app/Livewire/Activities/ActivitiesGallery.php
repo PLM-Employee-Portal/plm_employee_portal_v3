@@ -35,11 +35,6 @@ class ActivitiesGallery extends Component
                 $college_head_id = True;
             }
         }
-
-    
-
-        // $head = explode(',', $employeeData->is_department_head_or_dean[0] ?? ' ');
-        // $this->is_head = $dept_head_id == 1 || $college_head_id == 1 || $loggedInUser->is_admin  ? true : false;
         $this->is_head = $dept_head_id == 1 || $college_head_id == 1;
 
     }

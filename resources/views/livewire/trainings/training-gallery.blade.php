@@ -22,7 +22,7 @@
 
     @if ($is_head == 1)
         <div class="flex justify-end">
-            <button type="button" onclick="location.href='{{ route('TrainingForm') }}'" class="text-white mb-8 mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create Activity</button>
+            <button type="button" onclick="location.href='{{ route('TrainingForm') }}'" class="text-white mb-8 mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create Training</button>
         </div>
     @else
         <div class="flex justify-end " style="margin-bottom: 40px">
