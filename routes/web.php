@@ -69,6 +69,9 @@ use App\Livewire\Approverequests\Requestdocument\ApproveRequestDocumentTable;
 use App\Livewire\Leaverequest\LeaveRequestTable;
 use App\Livewire\Sidebar\Notifications\NotificationsTable;
 
+use App\Http\Controllers\VerifyController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -122,6 +125,8 @@ Route::middleware('auth')->group(function () {
     //     ->name('logout');
 });
 
+Route::get('/verify', [VerifyController::class, 'verify'])
+    ->name('verify');
 
 Route::middleware('auth')->group(function (){
     Route::get("/dashboard", DashboardView::class)->name('dashboard');

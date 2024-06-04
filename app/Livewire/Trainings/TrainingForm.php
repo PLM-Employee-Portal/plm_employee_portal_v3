@@ -88,7 +88,7 @@ class TrainingForm extends Component
         'start_date' => 'required|before:end_date|after_or_equal:dateToday',
         'end_date' => 'required|after:start_date|after:dateToday',
         'location' => 'required|min:5|max:500',
-        'is_featured' => 'required|boolean',
+        'is_featured' => 'nullable|boolean',
         'host' => 'required',
         'visible_to_list' => 'required|array',
         'visible_to_list.*' => 'required',

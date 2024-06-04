@@ -59,7 +59,7 @@ class ActivitiesUpdate extends Component
         'description' => 'required|min:2|max:1024',
         'start' => 'required|before_or_equal:end',
         'end' => 'required|after_or_equal:start',
-        'is_featured' => 'required|boolean',
+        'is_featured' => 'nullable|boolean',
         'host' => 'required',
         'visible_to_list' => 'required|array|min:1',
         'visible_to_list.*' => 'required'

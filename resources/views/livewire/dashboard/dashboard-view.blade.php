@@ -178,12 +178,10 @@
               $currentDate =  \Illuminate\Support\Carbon::now()->format('F j, Y'); // e.g., "June 4, 2024"
               $currentTime =  \Illuminate\Support\Carbon::now()->toTimeString(); // e.g., "14:30:45"
               $currentDayOfWeek =  \Illuminate\Support\Carbon::now()->format('l'); // e.g., "Tuesday"
-
-              // $currentTime = \Illuminate\Support\Carbon::now()
             @endphp
-              <p class="text-blue-500 text-base" id="date1">Date: <span class="text-gray-900">{{$currentDate}}</span></p>  
-              <p class="text-blue-500 text-base" id="date2">Weekday: <span class="text-gray-900">{{$currentDayOfWeek}}</span></p>  
-              <p class="text-blue-500 text-base" id="date3">Time: <span class="text-gray-900">{{$currentTime}}</span></p> 
+              <p class="text-blue-500 text-lg" id="date1">Date: <span class="text-gray-900">{{$currentDate}}</span></p>  
+              <p class="text-blue-500 text-lg" id="date2">Weekday: <span class="text-gray-900">{{$currentDayOfWeek}}</span></p>  
+              <p class="text-blue-500 text-lg" id="date3">Time: <span class="text-gray-900">{{$currentTime}}</span></p> 
             </div>
         </div>
        
