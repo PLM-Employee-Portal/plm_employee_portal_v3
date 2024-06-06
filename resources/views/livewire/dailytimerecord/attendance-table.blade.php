@@ -184,17 +184,20 @@
                         Date
                     </th>
                     <th scope="col" class="px-6 py-3 text-center">
-                        Status
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-center">
-                        Late\On-Time
+                        Day of the Week
                     </th>
                     {{-- <th scope="col" class="px-6 py-3 text-center">
+                        Status
+                    </th> 
+                    <th scope="col" class="px-6 py-3 text-center">
+                        Late\On-Time
+                    </th> --}}
+                    <th scope="col" class="px-6 py-3 text-center">
                         Time In
                     </th>
                     <th scope="col" class="px-6 py-3 text-center">
                         Time Out
-                    </th> --}}
+                    </th>
                     <th scope="col" class="px-6 py-3 text-center">
                         Undertime
                     </th>
@@ -253,17 +256,20 @@
                                     </span>
                                 </th>
                                 <td class="px-6 py-4 text-center">
+                                    {{ Illuminate\Support\Carbon::parse($data->attendance_date)->format('l') }}
+                                </td>
+                                {{-- <td class="px-6 py-4 text-center">
                                     {{$data->status ? 'In' : 'Out'}}
                                 </td>
                                 <td class="px-6 py-4 text-center">
                                     {{$data->late ? 'Late' : 'On-Time'}}
-                                </td>
-                                {{-- <td class="px-6 py-4 text-center whitespace-nowrap">
+                                </td> --}}
+                                <td class="px-6 py-4 text-center whitespace-nowrap">
                                     {{$data->time_in}}
                                 </td>
                                 <td class="px-6 py-4 text-center whitespace-nowrap">
                                     {{$data->time_out}}
-                                </td> --}}
+                                </td>
                                 <td class="px-6 py-4 text-center whitespace-nowrap">
                                     {{$data->overtime}}
                                 </td>

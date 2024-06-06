@@ -25,7 +25,7 @@ class AttendanceSeeder extends Seeder
             $attendanceDate = Carbon::createFromDate(2024, $randomMonth, $randomDay);
             
             Dailytimerecord::create([
-                'employee_id' => 202410005,
+                'employee_id' => 202410000,
                 'attendance_date' => $attendanceDate,
                 'job_id' => rand(1,10),
                 'absent' => rand(1,2),
