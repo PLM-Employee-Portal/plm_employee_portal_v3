@@ -22,9 +22,10 @@ class PayrollSeeder extends Seeder
             $randomMonth = rand(1, 12); // Random month (1 to 12)
             $randomDay = rand(1, 28); // Random day (assuming all months have max 28 days)
             $attendanceDate = Carbon::createFromDate(2024, $randomMonth);
+            $attendanceDate->addMonth();
             
             Payroll::create([
-                'employee_id' =>  $employee->employee_id,
+                'employee_id' =>  202410005,
                 'date' => $attendanceDate,
                 'salary' => $randomNumber,
                 'lvt_pay' => $randomNumber,

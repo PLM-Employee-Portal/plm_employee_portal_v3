@@ -119,8 +119,7 @@ Route::middleware('auth')->group(function () {
 
 
     // Original
-    Route::get('logout', LogoutController::class)
-        ->name('logout');
+    Route::get('logout', LogoutController::class)->name('logout');
     // Route::get('logout', LogoutController::class)
     //     ->name('logout');
 });
