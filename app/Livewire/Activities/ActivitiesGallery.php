@@ -35,11 +35,6 @@ class ActivitiesGallery extends Component
                 $college_head_id = True;
             }
         }
-
-    
-
-        // $head = explode(',', $employeeData->is_department_head_or_dean[0] ?? ' ');
-        // $this->is_head = $dept_head_id == 1 || $college_head_id == 1 || $loggedInUser->is_admin  ? true : false;
         $this->is_head = $dept_head_id == 1 || $college_head_id == 1;
 
     }
@@ -54,7 +49,10 @@ class ActivitiesGallery extends Component
         $loggedInUser = auth()->user();
         $collegeName = Employee::where('employee_id', $loggedInUser->employee_id)
                                 ->value('college_id');
-        if($this->filter == "Announcement"){
+        if($loggedInUser->role_id == 0){
+            return Activities::paginate(10);
+        }
+        else if($this->filter == "Announcement"){
                         return Activities::where(function ($query) use ($collegeName) {
                             foreach ($collegeName as $college) {
                             $college_name = DB::table('colleges')->where('college_id', $college)->value('college_name');

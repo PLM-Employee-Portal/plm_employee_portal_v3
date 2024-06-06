@@ -19,6 +19,11 @@ class ApproveChangeInformationTable extends Component
     public function render()
     {
         $loggedInUser = auth()->user();
+        if($loggedInUser->role_id != 27){
+            if($loggedInUser->role_id != 28){
+                abort(404);
+            } // Change to role id of an ICTO admin
+        }
         $changeinfoData = ChangeInformation::orderBy('created_at', 'desc');
 
         switch ($this->filter) {
@@ -48,18 +53,21 @@ class ApproveChangeInformationTable extends Component
         }
 
         if(strlen($this->search) >= 1){
-            $changeinfoData = $changeinfoData->where('created_at', 'like', '%' . $this->search . '%')->orderBy('created_at', 'desc');
+            $changeinfoData = $changeinfoData->where('created_at', 'like', '%' . $this->search . '%')->where('employee_id', '!=', $loggedInUser->employee_id)->orderBy('created_at', 'desc');
         } else {
+            // $changeinfoData = $changeinfoData->orderBy('created_at', 'desc')->where('employee_id', '!=', $loggedInUser->employee_id);
             $changeinfoData = $changeinfoData->orderBy('created_at', 'desc');
+            
         }
         
-        if($loggedInUser->is_admin == False){
+        if($loggedInUser->role_id == 27 || $loggedInUser->role_id == 28){
             return view('livewire.approverequests.changeinformation.approve-change-information-table', [
                 'ChangeInformationData' => $changeinfoData->paginate(5),
             ]);
         } else {
             abort(404);
         }
+       
        
 
     }

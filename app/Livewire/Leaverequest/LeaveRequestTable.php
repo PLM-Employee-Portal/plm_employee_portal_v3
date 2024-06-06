@@ -105,7 +105,7 @@ class LeaveRequestTable extends Component
 
     public function download($reference_num){
         $leaveRequestData = Leaverequest::where('reference_num', $reference_num)->first();
-        $image = base64_decode($leaveRequestData->commutation_signature_of_appli);
+        $image = base64_decode($leaveRequestData->leave_form);
         $finfo = new finfo(FILEINFO_MIME_TYPE);
         $contentType = $finfo->buffer($image);
         // dd($contentType);

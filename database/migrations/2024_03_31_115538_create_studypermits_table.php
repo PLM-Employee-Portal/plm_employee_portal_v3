@@ -23,7 +23,7 @@ return new class extends Migration
             $table->json('load');
             $table->string('total_teaching_load')->nullable();
             $table->string('total_aggregate_load')->nullable();
-            $table->binary('applicant_signature');
+            $table->longText('applicant_signature')->charset('binary');
             $table->string('status')->default('reviewing');
             $table->decimal('total_units_enrolled', 10, 2)->nullable();
             $table->decimal('available_units', 10, 2)->nullable();
@@ -40,19 +40,19 @@ return new class extends Migration
             $table->json('rated_ipcr');
 
             // Approve requests
-            $table->decimal('discount_entitlement', 10, 2)->nullable();
-            $table->integer('maximum_units')->nullable();
-            $table->string('signature_head_office_unit')->nullable();
-            $table->date('date_head_office_unit')->nullable();
-            $table->string('signature_endorsed_by')->nullable();
-            $table->date('date_endorsed_by')->nullable();
-            $table->boolean('verdict_recommended_by')->nullable();
-            $table->boolean('verdict_endorsed_by')->nullable();
-            $table->string('signature_recommended_by')->nullable();
-            $table->date('date_recommended_by')->nullable();
-            $table->string('signature_univ_pres')->nullable();
-            $table->date('date_univ_pres')->nullable();
-            $table->binary('permit_to_study')->nullable();
+            // $table->decimal('discount_entitlement', 10, 2)->nullable();
+            // $table->integer('maximum_units')->nullable();
+            // $table->string('signature_head_office_unit')->nullable();
+            // $table->date('date_head_office_unit')->nullable();
+            // $table->string('signature_endorsed_by')->nullable();
+            // $table->date('date_endorsed_by')->nullable();
+            // $table->boolean('verdict_recommended_by')->nullable();
+            // $table->boolean('verdict_endorsed_by')->nullable();
+            // $table->string('signature_recommended_by')->nullable();
+            // $table->date('date_recommended_by')->nullable();
+            // $table->string('signature_univ_pres')->nullable();
+            // $table->date('date_univ_pres')->nullable();
+            $table->longText('permit_to_study')->charset('binary')->nullable();
             $table->timestamps();
         });
     }

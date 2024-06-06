@@ -95,7 +95,7 @@ class ApproveRequestDocumentTable extends Component
                 ->distinct() // Ensure unique records
                 ->orderBy('created_at', 'desc');
         }
-        else if ($loggedInUser->is_admin == 1) {
+        else if ($loggedInUser->role_id == 1) { // Change to role id of an HR Admin
             $documentRequestData = Documentrequest::orderBy('created_at', 'desc');
         } 
         else{

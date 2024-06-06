@@ -9,6 +9,8 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class AttendancePdfController extends Controller
 {
     public function turnToPdf($dates){
+        $loggedInUser = auth()->user();
+        $employee = Employee::where('employee_id', $loggedInUser->employee_id )->first();        
         $dates = json_decode($dates);
         $employee_id = auth()->user()->employee_id;
         $dtr = Dailytimerecord::select('*')->where('employee_id', $employee_id)->get();

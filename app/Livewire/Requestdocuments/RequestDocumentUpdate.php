@@ -118,7 +118,8 @@ class RequestDocumentUpdate extends Component
 
     protected $rules = [
         'requests' => 'required|array|min:1',
-        'requests.*' => 'in:Certificate of Employment,Certificate of Employment with Compensation,Service Record,Part time Teaching Services,MILC Certification,Certificate of No Pending Administrative Case,Others',
+        // 'requests.*' => 'in:Certificate of Employment,Certificate of Employment with Compensation,Service Record,Part time Teaching Services,MILC Certification,Certificate of No Pending Administrative Case,Others',
+        'requests.*' => 'in:Certificate of Employment,Certificate of Employment with Compensation,Service Record,Part time Teaching Services,MILC Certification,Others',
         'purpose' => 'required|min:2|max:1000', 
     ];
 
@@ -147,7 +148,7 @@ class RequestDocumentUpdate extends Component
         } else{
             $this->validate(['signature_requesting_party' => 'mimes:jpg,png,pdf|extensions:jpg,png,pdf']);
             $documentrequestdata->signature_requesting_party = file_get_contents($this->signature_requesting_party->getRealPath());
-
+            $documentrequestdata->signature_requesting_party = base64_encode($documentrequestdata->signature_requesting_party);
         }
 
         $updateData = [

@@ -2,12 +2,14 @@
 
 namespace App\Livewire\Requestdocuments;
 
+use finfo;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Documentrequest;
 use Livewire\WithoutUrlPagination;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Auth\Access\AuthorizationException;
 
 class RequestDocumentTable extends Component
@@ -124,6 +126,32 @@ class RequestDocumentTable extends Component
         }
         return "Pending";
 
+    }
+
+    public function download($reference_num){
+        $leaveRequestData = Documentrequest::where('reference_num', $reference_num)->first();
+        $image = base64_decode($leaveRequestData->request_document_form);
+        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        $contentType = $finfo->buffer($image);
+        // dd($contentType);
+        switch($contentType){
+            case "application/pdf":
+                $fileName = "leaverequest.pdf";
+                break;
+            case "image/jpeg":
+                $fileName = "leaverequest.jpg";
+                break;
+            case "image/png":
+                $fileName = "leaverequest.png";
+                break;
+            default:
+                abort(404);
+        }
+        return Response::make($image, 200, [
+            'Content-Type' => $contentType,
+            'Content-Disposition' => 'attachment; filename="'.$fileName.'"'
+        ]);
+    
     }
 
     public function editRequestDocument($id){

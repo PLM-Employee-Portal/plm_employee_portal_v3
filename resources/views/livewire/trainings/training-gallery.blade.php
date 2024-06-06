@@ -11,10 +11,10 @@
         </li>
         <li>
             <div class="flex items-center">
-            <svg class="w-3 h-3 text-gray-400 mx-1 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <svg class="w-3 h-3 text-gray-600 mx-1 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
             </svg>
-            <a href="{{route('TrainingGallery')}}" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Trainings</a>
+            <a href="{{route('TrainingGallery')}}" class="ms-1 text-sm font-semibold text-gray-900 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Trainings</a>
             </div>
         </li>
         </ol>
@@ -22,7 +22,7 @@
 
     @if ($is_head == 1)
         <div class="flex justify-end">
-            <button type="button" onclick="location.href='{{ route('TrainingForm') }}'" class="text-white mb-8 mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create Activity</button>
+            <button type="button" onclick="location.href='{{ route('TrainingForm') }}'" class="text-white mb-8 mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create Training</button>
         </div>
     @else
         <div class="flex justify-end " style="margin-bottom: 40px">
@@ -50,11 +50,11 @@
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                     @foreach ($TrainingData as $data)
-                        <div>
+                        <div class="h-1/2">
                             @php
                                 $photo = $this->getActivityPhoto($data->training_id);
                             @endphp
-                            {{-- <a href="{{route('TrainingView', ['index' => $data->training_id])}}"><img class="h-full w-full object-cover rounded-lg" src="data:image/gif;base64,{{ base64_encode($photo) }}" alt=""></a> --}}
+                            <a href="{{route('TrainingView', ['index' => $data->training_id])}}"><img class="h-full w-full  rounded-lg" src="data:image/gif;base64,{{ base64_encode($photo) }}" alt=""></a>
                         </div>
                     @endforeach
                 </div>

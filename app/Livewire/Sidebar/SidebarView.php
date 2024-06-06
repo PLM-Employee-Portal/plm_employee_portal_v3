@@ -24,8 +24,13 @@ class SidebarView extends Component
     public $collegeDeanId;
 
     public $is_admin;
+
+    public $employee_id;
+
+    public $role_id;
     public function mount(){
         $loggedInUser = auth()->user();
+        $this->role_id = $loggedInUser->role_id;
         $this->is_admin = $loggedInUser->is_admin;
         // $this->role = (int) Employee::where('employee_id', $loggedInUser->employee_id)->value('employee_role');
         $employee = Employee::where('employee_id', $loggedInUser->employee_id)->first(); 
@@ -46,6 +51,11 @@ class SidebarView extends Component
                 $this->collegeDeanId = 1;
             }
         }
+
+        $this->role = $loggedInUser->role_id;
+        $this->employee_id = $loggedInUser->employee_id;
+        // dd($this->departmentHeadId, $this->collegeDeanId, $this->role);
+
     }
 
     public function render()

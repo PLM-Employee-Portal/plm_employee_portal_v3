@@ -19,10 +19,10 @@
         </li>
         <li aria-current="page">
             <div class="flex items-center">
-            <svg class="w-3 h-3 text-gray-400 mx-1 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <svg class="w-3 h-3 text-gray-600 mx-1 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
             </svg>
-            <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">Edit</span>
+            <span class="ms-1 text-sm font-semibold text-gray-900 md:ms-2 dark:text-gray-400">Edit</span>
             </div>
         </li>
         </ol>
@@ -121,27 +121,28 @@
                                         <input @disabled(is_null($service_record) == False)  id="request3" type="checkbox" value="Service Record" wire:model="requests" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="request3" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Service Record</label>
                                     </div>  
-                                    <div class="flex items-center">
+                                   
+                                </div>
+                                <div class="grid grid-cols-1 gap-4">
+                                    <div class="flex items-center mt-4">
                                         <input @disabled(is_null($part_time_teaching_services) == False)  id="request4" type="checkbox" value="Part time Teaching Services" wire:model="requests" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="request4" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Part-time Teaching Services</label>
                                     </div>  
-                                </div>
-                                <div class="grid grid-cols-1 gap-4">
-                                    <div class="flex items-center mt-4 ">
+                                    <div class="flex items-center  ">
                                         <input @disabled(is_null($milc_certification) == False)  id="request5" type="checkbox" value="MILC Certification" wire:model.live="requests" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="request5" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">MILC Certification</label>
                                     </div>
-                                    <div class="flex items-center">
+                                    {{-- <div class="flex items-center">
                                         <input @disabled(is_null($certificate_of_no_pending_administrative_case) == False)  id="request6" type="checkbox" value="Certificate of No Pending Administrative Case" wire:model="requests" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="request" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Certificate of No Pending Administrative Case</label>
-                                    </div>  
+                                    </div>   --}}
                                     <div class="flex items-center">
                                         <input @disabled(is_null($other_documents) == False)  id="request7" type="checkbox" value="Others" wire:model.live="requests" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="request" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Others</label>
                                     </div>  
-                                    <div class="flex items-center">
+                                    {{-- <div class="flex items-center">
                                         &nbsp;
-                                    </div>  
+                                    </div>   --}}
                                 </div>
                             </div>
                             @error('requests')   
@@ -234,7 +235,7 @@
                                                         @php
                                                             $signature_requesting_party = $this->getApplicantSignature();
                                                         @endphp
-                                                        <img src="data:image/gif;base64,{{ base64_encode($signature_requesting_party) }}" alt="Image Description" class="w-full h-full object-contain"> 
+                                                        <img src="data:image/gif;base64,{{ $signature_requesting_party }}" alt="Image Description" class="w-full h-full object-contain"> 
                                                     @else
                                                         <img src="{{ $signature_requesting_party->temporaryUrl() }}" class="w-full h-full object-contain" alt="Uploaded Image">
                                                     @endif

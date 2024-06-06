@@ -17,26 +17,23 @@ class ActivitiesSeeder extends Seeder
     public function run(): void
     {
         $imageContent = file_get_contents(public_path('storage\photos\demofiles\Events\another welcome.jpg'));
-        $destinationPath1 = 'public\storage\photos\demofiles\Events\another welcome.jpg';
-        Storage::disk('public')->put($destinationPath1, $imageContent);
+        $destinationPath1 = base64_encode($imageContent);
+        // Storage::disk('public')->put($destinationPath1, $imageContent);
 
         $imageContent = file_get_contents(public_path('storage\photos\demofiles\Events\CISTM.jpg'));
-        $destinationPath2 = 'public\storage\photos\demofiles\Events\CISTM.jpg';
-        Storage::disk('public')->put($destinationPath2, $imageContent);
+        $destinationPath2 =  base64_encode($imageContent);
 
         $imageContent = file_get_contents(public_path('storage\photos\demofiles\Events\inaguaration mass.jpg'));
-        $destinationPath3 = 'public\storage\photos\demofiles\Events\inaguaration mass.jpg';
-        Storage::disk('public')->put($destinationPath3, $imageContent);
+        $destinationPath3 =  base64_encode($imageContent);
 
         $imageContent = file_get_contents(public_path('storage\photos\demofiles\Events\warm welcome.jpg'));
-        $destinationPath4 = 'public\storage\photos\demofiles\Events\warm welcome.jpg';
-        Storage::disk('public')->put($destinationPath4, $imageContent);
+        $destinationPath4 =  base64_encode($imageContent);
 
         $imageContent = file_get_contents(public_path('storage\photos\demofiles\Events\Mam vhie.jpg'));
-        $destinationPath5 = 'public\storage\photos\demofiles\Events\Mam vhie.jpg';
-        Storage::disk('public')->put($destinationPath5, $imageContent);
+        $destinationPath5 =  base64_encode($imageContent);
         
         Activities::create([
+            'activity_id' => rand(231839, 32839),
             'type' => 'Event',
             'title' => 'Lorem Ipsum',
             'poster' => $destinationPath1,
@@ -50,6 +47,7 @@ class ActivitiesSeeder extends Seeder
         ]);   
 
         Activities::create([
+            'activity_id' => rand(231839, 32839),
             'type' => 'Event',
             'title' => 'Lorem Ipsum',
             'poster' => $destinationPath2,
@@ -63,6 +61,7 @@ class ActivitiesSeeder extends Seeder
         ]);   
 
         Activities::create([
+            'activity_id' => rand(231839, 32839),
             'type' => 'Event',
             'title' => 'Lorem Ipsum',
             'poster' => $destinationPath3,
@@ -76,6 +75,7 @@ class ActivitiesSeeder extends Seeder
         ]);   
 
         Activities::create([
+            'activity_id' => rand(231839, 32839),
             'type' => 'Event',
             'title' => 'Lorem Ipsum',
             'poster' => $destinationPath4,
@@ -89,6 +89,7 @@ class ActivitiesSeeder extends Seeder
         ]);   
 
         Activities::create([
+            'activity_id' => rand(231839, 32839),
             'type' => 'Event',
             'title' => 'Lorem Ipsum',
             'poster' => $destinationPath5,
@@ -102,15 +103,19 @@ class ActivitiesSeeder extends Seeder
         ]);   
 
         $imageContent = file_get_contents(public_path('storage\photos\demofiles\Training picture\coding.webp'));
-        $destinationPath6 = 'public\storage\photos\demofiles\Training picture\coding.webp';
-        Storage::disk('public')->put($destinationPath6, $imageContent);
+        $destinationPath6 =  base64_encode($imageContent);
+        // Storage::disk('public')->put($destinationPath6, $imageContent);
         
         $imageContent = file_get_contents(public_path('storage\photos\demofiles\Training picture\trainingpic.png'));
-        $destinationPath7 = 'public\storage\photos\demofiles\Training picture\trainingpic.png';
-        Storage::disk('public')->put($destinationPath7, $imageContent);
+        $destinationPath7 =  base64_encode($imageContent);
+        // Storage::disk('public')->put($destinationPath7, $imageContent);
 
         Training::create([
+            'training_id' => rand(231839, 32839),
             'training_title' => 'Event',
+            'start_date' => Carbon::create(2022, 4, 9, 10, 30, 0),
+            'end_date' => Carbon::create(2022, 19, 2, 10, 30, 0),
+            'location' => 'lorem ipsum',
             'training_information' => 'Lorem Ipsum',
             'training_photo' => $destinationPath6,
             'is_featured' => 1,
@@ -119,6 +124,10 @@ class ActivitiesSeeder extends Seeder
         ]);   
 
         Training::create([
+            'training_id' => rand(231839, 32839),
+            'start_date' => Carbon::create(2022, 4, 9, 10, 30, 0),
+            'end_date' => Carbon::create(2022, 19, 2, 10, 30, 0),
+            'location' => 'lorem ipsum',
             'training_title' => 'Event',
             'training_information' => 'Lorem Ipsum',
             'training_photo' => $destinationPath7,

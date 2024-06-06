@@ -87,6 +87,8 @@ class DashboardView extends Component
         // dd($this->period);
         $currentYear = Carbon::now()->year;
         $currentMonth = Carbon::now()->month;
+        $currentDay = Carbon::now()->day;
+        // dd($currentDay);
 
     // Query to get the attendance count for each month in the current year
     $monthlyCounts = Dailytimerecord::select(

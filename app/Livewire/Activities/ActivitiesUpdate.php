@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\Activities;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ActivitiesUpdate extends Component
@@ -25,6 +26,10 @@ class ActivitiesUpdate extends Component
 
     public $index;
 
+    public $colleges;
+
+    public $departments;
+
 
     public function mount($index){
         $this->index = $index;
@@ -32,17 +37,20 @@ class ActivitiesUpdate extends Component
         $this->type = $activitydata->type;
         $this->title = $activitydata->title;
         $this->description = $activitydata->description;
-        $this->poster = $activitydata->poster;
+        $this->poster = $activitydata->poster ? " " : null; 
         $this->date = $activitydata->date;
         $this->start = $activitydata->start;
         $this->end = $activitydata->end;
         $this->host = $activitydata->host;
         $this->is_featured = ( $activitydata->is_featured == 1) ? true : false;
         $this->visible_to_list = $activitydata->visible_to_list;
-    }
+        $this->colleges = DB::table('colleges')->orderBy('college_name', 'asc')->pluck('college_name');
+        $this->departments = DB::table('departments')->orderBy('department_name', 'asc')->pluck('department_name');
+}
 
     public function getPoster(){
-        return Storage::disk('public')->get($this->poster);
+        $activitydata = Activities::findOrFail($this->index);
+        return $activitydata->poster;
     }
 
     protected $rules = [
@@ -51,10 +59,10 @@ class ActivitiesUpdate extends Component
         'description' => 'required|min:2|max:1024',
         'start' => 'required|before_or_equal:end',
         'end' => 'required|after_or_equal:start',
-        'is_featured' => 'required|boolean',
-        'host' => 'required|in:College of Information System and Technology Management,College of Engineering,College of Business Administration,College of Liberal Arts,College of Sciences,College of Education,Finance Department,Human Resources Department,Information Technology Department,Legal Department',
+        'is_featured' => 'nullable|boolean',
+        'host' => 'required',
         'visible_to_list' => 'required|array|min:1',
-        'visible_to_list.*' => 'required|in:College of Information System and Technology Management,College of Engineering,College of Business Administration,College of Liberal Arts,College of Sciences,College of Education,Finance Department,Human Resources Department,Information Technology Department,Legal Department'
+        'visible_to_list.*' => 'required'
         
     ];
 
@@ -71,24 +79,13 @@ class ActivitiesUpdate extends Component
         $activitydata->type = $this->type;
         $activitydata->title = $this->title;
         $activitydata->description = $this->description;
-        if(is_string($this->poster) == False){
-            $this->validate(['poster' => 'required|mimes:jpg,png|extensions:jpg,png']);
 
-            if($this->type == "Announcement"){
-                $activitydata->poster = $this->poster->store('photos/activities/announcement', 'public');
-            }
-            else if($this->type == "Event"){
-                $activitydata->poster = $this->poster->store('photos/activities/event', 'public');
-            }
-            else if($this->type == "Seminar"){
-                $activitydata->poster = $this->poster->store('photos/activities/seminar', 'public');
-            }
-            else if($this->type == "Training"){
-                $activitydata->poster = $this->poster->store('photos/activities/training', 'public');
-            }
-            else if($this->type == "Others"){
-                $activitydata->poster = $this->poster->store('photos/activities/others', 'public');
-            }
+        if(is_string($this->poster) ){
+
+        } else{
+            $this->validate(['poster' => 'required|mimes:jpg,png|extensions:jpg,png']);
+            $activitydata->poster = file_get_contents($this->poster->getRealPath());
+
         }
         $activitydata->date = $this->date;
         $activitydata->start = $this->start;
@@ -97,8 +94,26 @@ class ActivitiesUpdate extends Component
         $activitydata->is_featured = $this->is_featured;
         $activitydata->visible_to_list = $this->visible_to_list;
 
-        $this->js("alert('Activity Created!')"); 
-        $activitydata->update();
+        $updateData = [
+            'type' => $activitydata->type,
+            'title' => $activitydata->title,
+            'description' => $activitydata->description,
+            'poster' =>  $activitydata->poster,
+            'date' => $activitydata->date,
+            'start' => $activitydata->start,
+            'end' => $activitydata->end, 
+            'host' => $activitydata->host,
+            'is_featured' => $activitydata->is_featured , 
+            'visible_to_list' => $activitydata->visible_to_list, 
+            'updated_at' => now(),
+          ];
+        
+        Activities::where('activity_id', $this->index)
+                               ->update($updateData);
+
+
+        $this->js("alert('Activity Updated!')"); 
+        // $activitydata->update();
         return redirect()->to(route('ActivitiesGallery'));
     }
 

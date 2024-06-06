@@ -1,4 +1,28 @@
 <div class="main-content">
+    <div class="mt-4 ml-2">
+        <nav class="flex " aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3 rtl:space-x-reverse">
+            <li class="inline-flex items-center">
+                <a href="{{route('dashboard')}}" class="inline-flex items-center text-sm font-medium text-gray-900 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+                </svg>
+                Home
+                </a>
+            </li>
+            <li>
+                <div class="flex items-center">
+                <svg class="w-3 h-3 text-gray-400 mx-1 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                    <path stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                </svg>
+                <a href="{{route('profile')}}" class="ms-1 text-sm font-semibold text-gray-800 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Profile</a>
+                </div>
+            </li>
+            </ol>
+        </nav> 
+    
+    </div>
+    <br>
         <div class="border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 ">
         <div class="grid grid-cols-5 gap-4">
             <div class="col-span-3 grid grid-cols-1 gap-4">
@@ -21,7 +45,15 @@
                     </div>
                     <div class="grid grid-cols-1 min-[900px]:grid-cols-2 p-4 ">
                         <div class="flex justify-center min-[900px]:flex min-[900px]:justify-end">
-                            <img class="ml-8 w-36 h-36 mb-3 shadow-xl rounded-full" src="{{ asset($employeeImage ? 'storage/' . $employeeImage : 'photos/avatar/default.png') }}" alt="Employee Image"/> 
+                            @if(is_null($employeeImage) == False)
+                            <img
+                                class="ml-8 w-36 h-36 mb-3 shadow-xl rounded-full"
+                                src="data:image/gif;base64,{{ $employeeImage }}"
+                                alt="Employee Image"
+                            />
+                            @else
+                            <img class="ml-8 w-36 h-36 mb-3 shadow-xl rounded-full" src="{{ asset( 'storage/photos/avatar/default.png') }}" alt="Employee Image"/> 
+                            @endif
                         </div>
                         <div class="inline-flex items-center justify-center min-[900px]:justify-start">
                            <div class="ml-8 text-center">
@@ -55,8 +87,8 @@
                             <figure class="items-center justify-center pl-8 mt-6 text-left bg-white border-b border-gray-800 md:rounded-es-lg md:border-b-0  dark:bg-gray-800 dark:border-gray-700">
                                 <blockquote class="max-w-2xl mx-auto mb-4 text-gray-900 lg:mb-8  dark:text-gray-400">
                                     <h3 class="text-xl font-semibold text-blue-700 dark:text-white">Designation: </h3>
-                                    <p class="my-4"><b>Department Name:</b> {{$employeeRecord->department_name}}</p>
-                                    <p class="my-4"><b>Department Head:</b> {{$employeeRecord->department_head}}</p>
+                                    <p class="my-4"><b>Department Name:</b> {{$departmentName}}</p>
+                                    <p class="my-4"><b>Department Head:</b> {{$collegeName}}</p>
                                     <p class="my-4"><b>Faculty/Non Faculty:</b> {{$employeeRecord->faculty_or_not ? 'Faculty' : 'Not a Faculty' }}</p>
                                     <p class="my-4"><b>Employee ID:</b> {{$employeeRecord->employee_id}} </p>
                                 </blockquote>
@@ -85,7 +117,7 @@
                 <div class="w-auto">
                     <div class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                         <div class="flex items-center justify-between mb-4">
-                            <h5 class="text-xl font-bold leading-none text-blue-700 dark:text-white">Documents</h5>
+                            <h5 class="text-xl font-bold leading-none text-blue-700 dark:text-white">Submitted Documents</h5>
                             {{-- <a href="#" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
                                 View all
                             </a> --}}
@@ -94,7 +126,7 @@
                             <ul role="list" class="divide-y divide-gray-900 dark:divide-gray-700">
                                 @if ($employeeImage)
                                 <li class="py-1 sm:py-2">
-                                    <a target="_blank" href="{{route('downloadFile', ['file' => 'photo'])}}" class="text-sm cursor-pointer font-medium text-gray-900 truncate dark:text-white">
+                                    <a target="_blank" href="{{route('downloadFile', ['file' => 'photo'])}}" class="text-sm  font-medium text-gray-900 truncate dark:text-white">
                                         <div class="flex items-center ml-4">
                                             <div class="flex-shrink-0 mr-2"> <!-- This ensures the SVG icon won't shrink -->
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 " >
@@ -118,15 +150,16 @@
                                                                              
                                             </div>
                                             <div class="flex-1 min-w-0 truncate">
-                                                Nothing to See here.
+                                                No Photo Yet.
                                             </div>
                                         </div>
                                 </li>
 
                                 @endif
-                                @foreach ($empDiploma as $index => $item )
+
+                                @if ($empDiploma)
                                     <li class="py-1 sm:py-2">
-                                        <a target="_blank" href="{{route('downloadFile', ['file' => 'diploma', 'index' => $index])}}" class="text-sm cursor-pointer font-medium text-gray-900 truncate dark:text-white">
+                                        <span class="text-sm  font-medium text-gray-900 truncate dark:text-white">
                                             <div class="flex items-center ml-4">
                                                 <div class="flex-shrink-0 mr-2"> <!-- This ensures the SVG icon won't shrink -->
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 ">
@@ -136,15 +169,16 @@
                                                     </svg> 
                                                 </div>
                                                 <div class="flex-1 min-w-0 truncate">
-                                                    Diploma @if (count($empDiploma) > 1) {{$index + 1}} @endif
+                                                    Diploma 
                                                 </div>
                                             </div>
-                                        </a>
+                                        </span>
                                     </li>
-                                @endforeach
-                                @foreach ($emp_tor as $index => $item )
+                                @endif
+
+                                @if ($emp_tor)
                                 <li class="py-1 sm:py-2">
-                                    <a target="_blank" href="{{route('downloadFile', ['file' => 'tor', 'index' => $index])}}" class="text-sm cursor-pointer font-medium text-gray-900 truncate dark:text-white">
+                                    <span class="text-sm  font-medium text-gray-900 truncate dark:text-white">
                                         <div class="flex items-center ml-4">
                                             <div class="flex-shrink-0 mr-2"> <!-- This ensures the SVG icon won't shrink -->
                                                 <svg class="w-6 h-6  dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -152,15 +186,16 @@
                                                   </svg>                                                  
                                             </div>
                                             <div class="flex-1 min-w-0 truncate ">
-                                                Transcript of Records @if (count($emp_tor) > 1) {{$index + 1}} @endif
+                                                Transcript of Records 
                                             </div>
                                         </div>
-                                    </a>
+                                    </span>
                                 </li>
-                                @endforeach
-                                @foreach ($empCertOfTrainingsSeminars as $index => $item )
+                                @endif
+
+                                @if ($empCertOfTrainingsSeminars)
                                 <li class="py-1 sm:py-2">
-                                    <a target="_blank" href="{{route('downloadFile', ['file' => 'certificate', 'index' => $index])}}" class="text-sm cursor-pointer font-medium text-gray-900 truncate dark:text-white">
+                                    <span class="text-sm  font-medium text-gray-900 truncate dark:text-white">
                                         <div class="flex items-center ml-4">
                                             <div class="flex-shrink-0 mr-2"> <!-- This ensures the SVG icon won't shrink -->
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 ">
@@ -168,15 +203,15 @@
                                                   </svg>                                                                                            
                                             </div>
                                             <div class="flex-1 min-w-0 truncate">
-                                                Certificate of Trainings/Seminars @if (count($empCertOfTrainingsSeminars) > 1) {{$index + 1}} @endif
+                                                Certificate of Trainings/Seminars 
                                             </div>
                                         </div>
-                                    </a>
+                                    </span>
                                 </li>
-                                @endforeach
-                                @foreach ($empAuthCopyOfCscOrPrc as $index => $item )
+                                @endif
+                                @if ($empAuthCopyOfCscOrPrc)
                                 <li class="py-1 sm:py-2">
-                                    <a target="_blank" href="{{route('downloadFile', ['file' => 'csc_eligibility', 'index' => $index])}}" class="text-sm cursor-pointer font-medium text-gray-900 truncate dark:text-white">
+                                    <span class="text-sm  font-medium text-gray-900 truncate dark:text-white">
                                         <div class="flex items-center ml-4">
                                             <div class="flex-shrink-0 mr-2"> <!-- This ensures the SVG icon won't shrink -->
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 ">
@@ -185,15 +220,16 @@
                                                                                                                                            
                                             </div>
                                             <div class="flex-1 min-w-0 truncate">
-                                                Authenticated Copy of CSC or PRC license @if (count($empAuthCopyOfCscOrPrc) > 1) {{$index + 1}} @endif
+                                                Authenticated Copy of CSC or PRC license 
                                             </div>
                                         </div>
-                                    </a>
+                                    </span>
                                 </li>
-                                @endforeach
-                                @foreach ($empAuthCopyOfPrcBoardRating as $index => $item )
+                                @endif
+
+                                @if ($empAuthCopyOfPrcBoardRating)
                                 <li class="py-1 sm:py-2">
-                                    <a target="_blank" href="{{route('downloadFile', ['file' => 'prc_boardrating', 'index' => $index])}}" class="text-sm cursor-pointer font-medium text-gray-900 truncate dark:text-white">
+                                    <span class="text-sm  font-medium text-gray-900 truncate dark:text-white">
                                         <div class="flex items-center ml-4">
                                             <div class="flex-shrink-0 mr-2"> <!-- This ensures the SVG icon won't shrink -->
                                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -202,15 +238,16 @@
                                                   </svg>                                                                                   
                                             </div>
                                             <div class="flex-1 min-w-0 truncate">
-                                                Authenticated copy of PRC Board Rating @if (count($empAuthCopyOfPrcBoardRating) > 1) {{$index + 1}} @endif
+                                                Authenticated copy of PRC Board Rating 
                                             </div>
                                         </div>
-                                    </a>
+                                    </span>
                                 </li>
-                                @endforeach
-                                @foreach ($empMedCertif as $index => $item )
+                                @endif
+
+                                @if($empMedCertif)
                                 <li class="py-1 sm:py-2">
-                                    <a target="_blank" href="{{route('downloadFile', ['file' => 'med_cert', 'index' => $index])}}" class="text-sm cursor-pointer font-medium text-gray-900 truncate dark:text-white">
+                                    <span class="text-sm  font-medium text-gray-900 truncate dark:text-white">
                                         <div class="flex items-center ml-4">
                                             <div class="flex-shrink-0 mr-2"> <!-- This ensures the SVG icon won't shrink -->
                                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -219,15 +256,16 @@
                                                                                                                                    
                                             </div>
                                             <div class="flex-1 min-w-0 truncate">
-                                                Medical Certificate @if (count($empMedCertif) > 1) {{$index + 1}} @endif
+                                                Medical Certificate 
                                             </div>
                                         </div>
-                                    </a>
+                                    </span>
                                 </li>
-                                @endforeach
-                                @foreach ($empNBIClearance as $index => $item )
+                                @endif
+
+                                @if ($empNBIClearance)
                                 <li class="py-1 sm:py-2">
-                                    <a target="_blank" href="{{route('downloadFile', ['file' => 'nbi_clearance', 'index' => $index])}}" class="text-sm cursor-pointer font-medium text-gray-900 truncate dark:text-white">
+                                    <span class="text-sm  font-medium text-gray-900 truncate dark:text-white">
                                         <div class="flex items-center ml-4">
                                             <div class="flex-shrink-0 mr-2"> <!-- This ensures the SVG icon won't shrink -->
                                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -237,15 +275,16 @@
                                                                                                                                    
                                             </div>
                                             <div class="flex-1 min-w-0 truncate">
-                                                NBI Clearance @if (count($empNBIClearance) > 1) {{$index + 1}} @endif
+                                                NBI Clearance 
                                             </div>
                                         </div>
-                                    </a>
+                                    </span>
                                 </li>
-                                @endforeach
-                                @foreach ($empPSABirthCertif as $index => $item )
+                                @endif
+
+                                @if ($empPSABirthCertif)
                                 <li class="py-1 sm:py-2">
-                                    <a target="_blank" href="{{route('downloadFile', ['file' => 'psa_birthcertificate', 'index' => $index])}}" class="text-sm cursor-pointer font-medium text-gray-900 truncate dark:text-white">
+                                    <span class="text-sm  font-medium text-gray-900 truncate dark:text-white">
                                         <div class="flex items-center ml-4">
                                             <div class="flex-shrink-0 mr-2"> <!-- This ensures the SVG icon won't shrink -->
                                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -254,57 +293,60 @@
                                                                                                                           
                                             </div>
                                             <div class="flex-1 min-w-0 truncate">
-                                                PSA Birth Certifcate @if (count($empPSABirthCertif) > 1) {{$index + 1}} @endif
+                                                PSA Birth Certifcate 
                                             </div>
                                         </div>
-                                    </a>
+                                    </span>
                                 </li>
-                                @endforeach
-                                @foreach ($empPSAMarriageCertif as $index => $item )
+                                @endif
+
+                                @if($empPSAMarriageCertif)
                                 <li class="py-1 sm:py-2">
-                                    <a target="_blank" href="{{route('downloadFile', ['file' => 'psa_marriagecertificate', 'index' => $index])}}" class="text-sm cursor-pointer font-medium text-gray-900 truncate dark:text-white">
+                                    <span class="text-sm  font-medium text-gray-900 truncate dark:text-white">
                                         <div class="flex items-center ml-4">
                                             <div class="flex-shrink-0 mr-2"> <!-- This ensures the SVG icon won't shrink -->
                                                 {{ svg('bxs-church', ['class' => 'w-6 h-6 text-gray-800 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white']) }}                                                
                                             </div>
                                             <div class="flex-1 min-w-0 truncate">
-                                                PSA Marriage Certificate @if (count($empPSAMarriageCertif) > 1) {{$index + 1}} @endif
+                                                PSA Marriage Certificate
                                             </div>
                                         </div>
-                                    </a>
+                                    </span>
                                 </li>
-                                @endforeach
-                                @foreach ($empServiceRecordFromOtherGovtAgency as $index => $item )
+                                @endif
+
+                                @if($empServiceRecordFromOtherGovtAgency)
                                 <li class="py-1 sm:py-2">
-                                    <a target="_blank" href="{{route('downloadFile', ['file' => 'service_record', 'index' => $index])}}" class="text-sm cursor-pointer font-medium text-gray-900 truncate dark:text-white">
+                                    <span class="text-sm  font-medium text-gray-900 truncate dark:text-white">
                                         <div class="flex items-center ml-4">
                                             <div class="flex-shrink-0 mr-2"> <!-- This ensures the SVG icon won't shrink -->
                                                 {{ svg('bxs-receipt', ['class' => 'w-6 h-6 text-gray-800 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white']) }}                                                
                                             </div>
                                             <div class="flex-1 min-w-0 truncate">
-                                                Service Record from other government agency @if (count($empServiceRecordFromOtherGovtAgency) > 1) {{$index + 1}} @endif
+                                                Service Record from other government agency 
                                             </div>
                                         </div>
-                                    </a>
+                                    </span>
                                 </li>
-                                @endforeach
-                                @foreach ($empApprovedClearancePrevEmployer as $index => $item )
+                                @endif
+                                @if($empApprovedClearancePrevEmployer)
                                 <li class="py-1 sm:py-2">
-                                    <a target="_blank" href="{{route('downloadFile', ['file' => 'approved_clearance', 'index' => $index])}}" class="text-sm cursor-pointer font-medium text-gray-900 truncate dark:text-white">
+                                    <span class="text-sm  font-medium text-gray-900 truncate dark:text-white">
                                         <div class="flex items-center ml-4">
                                             <div class="flex-shrink-0 mr-2"> <!-- This ensures the SVG icon won't shrink -->
                                                 {{ svg('bxs-user-check', ['class' => 'w-6 h-6 text-gray-800 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white']) }}                                                
                                             </div>
                                             <div class="flex-1 min-w-0 truncate">
-                                                Approved Clearance from previous employer @if (count($empApprovedClearancePrevEmployer) > 1) {{$index + 1}} @endif
+                                                Approved Clearance from previous employer
                                             </div>
                                         </div>
-                                    </a>
+                                    </span>
                                 </li>
-                                @endforeach
-                                @foreach ($otherDocuments as $index => $item )
+                                @endif
+
+                                {{-- @foreach ($otherDocuments as $index => $item )
                                     <li class="py-1 sm:py-2">
-                                        <a target="_blank" href="{{route('downloadFile', ['file' => 'others', 'index' => $index])}}" class="text-sm cursor-pointer font-medium text-gray-900 truncate dark:text-white">
+                                        <span class="text-sm  font-medium text-gray-900 truncate dark:text-white">
                                             <div class="flex items-center ml-4">
                                                 <div class="flex-shrink-0 mr-2"> <!-- This ensures the SVG icon won't shrink -->
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
@@ -317,9 +359,9 @@
                                                     Other Document @if (count($otherDocuments) > 1) {{$index + 1}} @endif
                                                 </div>
                                             </div>
-                                        </a>
+                                        </span>
                                     </li>
-                                @endforeach
+                                @endforeach --}}
                                 {{-- <div class="row">
                                     @php
                                         $documents = $record->other_documents ?? []; // Set to empty array if null or not set

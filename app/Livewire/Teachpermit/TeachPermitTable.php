@@ -2,11 +2,13 @@
 
 namespace App\Livewire\Teachpermit;
 
+use finfo;
 use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\Teachpermit;
 use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
+use Illuminate\Support\Facades\Response;
 
 class TeachPermitTable extends Component
 {
@@ -84,6 +86,31 @@ class TeachPermitTable extends Component
         return view('livewire.teachpermit.teach-permit-table', [
             'TeachPermitData' => $results,
         ]);
+    }
+
+    public function download($reference_num){
+        $teachpermitData = Teachpermit::where('reference_num', $reference_num)->first();
+        $image = base64_decode($teachpermitData->permit_to_teach);
+        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        $contentType = $finfo->buffer($image);
+        switch($contentType){
+            case "application/pdf":
+                $fileName = "leaverequest.pdf";
+                break;
+            case "image/jpeg":
+                $fileName = "leaverequest.jpg";
+                break;
+            case "image/png":
+                $fileName = "leaverequest.png";
+                break;
+            default:
+                abort(404);
+        }
+        return Response::make($image, 200, [
+            'Content-Type' => $contentType,
+            'Content-Disposition' => 'attachment; filename="'.$fileName.'"'
+        ]);
+    
     }
 
     public function removeTeachPermit($ref_num){

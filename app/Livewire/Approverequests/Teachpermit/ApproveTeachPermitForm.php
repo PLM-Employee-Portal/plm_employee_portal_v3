@@ -8,6 +8,7 @@ use Livewire\Component;
 use App\Models\Employee;
 use App\Models\Teachpermit;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Notifications\SignedNotifcation;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -65,21 +66,23 @@ class ApproveTeachPermitForm extends Component
 
         try {
             $this->index = $index;
-            $teachpermitdata = Teachpermit::findOrFail($index);
+            $teachpermitdata = $this->editForm($index);
             $this->authorize('update', [$teachpermitdata, 'Approve']);
         } catch (AuthorizationException $e) {
             abort(404);
         }
 
-        $this->employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_name', 'current_position', 'employee_type' )
+        $employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_id', 'current_position', 'employee_type', 'study_available_units' )
                                     ->where('employee_id', $loggedInUser->employee_id)
-                                    ->get();   
-        $this->first_name = $this->employeeRecord[0]->first_name;
-        $this->middle_name = $this->employeeRecord[0]->middle_name;
-        $this->last_name = $this->employeeRecord[0]->last_name;
-        $this->department_name = $this->employeeRecord[0]->department_name;
-        $this->current_position = $this->employeeRecord[0]->current_position;
-        $this->employee_type = $this->employeeRecord[0]->employee_type;
+                                    ->first();   
+        $departmentName = DB::table('departments')->where('department_id', $employeeRecord->department_id[0])->value('department_name');
+
+        $this->first_name = $employeeRecord->first_name;
+        $this->middle_name = $employeeRecord->middle_name;
+        $this->last_name = $employeeRecord->last_name;
+        $this->department_name = $departmentName;
+        $this->current_position = $employeeRecord->current_position;
+        $this->employee_type = $employeeRecord->employee_type;
 
         $this->employee_id = $teachpermitdata->employee_id;
         $this->application_date = $teachpermitdata->application_date;
@@ -110,32 +113,60 @@ class ApproveTeachPermitForm extends Component
         $this->verdict_of_head_office = $teachpermitdata->verdict_of_head_office;
         $this->verdict_of_human_resource = $teachpermitdata->verdict_of_human_resource;
         $this->verdict_of_vp_for_academic_affair = $teachpermitdata->verdict_of_vp_for_academic_affair;
-        $this->signature_of_university_president = $teachpermitdata->signature_of_university_president;
+        $this->verdict_of_university_president = $teachpermitdata->verdict_of_university_president;
 
         $this->subjectLoad = json_decode($teachpermitdata->load, true);
     }
 
+    public function editForm($index){
+        $form = Teachpermit::where('reference_num', $index)->first();
+        if(!$form){
+            abort(404);
+        }
+        // $this->leaverequest = $leaverequest;
+        return $form;
+    }
+
     public function getApplicantSignature(){
-        return Storage::disk('local')->get($this->applicant_signature);
+        $form = Teachpermit::where('reference_num', $this->index)->first();
+        if(!$form){
+            abort(404);
+        }
+        return $form->applicant_signature;
     }
 
     public function getHeadSignature(){
-        return Storage::disk('local')->get($this->signature_of_head_office);
+        $form = Teachpermit::where('reference_num', $this->index)->first();
+        if(!$form){
+            abort(404);
+        }
+        return $form->signature_of_head_office;
     }
 
     public function getHumanResourceSignature(){
-        return Storage::disk('local')->get($this->signature_of_human_resource);
+        $form = Teachpermit::where('reference_num', $this->index)->first();
+        if(!$form){
+            abort(404);
+        }
+        return $form->signature_of_human_resource;
     }
 
     public function getVpAcademicAffairsSignature(){
-        return Storage::disk('local')->get($this->signature_of_vp_for_academic_affair);
+        $form = Teachpermit::where('reference_num', $this->index)->first();
+        if(!$form){
+            abort(404);
+        }
+        return $form->signature_of_vp_for_academic_affair;
     }
 
     public function getPresidentSignature(){
-        return Storage::disk('local')->get($this->signature_of_university_president);
+        $form = Teachpermit::where('reference_num', $this->index)->first();
+        if(!$form){
+            abort(404);
+        }
+        return $form->signature_of_university_president;
     }
   
-
     // public function addSubjectLoad(){
     //     $this->subjectLoad[] = ['subject' => '', 'days' => '', 'start_time' => '', 'end_time' => '', 'number_of_units' => ''];
     // }
@@ -149,11 +180,11 @@ class ApproveTeachPermitForm extends Component
 
         $loggedInUser = auth()->user();
 
-        $teachpermitdata = Teachpermit::findOrFail($this->index);
+        $teachpermitdata = Teachpermit::where('reference_num', $this->index)->first();
 
-        $this->employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_name', 'current_position', 'employee_type' )
-                ->where('employee_id', $loggedInUser->employee_id)
-                ->get();   
+        // $this->employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_id', 'current_position', 'employee_type' )
+        //         ->where('employee_id', $loggedInUser->employee_id)
+        //         ->get();   
 
         $dates = [
             'date_of_signature_of_head_office' => 'required_unless:signature_of_head_office,null|required_unless:verdict_of_head_office,null|nullable|date|after_or_equal:application_date',
@@ -169,18 +200,18 @@ class ApproveTeachPermitForm extends Component
 
 
         $Names = Employee::select('first_name', 'middle_name', 'last_name')
-        ->where('employee_id', $loggedInUser->employee_id)
-        ->first();
+                    ->where('employee_id', $loggedInUser->employee_id)
+                    ->first();
         $signedIn = $Names->first_name. ' ' .  $Names->middle_name. ' '. $Names->last_name;
 
         $targetUser = User::where('employee_id', $teachpermitdata->employee_id)->first();
 
         $properties = [
             // 'applicant_signature' => 'mimes:jpg,png|extensions:jpg,png,pdf',
-            'signature_of_head_office' => ['required_with:date_of_signature_of_head_office|mimes:jpg,png,pdf|extensions:jpg,png,pdf', 'verdict_of_head_office'],
-            'signature_of_human_resource' => ['required_with:date_of_signature_of_human_resource|mimes:jpg,png,pdf|extensions:jpg,png,pdf', 'verdict_of_human_resource'] ,
-            'signature_of_vp_for_academic_affair' => ['required_with:date_of_signature_of_vp_for_academic_affair|mimes:jpg,png,pdf|extensions:jpg,png,pdf', 'verdict_of_vp_for_academic_affair'],
-            'signature_of_university_president' => ['required_with:date_of_signature_of_university_president|mimes:jpg,png,pdf|extensions:jpg,png,pdf', 'verdict_of_university_president'],
+            'signature_of_head_office' => ['nullable|required_with:date_of_signature_of_head_office|mimes:jpg,png,pdf|extensions:jpg,png,pdf', 'verdict_of_head_office'],
+            'signature_of_human_resource' => ['nullable|required_with:date_of_signature_of_human_resource|mimes:jpg,png,pdf|extensions:jpg,png,pdf', 'verdict_of_human_resource'] ,
+            'signature_of_vp_for_academic_affair' => ['nullable|required_with:date_of_signature_of_vp_for_academic_affair|mimes:jpg,png,pdf|extensions:jpg,png,pdf', 'verdict_of_vp_for_academic_affair'],
+            'signature_of_university_president' => ['nullable|required_with:date_of_signature_of_university_president|mimes:jpg,png,pdf|extensions:jpg,png,pdf', 'verdict_of_university_president'],
         ];
         
         // Iterate over the properties
@@ -188,14 +219,19 @@ class ApproveTeachPermitForm extends Component
             // Check if the current property value is a string or an uploaded file
             if (is_string($this->$propertyName)) {
                 // If it's a string, assign it directly
-                $teachpermitdata->$propertyName = $this->$propertyName;
-            } else {
+                // $teachpermitdata->$propertyName = $this->$propertyName;
+            } else if(is_null($this->$propertyName)){
+
+            } 
+            else {
                 $this->validate([$propertyName => $validationRule[0]]);
                 $name_of_verdict = $validationRule[1];
                 if($this->$propertyName){
-                $targetUser->notify(new SignedNotifcation($loggedInUser->employee_id, 'Teach Permit', 'Signed', $teachpermitdata->id, $signedIn,  $this->$name_of_verdict));
+                $targetUser->notify(new SignedNotifcation($loggedInUser->employee_id, 'Teach Permit', 'Signed', $teachpermitdata->reference_num, $signedIn,  $this->$name_of_verdict));
                 }
-                $teachpermitdata->$propertyName = $this->$propertyName ? $this->$propertyName->store('photos/teachpermit/' . $propertyName, 'local') : '';
+                $teachpermitdata->$propertyName = file_get_contents($this->$propertyName->getRealPath());
+                $teachpermitdata->$propertyName = base64_encode($teachpermitdata->$propertyName);
+                // $teachpermitdata->$propertyName = $this->$propertyName ? $this->$propertyName->store('photos/teachpermit/' . $propertyName, 'local') : '';
             }
         }
 
@@ -220,8 +256,8 @@ class ApproveTeachPermitForm extends Component
                     $teachpermitdata->status = "Approved";
                 }
             }
-        else if($teachpermitdata->verdict_of_head_office == 0 || $teachpermitdata->verdict_of_human_resource == 0 
-        || $teachpermitdata->verdict_of_vp_for_academic_affair == 0 || $teachpermitdata->verdict_of_university_president == 0){
+        else if($teachpermitdata->verdict_of_head_office == 0 && $teachpermitdata->verdict_of_human_resource == 0 
+        && $teachpermitdata->verdict_of_vp_for_academic_affair == 0 && $teachpermitdata->verdict_of_university_president == 0){
             if($teachpermitdata->signature_of_head_office || $teachpermitdata->signature_of_human_resource 
             || $teachpermitdata->signature_of_vp_for_academic_affair || $teachpermitdata->signature_of_university_president ){
                 $teachpermitdata->status = "Declined";
@@ -230,24 +266,44 @@ class ApproveTeachPermitForm extends Component
             $teachpermitdata->status = "Pending";
         }
 
-        foreach($this->subjectLoad as $load){
-            $jsonSubjectLoad[] = [
-                'subject' => $load['subject'],
-                'days' => $load['days'],
-                'start_time' => $load['start_time'],
-                'end_time' => $load['end_time'],
-                'number_of_units' => $load['number_of_units'],
-            ];
-        }
+        // foreach($this->subjectLoad as $load){
+        //     $jsonSubjectLoad[] = [
+        //         'subject' => $load['subject'],
+        //         'days' => $load['days'],
+        //         'start_time' => $load['start_time'],
+        //         'end_time' => $load['end_time'],
+        //         'number_of_units' => $load['number_of_units'],
+        //     ];
+        // }
+        $updateData = [
+            'status' => $teachpermitdata->status,
+            'signature_of_head_office' => $teachpermitdata->signature_of_head_office,
+            'signature_of_human_resource' => $teachpermitdata->signature_of_human_resource  ,
+            'signature_of_vp_for_academic_affair' => $teachpermitdata->signature_of_vp_for_academic_affair,
+            'signature_of_university_president' => $teachpermitdata->signature_of_university_president,
+            'date_of_signature_of_head_office' => $teachpermitdata->date_of_signature_of_head_office,
+            'date_of_signature_of_human_resource' => $teachpermitdata->date_of_signature_of_human_resource,
+            'date_of_signature_of_vp_for_academic_affair' => $teachpermitdata->date_of_signature_of_vp_for_academic_affair,
+            'date_of_signature_of_university_president' => $teachpermitdata->date_of_signature_of_university_president, 
+            'verdict_of_head_office' => $teachpermitdata->verdict_of_head_office,
+            'verdict_of_human_resource' => $teachpermitdata->verdict_of_human_resource,
+            'verdict_of_vp_for_academic_affair' => $teachpermitdata->verdict_of_vp_for_academic_affair,
+            'verdict_of_university_president' => $teachpermitdata->verdict_of_university_president,
+            'updated_at' => now(),
+          ];
 
-        $jsonSubjectLoad = json_encode($jsonSubjectLoad);
+        
+        Teachpermit::where('reference_num', $this->index)
+                               ->update($updateData);
 
-        $teachpermitdata->load = $jsonSubjectLoad;
+        // $jsonSubjectLoad = json_encode($jsonSubjectLoad);
+
+        // $teachpermitdata->load = $jsonSubjectLoad;
 
        
-        $this->js("alert('Teach Permit submitted!')"); 
+        $this->js("alert('Teach Permit Updated!')"); 
  
-        $teachpermitdata->update();
+        // $teachpermitdata->update();
 
         return redirect()->to(route('ApproveTeachPermitTable'));
 

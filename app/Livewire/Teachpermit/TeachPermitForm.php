@@ -46,10 +46,9 @@ class TeachPermitForm extends Component
 
     public function mount(){
         $loggedInUser = auth()->user();
-        $employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_id', 'college_id', 'current_position', 'employee_type', 'study_available_units' )
+        $employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_id', 'college_id', 'current_position', 'employee_type', 'teach_available_units' )
                                     ->where('employee_id', $loggedInUser->employee_id)
                                     ->first();   
-
         $departmentName = DB::table('departments')->where('department_id', $employeeRecord->department_id)->value('department_name');
         $this->first_name = $employeeRecord->first_name;
         $this->middle_name = $employeeRecord->middle_name;
@@ -57,7 +56,7 @@ class TeachPermitForm extends Component
         $this->department_name = $departmentName;
         $this->current_position = $employeeRecord->current_position;
         $this->employee_type = $employeeRecord->employee_type;
-        $this->study_available_units = $employeeRecord->study_available_units ?? 0;
+        $this->study_available_units = $employeeRecord->teach_available_units ?? 0;
         $dateToday = Carbon::now()->toDateString();
         $this->date = $dateToday;
         $this->start_period_cover = $dateToday;
@@ -122,20 +121,15 @@ class TeachPermitForm extends Component
     }
 
     private function generateRefNumber(){
-        // Generate a random number
-         $characters = '0123456789';
-         $randomNumber = '';
-         for ($i = 0; $i < rand(10, 15); $i++) {
-             $randomNumber .= $characters[rand(0, strlen($characters) - 1)];
-         }
- 
-         // Get the current year
-         $currentYear = date('Y');
- 
-         // Concatenate the date and random number
-         $result = $currentYear . $randomNumber;
- 
-         return $result;
+        $today = date('Ymd');
+
+        $randomDigits = '';
+        for ($i = 0; $i < 5; $i++) {
+            $randomDigits .= random_int(0, 9); // More secure random number generation
+        }
+        // Combine the date and random digits
+        $referenceNumber = $today . $randomDigits;
+        return $referenceNumber;
      }
 
 
@@ -150,7 +144,7 @@ class TeachPermitForm extends Component
         'subjectLoad.*.start_time' => 'required|before_or_equal:subjectLoad.*.end_time',
         'subjectLoad.*.end_time' => 'required|after_or_equal:subjectLoad.*.start_time',
         'subjectLoad.*.number_of_units' => 'required|min:1|numeric',
-        'units_enrolled' => 'required|lte:study_available_units',
+        // 'units_enrolled' => 'required|lte:study_available_units',
         'total_load_plm' => 'required|numeric',
         'total_load_otherunivs' => 'required|numeric',
         'total_aggregate_load' => 'required|numeric',
@@ -178,9 +172,8 @@ class TeachPermitForm extends Component
         }   
     
         $loggedInUser = auth()->user();
-        $real_available_units = Employee::where('employee_id', $loggedInUser->employee_id)
-                            ->get()->value('study_available_units');   
-        $this->validate(['study_available_units' => 'lte:' . $real_available_units]);
+        $real_available_units = Employee::where('employee_id', $loggedInUser->employee_id)->value('teach_available_units');   
+        $this->validate(['units_enrolled' => 'lte:' . $real_available_units]);
 
         $days_and_time2 = array();
         $conflictFlag = False;
@@ -286,7 +279,7 @@ class TeachPermitForm extends Component
         $teachpermitdata->total_load_otherunivs = $this->total_load_otherunivs ? $this->total_load_otherunivs : NULL ;
         
         $imageData = file_get_contents($this->applicant_signature->getRealPath());
-        $teachpermitdata->applicant_signature = $imageData;
+        $teachpermitdata->applicant_signature = base64_encode($imageData);
 
         // $teachpermitdata->applicant_signature = $this->applicant_signature->store('photos/studypermit/applicant_signature', 'local');
         $teachpermitdata->status = 'Pending';

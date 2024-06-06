@@ -50,7 +50,7 @@
                             $currentTime = \Illuminate\Support\Carbon::now();
                             $timeDifference = $createdAt->diffForHumans($currentTime, true);
                         @endphp
-                        @if ($notificationType === 'Ipcr') 
+                        {{-- @if ($notificationType === 'Ipcr') 
                             <a href="{{ route('IpcrPdf', ['index' => $notificationId]) }}" class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
                             <div class="flex-shrink-0">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="w-11 h-11 ">
@@ -61,27 +61,27 @@
                             <div class="flex-shrink-0">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="w-11 h-11 ">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
-                                </svg>      
-                        @elseif ($notificationType === 'Leave Request')
-                            <a href="{{ route('LeaveRequestPdf', ['index' => $notificationId]) }}" class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
+                                </svg>       --}}
+                        @if ($notificationType === 'Leave Request')
+                            <a target="_blank" onclick="location.href='{{ route('LeaveRequestEdit', ['index' => $notificationId]) }}'" class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
                             <div class="flex-shrink-0">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="w-11 h-11 text-gray-500">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                                 </svg>
-                        @elseif ($notificationType === 'Study Permit')
+                        {{-- @elseif ($notificationType === 'Study Permit')
                             <a href="{{ route('StudyPermitPdf', ['index' => $notificationId]) }}" class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
                             <div class="flex-shrink-0">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="w-11 h-11 text-gray-500">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-                                </svg>
+                                </svg> --}}
                         @elseif ($notificationType === 'Teach Permit')
-                                <a href="{{ route('TeachPermitPdf', ['index' => $notificationId]) }}" class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
+                                <a target="_blank" onclick="location.href='{{ route('TeachPermitEdit', ['index' => $notificationId]) }}'" class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
                                 <div class="flex-shrink-0">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="w-11 h-11 text-gray-500">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                                 </svg>
                         @elseif ($notificationType === 'Request Document')
-                                <a href="{{ route('RequestDocumentPdf', ['index' => $notificationId]) }}" class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
+                                <a target="_blank" onclick="location.href='{{ route('RequestDocumentEdit', ['index' => $notificationId]) }}'" class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
                                 <div class="flex-shrink-0">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="w-11 h-11 text-gray-500">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -175,7 +175,16 @@
                </div> --}}
                <button type="button" class="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown">
                    <span class="sr-only">Open user menu</span>
-                   <img src="{{ asset($employeeImage ? 'storage/' . $employeeImage : 'photos/avatar/default.png') }}" class="w-10 h-10 shadow-xl rounded-full" alt="User Avatar" />
+                   @if(is_null($employeeImage) == False)
+                   <img
+                       class="w-10 h-10 shadow-xl rounded-full" 
+                       src="data:image/gif;base64,{{ $employeeImage }}"
+                       alt="Employee Image"
+                   />
+                   @else
+                   <img class="w-10 h-10 shadow-xl rounded-full"  src="{{ asset( 'storage/photos/avatar/default.png') }}" alt="Employee Image"/> 
+                   @endif
+                   {{-- <img src="{{ asset($employeeImage ? 'storage/' . $employeeImage : 'photos/avatar/default.png') }}" class="w-10 h-10 shadow-xl rounded-full" alt="User Avatar" /> --}}
 
                    {{-- <img src="{{asset('storage/'. $employeeImage)}}" class=" w-10 h-10  shadow-xl rounded-full" alt="User Avatar" /> --}}
                </button>
@@ -183,7 +192,7 @@
                <div class="hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
                    <div class="py-3 px-4">
                        <span class="block text-sm font-semibold text-gray-900 dark:text-white">{{$employeeName}}</span>
-                       <span class="block text-sm text-gray-500 truncate dark:text-gray-400">{{$employeeEmail}}</span>
+                       <span class="block text-sm text-gray-500 truncate dark:text-gray-400">{{$employee_id}}</span>
                    </div>
                    <ul class="py-1 text-gray-500 dark:text-gray-400" aria-labelledby="dropdown">
                     <a href="{{ route('profile') }}" class="block ml-2 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">
@@ -334,7 +343,7 @@
                                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
                                </svg>
                                
-                              <span class="flex-1 ms-3 whitespace-nowrap">Teach Permit</span></a>
+                              <span class="flex-1 ms-3 whitespace-nowrap">Permit to Teach</span></a>
                        </li>
                        <li>
                          <a href="{{route('RequestDocumentTable')}}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
@@ -358,8 +367,8 @@
              
             @endif
          
-
-        @if($departmentHeadId == 1 || $collegeDeanId == 1 || $is_admin)
+        {{-- Change to a role of an Admin --}}
+        @if($role_id == 27 || $role_id == 28) 
             <li class="bg-white rounded" wire:ignore>
                 <button type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-requests" data-collapse-toggle="dropdown-approverequests">
                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -372,7 +381,7 @@
                       </svg>
                 </button>
                 <ul id="dropdown-approverequests" class="hidden py-2 space-y-2">
-                    <li>
+                    {{-- <li>
                         <a href="{{route('ApproveIpcrTable')}}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -386,40 +395,40 @@
                               </svg>     
                               
                             <p class="flex-1  whitespace-nowrap text-center">Approve <br> OPCR</p></a>
-                     </li>
-                      <li>
+                     </li> --}}
+                      {{-- <li>
                          <a href="{{route('ApproveLeaveRequestTable')}}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
                                </svg>
                                
                              <p class="flex-1  whitespace-nowrap text-center">Approve <br> Leave Request</p></a>
-                      </li>
-                      <li>
+                      </li> --}}
+                      {{-- <li>
                         <a href="{{route('ApproveStudyPermitTable')}}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                              <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
                             </svg>
                            
                             <span class="flex-1  whitespace-nowrap text-center">Approve <br> Study Permit</span></a>
-                      </li>
-                      <li>
+                      </li> --}}
+                      {{-- <li>
                          <a href="{{route('ApproveTeachPermitTable')}}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
                                </svg>
                                
                               <span class="flex-1  whitespace-nowrap text-center"> Approve <br> Teach Permit</span></a>
-                       </li>
-                       <li>
+                       </li> --}}
+                       {{-- <li>
                          <a href="{{route('ApproveRequestDocumentTable')}}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
                                </svg>
                                
                               <span class="flex-1 ms-3 text-center ">Approve <br> Work Document Requests</span></a>
-                       </li>
-                     {{-- @if ($is_admin) --}}
+                       </li> --}}
+                     @if ($role_id == 27 || $role_id == 28 )
                      @php
                      $isActive = Route::currentRouteName() == 'ApproveChangeInformationTable';
                       @endphp
@@ -432,7 +441,7 @@
                               <span class="flex-1 ms-3 text-center">Approve Change <br> Information Requests</span>
                           </a>
                       </li>
-                     {{-- @endif --}}
+                     @endif
                 </ul>
             </li>
             

@@ -22,7 +22,7 @@ class ChangeInformationPolicy
      */
     public function view(User $user, Changeinformation $changeinformation): bool
     {
-        return True;
+        // return True;
         return $user->employee_id == $changeinformation->employee_id || $user->is_admin == True;
     }
 
@@ -39,44 +39,50 @@ class ChangeInformationPolicy
      */
     public function update(User $user, Changeinformation $changeinformation, $type = Null): bool
     {
-        if($type == "Approve"){
-            return True;
-            $loggedInEmployeeData = Employee::where('employee_id', $user->employee_id)->first();
-
-            $dept_head_id = "Denied";
-            foreach($loggedInEmployeeData->is_department_head as $index => $department_id){
-                if($department_id == 1){
-                    $dept_head_id = $index;
-                }
+        if($user->role_id != 27){
+            if($user->role_id != 28){
+                return False;
             }
-    
-            $college_head_id = "Denied";
-            foreach($loggedInEmployeeData->is_college_head as $index => $college_id){
-                if($college_id == 1){
-                    $college_head_id = $index;
-                }
-            }
-
-            $ownerData = Employee::select('department_id', 'college_id' )
-                    ->where('employee_id', $changeinformation->employee_id)
-                    ->first();
-
-            if($dept_head_id != "Denied" || $college_head_id != "Denied"){
-                $departmentHeadId = $loggedInEmployeeData->department_id[$dept_head_id];
-                if(in_array($departmentHeadId, $ownerData->department_id) || in_array($college_head_id, $ownerData->college_id)){       
-                    return true;
-                } else {
-                    return false;
-                } 
-            }
-            else {
-                return false;
-            }
-           
-        } else {
-            return $user->employee_id == $changeinformation->employee_id || $user->is_admin == True;
-
         }
+        return True;
+        // if($type == "Approve"){
+        //     return True;
+        //     $loggedInEmployeeData = Employee::where('employee_id', $user->employee_id)->first();
+
+        //     $dept_head_id = "Denied";
+        //     foreach($loggedInEmployeeData->is_department_head as $index => $department_id){
+        //         if($department_id == 1){
+        //             $dept_head_id = $index;
+        //         }
+        //     }
+    
+        //     $college_head_id = "Denied";
+        //     foreach($loggedInEmployeeData->is_college_head as $index => $college_id){
+        //         if($college_id == 1){
+        //             $college_head_id = $index;
+        //         }
+        //     }
+
+        //     $ownerData = Employee::select('department_id', 'college_id' )
+        //             ->where('employee_id', $changeinformation->employee_id)
+        //             ->first();
+
+        //     if($dept_head_id != "Denied" || $college_head_id != "Denied"){
+        //         $departmentHeadId = $loggedInEmployeeData->department_id[$dept_head_id];
+        //         if(in_array($departmentHeadId, $ownerData->department_id) || in_array($college_head_id, $ownerData->college_id)){       
+        //             return true;
+        //         } else {
+        //             return false;
+        //         } 
+        //     }
+        //     else {
+        //         return false;
+        //     }
+           
+        // } else {
+        //     return $user->employee_id == $changeinformation->employee_id || $user->is_admin == True;
+
+        // }
     }
 
     /**

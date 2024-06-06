@@ -48,6 +48,7 @@ class LeaveRequestPolicy
     public function update(User $user, Leaverequest $leaverequest, $type = Null): bool
     {
         if($type == "Approve"){
+            return True;
             $loggedInEmployeeData = Employee::where('employee_id', $user->employee_id)->first();
 
             $dept_head_id = "Denied";

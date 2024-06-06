@@ -26,7 +26,7 @@ return new class extends Migration
             $table->dateTime('inclusive_start_date')->default(now()->timezone('Asia/Manila'));
             $table->dateTime('inclusive_end_date')->default(now()->timezone('Asia/Manila'));
             $table->string('commutation');
-            $table->longText('commutation_signature_of_appli');
+            $table->longText('commutation_signature_of_appli')->charset('binary');
             $table->dateTime('deleted_at')->nullable();
 
             // Approve Requests
@@ -51,7 +51,7 @@ return new class extends Migration
             $table->boolean('human_resource_verdict_cd')->nullable();
             $table->string('hr_cd_disapprove_reason')->nullable();
             $table->binary('auth_off_sig_c_and_d')->nullable();
-            $table->binary('leave_form')->nullable();
+            $table->longText('leave_form')->charset('binary')->nullable();
             $table->string('remarks')->nullable();
             $table->timestamps();
         });

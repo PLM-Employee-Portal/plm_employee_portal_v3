@@ -69,6 +69,9 @@ use App\Livewire\Approverequests\Requestdocument\ApproveRequestDocumentTable;
 use App\Livewire\Leaverequest\LeaveRequestTable;
 use App\Livewire\Sidebar\Notifications\NotificationsTable;
 
+use App\Http\Controllers\VerifyController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -116,12 +119,13 @@ Route::middleware('auth')->group(function () {
 
 
     // Original
-    Route::get('logout', LogoutController::class)
-        ->name('logout');
+    Route::get('logout', LogoutController::class)->name('logout');
     // Route::get('logout', LogoutController::class)
     //     ->name('logout');
 });
 
+Route::get('/verify', [VerifyController::class, 'verify'])
+    ->name('verify');
 
 Route::middleware('auth')->group(function (){
     Route::get("/dashboard", DashboardView::class)->name('dashboard');
@@ -201,7 +205,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get("leaverequest/approve/{index}", ApproveLeaveRequestForm::class)->name('ApproveLeaveRequestForm'); 
 
-    Route::get('/leavereques/{index}', [LeaveRequestTable::class, 'download'])->name('downloadLeave');
+    Route::get('/leaverequest/{index}', [LeaveRequestTable::class, 'download'])->name('downloadLeave');
 
 
 });
@@ -236,6 +240,9 @@ Route::middleware('auth')->group(function (){
     Route::get("/teachpermit/requests", ApproveTeachPermitTable::class)->name('ApproveTeachPermitTable');
 
     Route::get("/teachpermit/approve/{index}", ApproveTeachPermitForm::class)->name('ApproveTeachPermitForm');
+
+    Route::get('/teachpermit/{index}', [TeachPermitTable::class, 'download'])->name('downloadTeachPermit');
+
 });
 
 
@@ -251,6 +258,9 @@ Route::middleware('auth')->group(function (){
     Route::get("/requestdocument/requests", ApproveRequestDocumentTable::class)->name('ApproveRequestDocumentTable');
 
     Route::get("/requestdocument/approve/{index}", ApproveRequestDocumentForm::class)->name('ApproveRequestDocumentForm');
+
+    Route::get('/requestdocument/{index}', [RequestDocumentTable::class, 'download'])->name('downloadDocumentRequestForm');
+
 });
 
 

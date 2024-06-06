@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('training_id')->primary();
             $table->string('training_title');
             $table->string('training_information');
-            $table->binary('training_photo')->nullable();
+            $table->longText('training_photo')->charset('binary');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             // $table->string('pre_test_title');

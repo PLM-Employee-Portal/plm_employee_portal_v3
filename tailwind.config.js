@@ -43,8 +43,13 @@ module.exports = {
       },
       borderRadius: {
         '4xl': '2rem',
-      }
+      },
+      // fontSize: {
+      //   '4xl': ['2.25rem', { lineHeight: '2.5rem' }], 
+      // },
+      
     }
+    
   },
   plugins: [
       require('flowbite/plugin')

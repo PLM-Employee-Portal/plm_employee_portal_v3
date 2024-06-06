@@ -19,10 +19,10 @@
         </li>
         <li aria-current="page">
             <div class="flex items-center">
-            <svg class="w-3 h-3 text-gray-400 mx-1 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <svg class="w-3 h-3 text-gray-600 mx-1 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
             </svg>
-            <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">Create</span>
+            <span class="ms-1 text-sm font-semibold text-gray-900 md:ms-2 dark:text-gray-400">Create</span>
             </div>
         </li>
         </ol>
@@ -162,18 +162,23 @@
                                                 @if($type_of_leave == "Vacation Leave" || $type_of_leave == "Special Privilege Leave" )
                                                     <option value="Within the Philippines">Within the Philippines</option>
                                                     <option value="Abroad">Abroad</option>
+                                                    <option value="Others" selected>Others</option>
                                                 @elseif($type_of_leave == "Sick Leave")
                                                     <option value="In Hospital">In Hospital</option>
                                                     <option value="Out Patient">Out Patient</option>
+                                                    <option value="Others" selected>Others</option>
                                                 @elseif($type_of_leave == "Special Leave Benefits for Women")
                                                     <option value="Special Leave Benefits for Women">Special Leave Benefits for Women</option>
+                                                    <option value="Others" selected>Others</option>
                                                 @elseif($type_of_leave == "Study Leave")
                                                     <option value="Completion of Master\'s degree">Completion of Master\'s degree</option>
                                                     <option value="BAR/Board Examination Review">BAR/Board Examination Review</option>
+                                                    <option value="Others" selected>Others</option>
                                                 @else
                                                     <option selected>Select an Option</option>
                                                     <option value="Monetization of leave credits">Monetization of leave credits</option>
                                                     <option value="Terminal Leave">Terminal Leave</option>
+                                                    <option value="Others" selected>Others</option>
                                                 @endif
                                             </select>
                                             @error('type_of_leave_sub_category')   
@@ -204,6 +209,7 @@
                                 
                                 {{-- Time Frame --}}
                                 <div class="grid grid-cols-1 gap-4 min-[902px]:grid-cols-2">
+                                    @if ($is_faculty == 1)     
                                     <div class="grid grid-cols-1 gap-4 p-6 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700">
                                         <h2><b>Time Frame</b></h2>
                                         <div class="grid grid-cols-1 min-[1052px]:grid-cols-2 gap-4 pt-5">
@@ -235,6 +241,40 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @else
+                                    <div class="grid grid-cols-1 gap-4 p-6 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700">
+                                        <h2><b>Time Frame</b></h2>
+                                        <div class="grid grid-cols-1 min-[1052px]:grid-cols-2 gap-4 pt-5">
+                                            <div class="w-full">
+                                                <label for="inclusive_start_date"
+                                                    class="block  mb-2 text-sm font-medium text-gray-900 dark:text-white ">Start Date/Time <span class="text-red-600">*</span></label>
+                                                <input type="date" name="inclusive_start_date" id="inclusive_start_date" wire:model.live="inclusive_start_date" 
+                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                    required="">
+                                                @error('inclusive_start_date')
+                                                <div class="transition transform alert alert-danger"
+                                                        x-init="$el.closest('form').scrollIntoView()">
+                                                    <span class="text-red-500 text-xs ">{{$message }}</span>
+                                                </div> 
+                                                @enderror       
+                                            </div>
+                                            <div class="w-full">
+                                                <label for="inclusive_end_date"
+                                                    class="block  mb-2 text-sm font-medium text-gray-900 dark:text-white">End Date/Time <span class="text-red-600">*</span></label>
+                                                <input type="date" name="inclusive_end_date" id="inclusive_end_date" wire:model.live="inclusive_end_date" 
+                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                required="">
+                                                @error('inclusive_end_date')   
+                                                    <div class="transition transform alert alert-danger text-sm "
+                                                    x-init="$el.closest('form').scrollIntoView()">
+                                                    <span class="text-red-500 text-xs">{{ $message }}</span>
+                                                    </div> 
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
+
 
                                     {{-- Available Credits --}}
                                     <div class="grid grid-cols-1  gap-5 p-6 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700">
@@ -307,7 +347,7 @@
                                                         @php
                                                             $signature = $this->getApplicantSignature();
                                                         @endphp
-                                                        <img src="data:image/gif;base64,{{ base64_encode($signature) }}" alt="Image Description" class="w-full h-full object-contain"> 
+                                                        <img src="data:image/gif;base64,{{ $signature }}" alt="Image Description" class="w-full h-full object-contain"> 
                                                     @else
                                                         <img src="{{ $commutation_signature_of_appli->temporaryUrl() }}" class="w-full h-full object-contain" alt="Uploaded Image">
                                                     @endif

@@ -88,81 +88,96 @@ class UserSeeder extends Seeder
        // $path = Storage::putFile('photos/diploma', new File('public\storage\photos\demofiles\diploma.png'), 'private');
        $path = file_get_contents(public_path('storage\photos\demofiles\diploma.png'));
        
-       $employee_diploma[] = base64_encode($path);   
-       $path = file_get_contents(public_path('storage\photos\demofiles\Training picture\coding.webp'));
-       $employee_diploma[] = base64_encode($path);   
-       $employee->emp_diploma = json_encode($employee_diploma, true);
-    //    $path = Storage::putFile('photos/diploma', new File('public\storage\photos\demofiles\Training picture\coding.webp'), 'private');
+      //  $employee_diploma[] = base64_encode($path);   
+      //  $path = file_get_contents(public_path('storage\photos\demofiles\Training picture\coding.webp'));
+      //  $employee_diploma[] = base64_encode($path);   
+      //  $employee->emp_diploma = json_encode($employee_diploma, true);
+       $employee->emp_diploma = 1;
+      // $path = Storage::putFile('photos/diploma', new File('public\storage\photos\demofiles\Training picture\coding.webp'), 'private');
 
 
        // Tor
-       $path = file_get_contents(public_path('storage\photos\demofiles\tor.jfif'));
-    //    $path = Storage::putFile('photos/tor', new File('public\storage\photos\demofiles\tor.jfif'), 'private');
-       $emp_tor[] = base64_encode($path);     
-       $employee->emp_tor = json_encode($emp_tor, true);
+      //  $path = file_get_contents(public_path('storage\photos\demofiles\tor.jfif'));
+      // //  $path = Storage::putFile('photos/tor', new File('public\storage\photos\demofiles\tor.jfif'), 'private');
+      //  $emp_tor[] = base64_encode($path);     
+      //  $employee->emp_tor = json_encode($emp_tor, true);
+       $employee->emp_tor = 1;
+
 
 
        // Certificate
     //    $path = Storage::putFile('photos/cert_of_trainings_seminars', new File(''), 'private');
-       $path = file_get_contents(public_path('storage\photos\demofiles\certif.jpg'));
+      //  $path = file_get_contents(public_path('storage\photos\demofiles\certif.jpg'));
 
-       $emp_cert_of_trainings_seminars[] = base64_encode($path);   
-       $employee->emp_cert_of_trainings_seminars =  json_encode($emp_cert_of_trainings_seminars, true);
+      //  $emp_cert_of_trainings_seminars[] = base64_encode($path);   
+      //  $employee->emp_cert_of_trainings_seminars =  json_encode($emp_cert_of_trainings_seminars, true);
+       $employee->emp_cert_of_trainings_seminars =  1;
 
        // PRC License
     //    $path = Storage::putFile('photos/auth_copy_of_csc_or_prc', new File('public\storage\photos\demofiles\prc license.jfif'), 'private');
-       $path = file_get_contents(public_path('storage\photos\demofiles\prc license.jfif'));
+      //  $path = file_get_contents(public_path('storage\photos\demofiles\prc license.jfif'));
 
-       $emp_auth_copy_of_csc_or_prc[] = base64_encode($path);   
-       $employee->emp_auth_copy_of_csc_or_prc = json_encode($emp_auth_copy_of_csc_or_prc, true);
+      //  $emp_auth_copy_of_csc_or_prc[] = base64_encode($path);   
+      //  $employee->emp_auth_copy_of_csc_or_prc = json_encode($emp_auth_copy_of_csc_or_prc, true);
+       $employee->emp_auth_copy_of_csc_or_prc = 1;
+
        
        // PRC Board Rating
     //    $path = Storage::putFile('photos/auth_copy_of_prc_board_rating', new File('public\storage\photos\demofiles\prc board rating.JPG'), 'private');\
-       $path = file_get_contents(public_path('storage\photos\demofiles\prc board rating.JPG'));
-       $emp_auth_copy_of_prc_board_rating[] = base64_encode($path);   
-       $employee->emp_auth_copy_of_prc_board_rating = json_encode($emp_auth_copy_of_prc_board_rating, true);
+      //  $path = file_get_contents(public_path('storage\photos\demofiles\prc board rating.JPG'));
+      //  $emp_auth_copy_of_prc_board_rating[] = base64_encode($path);   
+       $employee->emp_auth_copy_of_prc_board_rating = 1;
 
        // Medical Certificate
     //    $path = Storage::putFile('photos/med_certif', new File('public\storage\photos\demofiles\Medical Certificate.jpg'), 'private');
-       $path = file_get_contents(public_path('storage\photos\demofiles\Medical Certificate.jpg'));
+      //  $path = file_get_contents(public_path('storage\photos\demofiles\Medical Certificate.jpg'));
 
-       $emp_med_certif[] = base64_encode($path);   
-       $employee->emp_med_certif = json_encode($emp_med_certif, true);
+      //  $emp_med_certif[] = base64_encode($path);   
+      //  $employee->emp_med_certif = json_encode($emp_med_certif, true);
+       $employee->emp_med_certif = 1;
+
 
        // NBI Clearance
     //    $path = Storage::putFile('photos/nbi_clearance', new File('public\storage\photos\demofiles\NBI Clearance.png'), 'private');
-       $path = file_get_contents(public_path('storage\photos\demofiles\NBI Clearance.png'));
+      //  $path = file_get_contents(public_path('storage\photos\demofiles\NBI Clearance.png'));
 
-       $emp_nbi_clearance[] = base64_encode($path);   
-       $employee->emp_nbi_clearance = json_encode($emp_nbi_clearance, true);
+      //  $emp_nbi_clearance[] = base64_encode($path);   
+      //  $employee->emp_nbi_clearance = json_encode($emp_nbi_clearance, true);
+       $employee->emp_nbi_clearance = 1;
+
 
        // PSA
     //    $path = Storage::putFile('photos/psa', new File('public\storage\photos\demofiles\psa.png'), 'private');
-       $path = file_get_contents(public_path('storage\photos\demofiles\psa.png'));
+      //  $path = file_get_contents(public_path('storage\photos\demofiles\psa.png'));
 
-       $emp_psa_birth_certif[] = base64_encode($path);   
-       $employee->emp_psa_birth_certif = json_encode($emp_psa_birth_certif, true);
+      //  $emp_psa_birth_certif[] = base64_encode($path);   
+      //  $employee->emp_psa_birth_certif = json_encode($emp_psa_birth_certif, true);
+       $employee->emp_psa_birth_certif = 1;
+
 
        // PSA Marriage
     //    $path = Storage::putFile('photos/psa_marriage', new File('public\storage\photos\demofiles\psa marriage.jpg'), 'private');
-       $path = file_get_contents(public_path('storage\photos\demofiles\psa marriage.jpg'));
+      //  $path = file_get_contents(public_path('storage\photos\demofiles\psa marriage.jpg'));
 
-       $emp_psa_marriage_certif[] = base64_encode($path);   
-       $employee->emp_psa_marriage_certif = json_encode($emp_psa_marriage_certif, true);
+      //  $emp_psa_marriage_certif[] = base64_encode($path);   
+      //  $employee->emp_psa_marriage_certif = json_encode($emp_psa_marriage_certif, true);
+       $employee->emp_psa_marriage_certif = 1;
 
        // Service Record
     //    $path = Storage::putFile('photos/service_record', new File('public\storage\photos\demofiles\service record.png'), 'private');
-       $path = file_get_contents(public_path('storage\photos\demofiles\service record.png'));
+      //  $path = file_get_contents(public_path('storage\photos\demofiles\service record.png'));
 
-       $emp_service_record_from_other_govt_agency[] = base64_encode($path);   
-       $employee->emp_service_record_from_other_govt_agency = json_encode($emp_service_record_from_other_govt_agency, true);
+      //  $emp_service_record_from_other_govt_agency[] = base64_encode($path);   
+       $employee->emp_service_record_from_other_govt_agency = 1;
 
        // Approved Clearance
     //    $path = Storage::putFile('photos/approved_clearance', new File('public\storage\photos\demofiles\Approved Clearance.jpg'), 'private');
-       $path = file_get_contents(public_path('storage\photos\demofiles\Approved Clearance.jpg'));
+      //  $path = file_get_contents(public_path('storage\photos\demofiles\Approved Clearance.jpg'));
 
-       $emp_approved_clearance_prev_employer[] = base64_encode($path);   
-       $employee->emp_approved_clearance_prev_employer = json_encode($emp_approved_clearance_prev_employer, true);
+      //  $emp_approved_clearance_prev_employer[] = base64_encode($path);   
+      //  $employee->emp_approved_clearance_prev_employer = json_encode($emp_approved_clearance_prev_employer, true);
+       $employee->emp_approved_clearance_prev_employer = 1;
+
 
         $employee->save();
 
@@ -254,7 +269,6 @@ class UserSeeder extends Seeder
 
         $employee->save();
 
-       
         // User::create([
         //     'name'     => 'Don',
         //     'email'    => 'donfelipe@plm.edu.ph',
@@ -266,29 +280,21 @@ class UserSeeder extends Seeder
             'email'    => 'departmentHead@plm.edu.ph',
             'password' => bcrypt('depthead'),
             'employee_id' => '202189212',
-            'role_type' => 1,
+            'role_id' => 1,
         ]);
-
-      
 
         User::create([
             'email'    => 'employee@plm.edu.ph',
             'password' => bcrypt('secret'),
             'employee_id' => '202132321',
-            'role_type' => 1,
+            'role_id' => 1,
         ]);
 
         User::create([
             'email'    => 'admin@plm.edu.ph',
             'password' => bcrypt('admin'),
             'employee_id' => '200000001',
-            'role_type' => 0,
+            'role_id' => 0,
         ]);
-
-       
-
-       
-
-       
     }
 }

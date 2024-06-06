@@ -19,10 +19,10 @@
         </li>
         <li aria-current="page">
             <div class="flex items-center">
-            <svg class="w-3 h-3 text-gray-400 mx-1 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <svg class="w-3 h-3 text-gray-600 mx-1 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
             </svg>
-            <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">Edit</span>
+            <span class="ms-1 text-sm font-semibold text-gray-900 md:ms-2 dark:text-gray-400">Edit</span>
             </div>
         </li>
         </ol>
@@ -279,6 +279,50 @@
                     
             </div> --}}
 
+            <div class="grid grid-cols-2 gap-4  p-6 mt-5 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700">
+                <div class="grid min-[1000px]:grid-cols-3 gap-4  col-span-3  ">
+                    <div class="w-full">
+                        <label for="start"
+                            class="block  mb-2 text-sm font-medium text-gray-900 dark:text-white ">Start Time <span class="text-red-600">*</span></label>
+                        <input type="datetime-local" name="start" id="start" wire:model.blur="start_date" 
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                             required="" >
+                        @error('start_date')
+                            <div class="transition transform alert alert-danger"
+                                    x-init="$el.closest('form').scrollIntoView()">
+                                <span class="text-red-500 text-xs xl:whitespace-nowrap">{{$message }}</span>
+                            </div> 
+                        @enderror   
+                    </div>
+                    <div class="w-full">
+                        <label for="end"
+                            class="block  mb-2 text-sm font-medium text-gray-900 dark:text-white">End Time <span class="text-red-600">*</span></label>
+                        <input type="datetime-local" name="end" id="end" wire:model.blur="end_date"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                           required="">
+                        @error('end_date')   
+                            <div class="transition transform alert alert-danger text-sm "
+                            x-init="$el.closest('label').scrollIntoView()">
+                            <span class="text-red-500 text-xs xl:whitespace-nowrap">{{ $message }}</span>
+                            </div> 
+                         @enderror
+                    </div>
+                    <div class="w-full">
+                        <label for="location"
+                            class="block  mb-2 text-sm font-medium text-gray-900 dark:text-white"> Location<span class="text-red-600">*</span></label>
+                        <input type="text" name="location" id="location" wire:model.blur="location"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                           required="">
+                        @error('location')   
+                            <div class="transition transform alert alert-danger text-sm "
+                            x-init="$el.closest('label').scrollIntoView()">
+                            <span class="text-red-500 text-xs xl:whitespace-nowrap">{{ $message }}</span>
+                            </div> 
+                         @enderror
+                    </div>
+                </div>
+            </div>
+
             {{-- Host and visible to list --}}
             <div class="grid grid-cols-2 gap-4  p-6 mt-5 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700">
                 <div>
@@ -286,16 +330,14 @@
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Host<span class="text-red-600">*</span></label>
                         <select id="host" name="host" wire:model="host"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option value="College of Information System and Technology Management">College of Information System and Technology Management</option>
-                            <option value="College of Engineering">College of Engineering</option>
-                            <option value="College of Business Administration">College of Business Administration</option>
-                            <option value="College of Liberal Arts">College of Liberal Arts</option>
-                            <option value="College of Sciences">College of Sciences</option>
-                            <option value="College of Education">College of Education</option>
-                            <option value="Finance Department">Finance Department</option>
-                            <option value="Human Resources Department">Human Resources Department</option>
-                            <option value="Information Technology Department">Information Technology Department</option>
-                            <option value="Legal Department">Legal Department</option>                        
+                            @foreach ($colleges as $college){
+                                <option value="{{$college}}">{{$college}}</option>
+                            }
+                            @endforeach
+                            @foreach ($departments as $department){
+                                <option value="{{$department}}">{{$department}}</option>
+                            }
+                            @endforeach                  
                         </select>
                         @error('host')
                             <div class="transition transform alert alert-danger"
@@ -317,16 +359,14 @@
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Visible To List<span class="text-red-600">*</span></label>
                         <select multiple id="visible_to_list" name="visible_to_list" wire:model.blur="visible_to_list"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option value="College of Information System and Technology Management">College of Information System and Technology Management</option>
-                            <option value="College of Engineering">College of Engineering</option>
-                            <option value="College of Business Administration">College of Business Administration</option>
-                            <option value="College of Liberal Arts">College of Liberal Arts</option>
-                            <option value="College of Sciences">College of Sciences</option>
-                            <option value="College of Education">College of Education</option>
-                            <option value="Finance Department">Finance Department</option>
-                            <option value="Human Resources Department">Human Resources Department</option>
-                            <option value="Information Technology Department">Information Technology Department</option>
-                            <option value="Legal Department">Legal Department</option>                        
+                            @foreach ($colleges as $college){
+                                <option value="{{$college}}">{{$college}}</option>
+                            }
+                            @endforeach
+                            @foreach ($departments as $department){
+                                <option value="{{$department}}">{{$department}}</option>
+                            }
+                            @endforeach                      
                         </select>
                         @error('visible_to_list')
                             <div class="transition transform alert alert-danger"

@@ -2,9 +2,11 @@
 
 namespace App\Livewire\Trainings;
 
+use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\Training;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\DB;
 
 class TrainingForm extends Component
 {
@@ -25,35 +27,49 @@ class TrainingForm extends Component
     public $pre_test_rating;
     public $post_test_rating;
     public $host;
+    
     public $is_featured;
     public $visible_to_list;
 
+    public $start_date;
+    public $end_date;
 
+    public $location;
+
+    public $dateToday;
+
+    
+    public $colleges;
+
+    public $departments;
     public function mount(){
-        $this->preTest = [
-            ['question' => '', 'answer' => '']
-        ];
-        $this->postTest = [
-            ['question' => '', 'answer' => '']
-        ];
+        // $this->preTest = [
+        //     ['question' => '', 'answer' => '']
+        // ];
+        // $this->postTest = [
+        //     ['question' => '', 'answer' => '']
+        // ];
+        $this->colleges = DB::table('colleges')->orderBy('college_name', 'asc')->pluck('college_name');
+        $this->departments = DB::table('departments')->orderBy('department_name', 'asc')->pluck('department_name');
+        $this->dateToday = Carbon::now();
     }
 
-    public function addPreTestQuestion(){
-        $this->preTest[] = ['question' => '', 'answer' => ''];
-        ;
-    }
+    // public function addPreTestQuestion(){
+    //     $this->preTest[] = ['question' => '', 'answer' => ''];
+    //     ;
+    // }
 
-    public function addPostTestQuestion(){
-            $this->postTest[] = ['question' => '', 'answer' => ''];
-    }
+    // public function addPostTestQuestion(){
+    //         $this->postTest[] = ['question' => '', 'answer' => ''];
+    // }
 
-    public function removePreTestQuestion($index){
-        unset($this->preTest[$index]);
-    }
+    // public function removePreTestQuestion($index){
+    //     unset($this->preTest[$index]);
+    // }
 
-    public function removePostTestQuestion($index){
-        unset($this->postTest[$index]);
-    }
+    // public function removePostTestQuestion($index){
+    //     unset($this->postTest[$index]);
+    // }
 
     protected $rules = [
         'training_title' => 'required|max:150',
@@ -69,18 +85,21 @@ class TrainingForm extends Component
         // 'postTest.*.answer'  => 'required|required_with:postTest.*.question|min:5|max:1024',
         // 'pre_test_description' => 'required|max:1024',
         // 'post_test_description' => 'required|max:1024',
-        'is_featured' => 'required|boolean',
-        'host' => 'required|in:College of Information System and Technology Management,College of Engineering,College of Business Administration,College of Liberal Arts,College of Sciences,College of Education,Finance Department,Human Resources Department,Information Technology Department,Legal Department',
+        'start_date' => 'required|before:end_date|after_or_equal:dateToday',
+        'end_date' => 'required|after:start_date|after:dateToday',
+        'location' => 'required|min:5|max:500',
+        'is_featured' => 'nullable|boolean',
+        'host' => 'required',
         'visible_to_list' => 'required|array',
-        'visible_to_list.*' => 'required|in:College of Information System and Technology Management,College of Engineering,College of Business Administration,College of Liberal Arts,College of Sciences,College of Education,Finance Department,Human Resources Department,Information Technology Department,Legal Department',
+        'visible_to_list.*' => 'required',
     ];
 
-    protected $validationAttributes = [
-        'preTest.*.question' => 'Pre-Test Question',
-        'preTest.*.answer' => 'Pre-Test Answer',
-        'postTest.*.question' => 'Post-Test Question',
-        'postest.*.answer' => 'Post-Test Answer',
-    ];
+    // protected $validationAttributes = [
+    //     'preTest.*.question' => 'Pre-Test Question',
+    //     'preTest.*.answer' => 'Pre-Test Answer',
+    //     'postTest.*.question' => 'Post-Test Question',
+    //     'postest.*.answer' => 'Post-Test Answer',
+    // ];
 
     private function generateRefNumber(){
         // Generate a random number
@@ -115,14 +134,19 @@ class TrainingForm extends Component
         $trainingdata->training_id = $randomNumber;
         $trainingdata->training_title = $this->training_title;
         $trainingdata->training_information = $this->training_information;
-        // $trainingdata->pre_test_title = $this->pre_test_title;
-        // $trainingdata->post_test_title = $this->post_test_title;
-        // $trainingdata->pre_test_description = $this->pre_test_description;
-        // $trainingdata->post_test_description = $this->post_test_description;
+        $trainingdata->start_date = $this->start_date;
+        $trainingdata->end_date = $this->end_date;
+        $trainingdata->location = $this->location;
+
+
         $trainingdata->host = $this->host;
         $trainingdata->is_featured = $this->is_featured;
         $trainingdata->visible_to_list = $this->visible_to_list;
 
+        // $trainingdata->pre_test_title = $this->pre_test_title;
+        // $trainingdata->post_test_title = $this->post_test_title;
+        // $trainingdata->pre_test_description = $this->pre_test_description;
+        // $trainingdata->post_test_description = $this->post_test_description;
         // foreach($this->preTest as $data){
         //     $jsonPreTestData[] = [
         //         'question' => $data['question'],
@@ -143,8 +167,8 @@ class TrainingForm extends Component
 
         // $trainingdata->pre_test_questions = $jsonPreTestData;
         // $trainingdata->post_test_questions = $jsonPostTestData;
-
-        $trainingdata->training_photo = $this->training_photo->store('photos/trainings/training_photos', 'public');
+        // $imageData = file_get_contents($this->poster->getRealPath());
+        $trainingdata->training_photo = file_get_contents($this->training_photo->getRealPath());
 
         $trainingdata->save();
 
