@@ -31,6 +31,18 @@ module.exports = {
         800: '#92400e',
         900: '#78350f',
       },
+      indigo: {  // Add a new "indigo" property
+        50: '#e8f4f8',
+        100: '#d3e2e6',
+        200: '#b3d7df',
+        300: '#92cbda',
+        400: '#71afd4',
+        500: '#4f86c7',
+        600: '#386094',
+        700: '#204164',
+        800: '#12263a',
+        900: '#0a192a',
+      },
     },
     fontFamily: {
       sans: ['Graphik', 'sans-serif'],
