@@ -23,25 +23,32 @@
     
     </div>
     <br>
-        <div class="border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 ">
+        <div class="border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700  ">
         <div class="grid grid-cols-5 gap-4">
             <div class="col-span-3 grid grid-cols-1 gap-4">
                 <div class="w-full bg-white border-10 border-gray-800 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
                     <div class="float-right justify-end px-4 pt-4">
-                        <button id="dropdownButton" data-dropdown-toggle="dropdown" class="float-end min-[900px]:float-none inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
+                        {{-- <button id="dropdownButton" data-dropdown-toggle="dropdown" class="float-end min-[900px]:float-none inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
                             <span class="sr-only">Open dropdown</span>
                             <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
                                 <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
                             </svg>
-                        </button>
+                        </button> --}}
+                        <a href="{{route('changeInformation')}}" class="block px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-gray-100 text-center dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                            <svg class="w-8 h-8 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="2" d="M7 19H5a1 1 0 0 1-1-1v-1a3 3 0 0 1 3-3h1m4-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm7.441 1.559a1.907 1.907 0 0 1 0 2.698l-6.069 6.069L10 19l.674-3.372 6.07-6.07a1.907 1.907 0 0 1 2.697 0Z"/>
+                              </svg>
+                              
+                              
+                        </a>
                         <!-- Dropdown menu -->
-                        <div id="dropdown" class="z-10 hidden text-base  list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                        {{-- <div id="dropdown" class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                             <ul class="py-2" aria-labelledby="dropdownButton">
                             <li>
-                                <a href="{{route('changeInformation')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Change Information?</a>
+                                <a href="{{route('changeInformation')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Change?</a>
                             </li>
                             </ul>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="grid grid-cols-1 min-[900px]:grid-cols-2 p-4 ">
                         <div class="flex justify-center min-[900px]:flex min-[900px]:justify-end">
@@ -55,10 +62,10 @@
                             <img class="ml-8 w-36 h-36 mb-3 shadow-xl rounded-full" src="{{ asset( 'storage/photos/avatar/default.png') }}" alt="Employee Image"/> 
                             @endif
                         </div>
-                        <div class="inline-flex items-center justify-center min-[900px]:justify-start">
+                        <div class="inline-flex items-center justify-center min-[900px]:justify-start p-4">
                            <div class="ml-8 text-center">
-                                <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{$employeeRecord->first_name}} {{$employeeRecord->middle_name}} {{$employeeRecord->last_name}}</h5>
-                                <p class="text-lg text-gray-500 dark:text-gray-400">{{$employeeRecord->employee_type}}</p>
+                                <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white" >{{$employeeRecord->first_name}} {{$employeeRecord->middle_name}} {{$employeeRecord->last_name}}</h5>
+                                <p class="text-lg text-gray-500 dark:text-gray-400"style="word-break: break-words overflow-wrap: break-word;">{{$collegeName}}</p>
                            </div>
                         </div>
                     </div>
@@ -67,44 +74,44 @@
                     <div class="grid grid-cols-1">
                         <div class="grid grid-cols-1 min-[900px]:grid-cols-2 mb-2 border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 md:mb-12  bg-white dark:bg-gray-800">
                             <figure class="items-left justify-center pl-8 mt-6 text-left bg-white border-b border-gray-800 rounded-t-lg md:rounded-t-none md:rounded-ss-lg  dark:bg-gray-800 dark:border-gray-700">
-                                <blockquote class="max-w-2xl mx-auto mb-2 text-gray-900 lg:mb-8 dark:text-gray-400">
-                                    <h3 class="text-xl font-semibold text-blue-700 dark:text-white">Employee Information: </h3>
-                                    <p class="my-4"><b>Phone:</b> {{$employeeRecord->phone}} </p>
-                                    <p class="my-4"><b>Sex:</b> {{$employeeRecord->gender}}</p>
-                                    <p class="my-4"><b>Position:</b> {{$employeeRecord->current_position}}</p>
-                                    <p class="my-4 "><b>Personal Email:</b> {{$employeeRecord->personal_email}} </p>
+                                <blockquote class="max-w-2xl mx-auto mb-2 text-gray-900 lg:mb-8 dark:text-gray-400 pr-4">
+                                    <h3 class="text-xl font-semibold text-blue-700 dark:text-white" style="word-wrap: break-word;">Employee Information: </h3>
+                                    <p class="my-4" style="word-wrap: break-word;"><b>Phone:</b> {{$employeeRecord->phone}} </p>
+                                    <p class="my-4" style="word-wrap: break-word;"><b>Sex:</b> {{$employeeRecord->gender}}</p>
+                                    <p class="my-4" style="word-wrap: break-word;"><b>Position:</b> {{$employeeRecord->current_position}} <span >{{$employeeRecord->is_faculty ? ' - Faculty' : '' }}</span></p>
+                                    <p class="break-all break-words my-4" style="word-wrap: break-word;"><b>Personal Email:</b> {{$employeeRecord->personal_email}} </p>
                                 </blockquote>
                             </figure>
                             <figure class=" items-center justify-center pl-8 mt-6 text-left bg-white border-b border-gray-800  md:rounded-se-lg dark:bg-gray-800 dark:border-gray-700">
-                                <blockquote class="max-w-2xl mx-auto mb-4 text-gray-900 lg:mb-8 dark:text-gray-400">
+                                <blockquote class="max-w-2xl mx-auto mb-4 text-gray-900 lg:mb-8 dark:text-gray-400 pr-4">
                                     <br>
-                                    <p class="my-4"><b>Age:</b> {{number_format($employeeRecord->age, 0)}}</p>
+                                    <p class="my-4" ><b>Age:</b> {{number_format($employeeRecord->age, 0)}}</p>
                                     <p class="my-4"><b>Birth Date:</b> {{$employeeRecord->birth_date}} </p>
-                                    <p class="my-4"><b>Address:</b> {{$employeeRecord->address}}</p>
-                                    <p class="my-4"><b>School Email:</b> {{$employeeRecord->school_email}}</p>
+                                    <p class="my-4" style="word-wrap: break-word;"><b>Address:</b> {{$employeeRecord->address}}</p>
+                                    <p class="my-4" style="word-wrap: break-word;"><b>School Email:</b> {{$employeeRecord->school_email}}</p>
                                 </blockquote>
                             </figure>
                             <figure class="items-center justify-center pl-8 mt-6 text-left bg-white border-b border-gray-800 md:rounded-es-lg md:border-b-0  dark:bg-gray-800 dark:border-gray-700">
-                                <blockquote class="max-w-2xl mx-auto mb-4 text-gray-900 lg:mb-8  dark:text-gray-400">
-                                    <h3 class="text-xl font-semibold text-blue-700 dark:text-white">Designation: </h3>
-                                    <p class="my-4"><b>Department Name:</b> {{$departmentName}}</p>
-                                    <p class="my-4"><b>Department Head:</b> {{$collegeName}}</p>
-                                    <p class="my-4"><b>Faculty/Non Faculty:</b> {{$employeeRecord->faculty_or_not ? 'Faculty' : 'Not a Faculty' }}</p>
-                                    <p class="my-4"><b>Employee ID:</b> {{$employeeRecord->employee_id}} </p>
+                                <blockquote class="max-w-2xl mx-auto mb-4 text-gray-900 lg:mb-8  dark:text-gray-400 pr-4">
+                                    <h3 class="text-xl font-semibold text-blue-700 dark:text-white" style="word-wrap: break-word;">Designation: </h3>
+                                    <p class="my-4" style="word-wrap: break-word;"><b>Department Name:</b> {{$departmentName}}</p>
+                                    <p class="my-4" ><b>Employee Type:</b> {{$employeeRecord->employee_type}}</p>
+                                    {{-- <p class="my-4"><b>Faculty/Non Faculty:</b> {{$employeeRecord->faculty_or_not ? 'Faculty' : 'Not a Faculty' }}</p> --}}
+                                    <p class="my-4" style="word-wrap: break-word;"><b>Employee ID:</b> {{$employeeRecord->employee_id}} </p>
                                 </blockquote>
                             </figure>
-                            <figure class=" items-center justify-center pl-8 mt-6 text-left bg-white border-gray-800  rounded-b-lg md:rounded-se-lg dark:bg-gray-800 dark:border-gray-700">
-                                <blockquote class="max-w-2xl mx-auto mb-4 text-gray-600 lg:mb-8 dark:text-gray-400">
-                                    <h3 class="text-xl font-semibold text-blue-700 dark:text-white">Employee History: </h3>
+                            <figure class="overflow-x-auto items-center justify-center pl-8 mt-6 text-left bg-white border-gray-800  rounded-b-lg md:rounded-se-lg dark:bg-gray-800 dark:border-gray-700">
+                                <blockquote class="max-w-2xl overflow-x-auto mx-auto mb-4 text-gray-600 lg:mb-8 dark:text-gray-400 pr-4">
+                                    <h3 class="text-xl font-semibold text-blue-700 dark:text-white" style="word-wrap: break-word;">Employee History: </h3>
                                     @if ($employeeHistory)
                                         @foreach ($employeeHistory as $index => $record)
-                                            <p class="my-4"><b>{{$index + 1}}. <span class="text-gray-900">{{$record->prev_position}}</span> - <span class="text-gray-700">{{$record->name_of_company}}</span> <br> | {{$record->start_date}} to {{$record->end_date}} </b> </p>
+                                            <p class="my-4" style="word-wrap: break-word;"><b>{{$index + 1}}. <span class="text-gray-900">{{$record->prev_position}}</span> - <span class="text-gray-700">{{$record->name_of_company}}</span> <br> | {{$record->start_date}} to {{$record->end_date}} </b> </p>
                                         @endforeach
                                     @else
                                         <div class="text-gray-800">
-                                            <p class="my-4"><b>1. Don't Worry </b> </p>
-                                            <p class="my-4"><b>2. Plenty of Opportunities</b> </p>
-                                            <p class="my-4"><b>3. Awaits!!!!!!!! </b> </p>
+                                            <p class="my-4" style="word-wrap: break-word;"><b>1. Don't Worry </b> </p>
+                                            <p class="my-4" style="word-wrap: break-word;"><b>2. Plenty of Opportunities</b> </p>
+                                            <p class="my-4" style="word-wrap: break-word;"><b>3. Awaits!!!!!!!! </b> </p>
                                         </div>
                                     @endif
                                 </blockquote>
@@ -113,11 +120,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-span-2">
-                <div class="w-auto">
+            <div class="col-span-2 ">
+                <div class="w-auto  ">
                     <div class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                         <div class="flex items-center justify-between mb-4">
-                            <h5 class="text-xl font-bold leading-none text-blue-700 dark:text-white">Submitted Documents</h5>
+                            <p class="text-xl font-bold  text-blue-700 dark:text-white" style="word-break: break-all; overflow-wrap: break-word;">Submitted Documents</p>
                             {{-- <a href="#" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
                                 View all
                             </a> --}}
