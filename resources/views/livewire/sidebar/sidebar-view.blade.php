@@ -357,7 +357,21 @@
                                </svg>
                                
                               <span class="flex-1 ms-3 ">Work Document</span></a>
-                       </li>
+                        </li>
+                        <li>
+                        <a href="{{route('ChangeScheduleTable')}}" class="flex items-center w-full p-2 text-white bg-indigo-800 transition duration-75 rounded-lg pl-11 group hover:bg-indigo-900s dark:text-white dark:hover:bg-gray-700">
+                                <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m11.5 11.5 2.071 1.994M4 10h5m11 0h-1.5M12 7V4M7 7V4m10 3V4m-7 13H8v-2l5.227-5.292a1.46 1.46 0 0 1 2.065 2.065L10 17Zm-5 3h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/>
+                              </svg>
+                             <span class="flex-1 ms-3 ">Schedule Change</span></a>
+                        </li>
+                        <li>
+                        <a href="{{route('CreditsMonetizationTable')}}" class="flex items-center w-full p-2 text-white bg-indigo-800 transition duration-75 rounded-lg pl-11 group hover:bg-indigo-900s dark:text-white dark:hover:bg-gray-700">
+                            <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 1 0-18c1.052 0 2.062.18 3 .512M7 9.577l3.923 3.923 8.5-8.5M17 14v6m-3-3h6"/>
+                              </svg>
+                             <span class="flex-1 ms-3 ">Credits Monetization</span></a>
+                        </li>
                 </ul>
              </li>
              <li class="bg-white rounded">
@@ -373,7 +387,7 @@
             @endif
          
         {{-- Change to a role of an Admin --}}
-        @if($role_id == 27 || $role_id == 28) 
+        @if($role_id == 29 || $role_id == 30 || $role_id == 31 || $role_id == 48) 
             <li class="bg-white rounded" wire:ignore>
                 <button type="button" class="flex items-center w-full p-2 text-base text-white bg-indigo-800 transition duration-75  group hover:bg-indigo-900 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-requests" data-collapse-toggle="dropdown-approverequests">
                     <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">

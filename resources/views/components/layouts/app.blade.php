@@ -142,7 +142,7 @@
         if (window.innerWidth <= 640) {
           logoSidebar.classList.add('hidden');
         }
-      </script>
+    </script>
       
 @endsection
 

@@ -379,7 +379,7 @@ class TeachPermitUpdate extends Component
             'load' => $jsonSubjectLoad,
 
             'updated_at' => now(),
-          ];
+        ];
 
         
         Teachpermit::where('reference_num', $this->index)

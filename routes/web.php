@@ -21,6 +21,7 @@ use App\Livewire\Auth\Passwords\Confirm;
 use App\Livewire\Trainings\TrainingForm;
 use App\Livewire\Trainings\TrainingView;
 use App\Livewire\Dashboard\DashboardView;
+use App\Http\Controllers\VerifyController;
 use App\Livewire\Trainings\TrainingUpdate;
 use App\Http\Controllers\ProfileController;
 use App\Livewire\Activities\ActivitiesForm;
@@ -41,12 +42,16 @@ use App\Livewire\Studypermit\StudyPermitUpdate;
 use App\Livewire\Teachpermit\TeachPermitUpdate;
 use App\Livewire\Trainings\TrainingPreTestForm;
 use App\Http\Controllers\LeaveRequestController;
+use App\Livewire\Leaverequest\LeaveRequestTable;
 use App\Livewire\Trainings\TrainingPostTestForm;
 use App\Http\Controllers\AttendancePdfController;
 use App\Livewire\Dailytimerecord\AttendanceTable;
 use App\Livewire\Leaverequest\LeaveRequestUpdate;
 use App\Http\Controllers\RequestDocumentController;
+use App\Livewire\Changeschedule\ChangeScheduleForm;
+use App\Livewire\Changeschedule\ChangeScheduleTable;
 use App\Livewire\Changeinformation\ChangeInformation;
+use App\Livewire\Changeschedule\ChangeScheduleUpdate;
 use App\Livewire\Approverequests\Ipcr\ApproveIpcrForm;
 use App\Livewire\Approverequests\Opcr\ApproveOpcrForm;
 use App\Livewire\Requestdocuments\RequestDocumentForm;
@@ -55,9 +60,10 @@ use App\Livewire\Approverequests\Opcr\ApproveOpcrTable;
 use App\Livewire\Requestdocuments\RequestDocumentTable;
 use App\Livewire\Requestdocuments\RequestDocumentUpdate;
 use App\Http\Controllers\Auth\EmailVerificationController;
-use App\Livewire\Approverequests\Changeinformation\ApproveChangeInformationForm;
-use App\Livewire\Approverequests\ChangeInformation\ApproveChangeInformationRequest;
-use App\Livewire\Approverequests\Changeinformation\ApproveChangeInformationTable;
+use App\Livewire\Sidebar\Notifications\NotificationsTable;
+use App\Livewire\Creditsmonetization\CreditsMonetizationForm;
+use App\Livewire\Creditsmonetization\CreditsMonetizationTable;
+use App\Livewire\Creditsmonetization\CreditsMonetizationUpdate;
 use App\Livewire\Approverequests\Studypermit\ApproveStudyPermitForm;
 use App\Livewire\Approverequests\Teachpermit\ApproveTeachPermitForm;
 use App\Livewire\Approverequests\Studypermit\ApproveStudyPermitTable;
@@ -65,11 +71,11 @@ use App\Livewire\Approverequests\Teachpermit\ApproveTeachPermitTable;
 use App\Livewire\Approverequests\Leaverequest\ApproveLeaveRequestForm;
 use App\Livewire\Approverequests\Leaverequest\ApproveLeaveRequestTable;
 use App\Livewire\Approverequests\Requestdocument\ApproveRequestDocumentForm;
-use App\Livewire\Approverequests\Requestdocument\ApproveRequestDocumentTable;
-use App\Livewire\Leaverequest\LeaveRequestTable;
-use App\Livewire\Sidebar\Notifications\NotificationsTable;
 
-use App\Http\Controllers\VerifyController;
+use App\Livewire\Approverequests\Requestdocument\ApproveRequestDocumentTable;
+use App\Livewire\Approverequests\Changeinformation\ApproveChangeInformationForm;
+use App\Livewire\Approverequests\Changeinformation\ApproveChangeInformationTable;
+use App\Livewire\Approverequests\ChangeInformation\ApproveChangeInformationRequest;
 
 
 /*
@@ -242,6 +248,42 @@ Route::middleware('auth')->group(function (){
     Route::get("/teachpermit/approve/{index}", ApproveTeachPermitForm::class)->name('ApproveTeachPermitForm');
 
     Route::get('/teachpermit/{index}', [TeachPermitTable::class, 'download'])->name('downloadTeachPermit');
+
+});
+
+Route::middleware('auth')->group(function (){
+
+    Route::get("/changeschedule", ChangeScheduleTable::class)->name('ChangeScheduleTable');
+
+    Route::get("/changeschedule/form", ChangeScheduleForm::class)->name('ChangeScheduleForm');
+
+    Route::get("/changeschedule/edit/{index}", ChangeScheduleUpdate::class)->name('ChangeScheduleEdit');
+
+    // Route::get("/teachpermit/pdf/{index}", [TeachPermitController::class, 'turnToPdf'])->name('TeachPermitPdf');
+
+    // Route::get("/teachpermit/requests", ApproveTeachPermitTable::class)->name('ApproveTeachPermitTable');
+
+    // Route::get("/teachpermit/approve/{index}", ApproveTeachPermitForm::class)->name('ApproveTeachPermitForm');
+
+    // Route::get('/teachpermit/{index}', [TeachPermitTable::class, 'download'])->name('downloadTeachPermit');
+
+});
+
+Route::middleware('auth')->group(function (){
+
+    Route::get("/creditsmonetization", CreditsMonetizationTable::class)->name('CreditsMonetizationTable');
+
+    Route::get("/creditsmonetization/form", CreditsMonetizationForm::class)->name('CreditsMonetizationForm');
+
+    Route::get("/creditsmonetization/edit/{index}", CreditsMonetizationUpdate::class)->name('CreditsMonetizationEdit');
+
+    // Route::get("/teachpermit/pdf/{index}", [TeachPermitController::class, 'turnToPdf'])->name('TeachPermitPdf');
+
+    // Route::get("/teachpermit/requests", ApproveTeachPermitTable::class)->name('ApproveTeachPermitTable');
+
+    // Route::get("/teachpermit/approve/{index}", ApproveTeachPermitForm::class)->name('ApproveTeachPermitForm');
+
+    // Route::get('/teachpermit/{index}', [TeachPermitTable::class, 'download'])->name('downloadTeachPermit');
 
 });
 
