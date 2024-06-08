@@ -32,36 +32,48 @@
     @media (max-width: 1450px) {
         #user_avatar {
             /* display: visible; */
-            column-span: 0;
+            /* column-span: 0; */
           }
         }
 
       @media (max-width: 850px){
-        #good_morning {
+        /* #good_morning {
           column-span: 5;
-        }
+        } */
        
       }
-
-      @media (max-width: 1250px){
+      @media(max-width:1837px){
         #user_avatar {
            display: none;
         }
+
+      }
+      @media (min-width: 1600px) and (max-width: 3000px){
         #good_morning {
-          white-space: break-word; 
+          white-space: nowrap; 
         }
+        /* #intro_container{
+          grid-column: 1 / span 5;
+        } */
         #good {
-          white-space: inherit;
+          white-space: nowrap;
         }
+        /* #user_avatar {
+          column-span: 3;
+        } */
         
       } 
-
-    @media (min-width: 1120px) {
-      #good_morning {
-        white-space: nowrap;
+    
+    @media (max-width: 1300px) {
+      /* #good_morning {
         column-span: 2;
       }
+      #intro_container{
+        column-span: 3;
+      } */
       #good {
+        white-space: break-word;
+        overflow-wrap: break-word;
         font-size: 1.5rem;
       }
       #user_avatar {
@@ -69,7 +81,7 @@
       }
       
     }
-   
+    
     </style>
 
  
@@ -113,8 +125,8 @@
     <div class="swiper-pagination text-bold"></div>
   
     <!-- If we need navigation buttons -->
-    <div class="swiper-button-prev absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"></div> 
-    <div class="swiper-button-next absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"></div> 
+    <div class="swiper-button-prev absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none swipercolor" ></div> 
+    <div class="swiper-button-next absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none swipercolor"></div> 
   
     <!-- If we need scrollbar -->
     <div class="swiper-scrollbar"></div>
@@ -123,11 +135,30 @@
   @endif
 </div>
 
- <div class="grid grid-cols-3 col-span-3 gap-4">
+ <div class="grid grid-cols-4 col-span-3 gap-4">
+  <div class="col-span-1 grid-cols-1 gap-4">
+    <div class="flex flex-col h-full p-6 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+      <h5 class="mb-4 text-2xl font-bold tracking-tight textindigo text-gray-900 dark:text-white" style="word-break: break-word;">Leave Credits</h5>
+      <div class="grid grid-cols-1 gap-4 flex-grow">
+        <div class="mb-4">
+          <a href="{{route('LeaveRequestTable')}}" class="block p-6 h-full bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white" style="word-break: break-word;">Vacation Credits</h5>
+            <p class="font-semibold text-3xl textindigo dark:text-gray-400" style="word-break: break-word;">{{ number_format($vacationCredits ?? 0, 2)}}</p>
+          </a>
+        </div>
+        <div>
+          <a href="{{route('LeaveRequestTable')}}"  class="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white" style="word-break: break-word;">Sick Credits</h5>
+            <p class="font-semibold text-3xl textindigo dark:text-gray-400" style="word-break: break-word;">{{ number_format($vacationCredits ?? 0, 2) }}</p>
+          </a>
+        </div>
+      </div>
+    </div> 
+  </div>
   <div wire:ignore class="w-full col-span-2 bg-white rounded-lg shadow pb-4 dark:bg-gray-800 p-4 md:p-4 ">
     <div class="flex justify-between">
       <div>
-        <p class=" text-xl font-bold text-gray-800 dark:text-gray-400">Attendance Chart</p>
+        <p class=" text-2xl font-bold textindigo dark:text-gray-400" style="word-break: break-word;">Attendance Chart</p>
       </div>
       <div
         class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
@@ -165,33 +196,33 @@
       </div>
     </div>
   </div>
-  <div class="grid grid-cols-1 p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-    <div class="mb-4 items-center grid grid-cols-5" id="intro_container">
-        <div class="h-full col-span-2" id="good_morning">
-          <h2 class=" font-semibold text-blue-500 text-2xl" id="good" >Good {{$period}}, {{$firstName}}. </h2>
-          <h1 class="text-lg" id="ready">Ready to Start your Day?</h1>
-          <p class="text-lg mt-4" id="quote1">"<span class="text-blue-500" >Tough times</span> never last,</p>
-          <span class="text-lg " id="quote2">but <span class="text-blue-700" >tough people</span> do"</span>
-          <div wire:poll.1s class="text-xl p-0 font-semibold text-blue-700">
+  <div class=" grid min-[0px]:grid-cols-2 min-[1100px]:grid-cols-5  col-span-1 p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+    <div class="mb-4 items-center grid min-[0px]:grid-cols-2 min-[1100px]:grid-cols-5 " id="intro_container">
+        <div class="h-full col-span-2 " id="good_morning">
+          <h2 class=" font-semibold textindigo text-2xl" id="good" style="word-break: break-word;">Good {{$period}}, {{$firstName}}. </h2>
+          <h1 class="text-lg" id="ready" style="word-break: break-word;">Ready to Start your Day?</h1>
+          <p class="text-lg mt-4" id="quote1" style="word-break: break-word;">"<span class=" textindigo" >Tough times</span> never last,</p>
+          <span class="text-lg " id="quote2">but <span class=" textindigo" style="word-break: break-word;">tough people</span> do"</span>
+          <div wire:poll.1s class="text-xl p-0 font-semibold  textindigo" style="word-break: break-word;">
             <br> 
             @php
               $currentDate =  \Illuminate\Support\Carbon::now()->format('F j, Y'); // e.g., "June 4, 2024"
               $currentTime =  \Illuminate\Support\Carbon::now()->toTimeString(); // e.g., "14:30:45"
               $currentDayOfWeek =  \Illuminate\Support\Carbon::now()->format('l'); // e.g., "Tuesday"
             @endphp
-              <p class="text-blue-500 text-lg" id="date1">Date: <span class="text-gray-900">{{$currentDate}}</span></p>  
-              <p class="text-blue-500 text-lg" id="date2">Weekday: <span class="text-gray-900">{{$currentDayOfWeek}}</span></p>  
-              <p class="text-blue-500 text-lg" id="date3">Time: <span class="text-gray-900">{{$currentTime}}</span></p> 
+              <p class=" textindigo text-lg" id="date1">Date: <span class="text-gray-900">{{$currentDate}}</span></p>  
+              <p class=" textindigo text-lg" id="date2">Weekday: <span class="text-gray-900">{{$currentDayOfWeek}}</span></p>  
+              <p class=" textindigo text-lg" id="date3">Time: <span class="text-gray-900">{{$currentTime}}</span></p> 
             </div>
         </div>
        
-        <div class="mt-4 ml-8 col-span-3" id="user_avatar"> 
+        {{-- <div class="mt-4 ml-8 col-span-3" id="user_avatar"> 
             @if ($gender == "Female")
-              <img src="{{asset('storage\EmployeeImages\girl.png')}}"  style="width:500px ;height: 220px" alt="Avatar">
+              <img src="{{asset('storage\EmployeeImages\girl.png')}}"  style="width:500px ;height: 100px" alt="Avatar">
             @else
-                <img src="{{asset('storage\EmployeeImages\boy.png')}}"  style="width:500px ;height: 220px" alt="Avatar">
+                <img src="{{asset('storage\EmployeeImages\boy.png')}}"  style="width:500px ;height: 100px" alt="Avatar">
             @endif
-        </div>
+        </div> --}}
   </div>
  </div>
  
@@ -201,7 +232,7 @@
 <script>
 const options = {
   chart: {
-    height: "100%",
+    height: "80%",
     maxHeight: "100%",
     maxWidth: "100%",
     type: "area",
@@ -260,7 +291,7 @@ const options = {
     {
       name: "Weekly Count",
       data: @json($data),
-      color: "#1A56DB",
+      color: "#42389D",
     },
   ],
   yaxis: {

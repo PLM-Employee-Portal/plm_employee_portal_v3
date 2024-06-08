@@ -15,8 +15,13 @@
    <nav class="fixed top-0 z-50 w-full pb-4 bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
        <div class="flex flex-wrap justify-between items-center">
            <div class="flex justify-start items-center">
-                <button id="toggleSidebar" aria-expanded="true" aria-controls="logo-sidebar" data-dropdown-toggle="logo-sidebar" class=" p-2 mr-3 text-gray-600 rounded cursor-pointer lg:inline hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">
-                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h14M1 6h14M1 11h7"/> </svg>
+                {{-- <button id="toggleSidebar" aria-expanded="true" aria-controls="logo-sidebar" data-dropdown-toggle="logo-sidebar" class=" p-2 mr-3 text-gray-600 rounded cursor-pointer lg:inline hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12"> <path stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h14M1 6h14M1 11h7"/> </svg>
+                </button> --}}
+                <button id="toggleSidebar" aria-expanded="true" aria-controls="logo-sidebar" data-dropdown-toggle="logo-sidebar" class="p-2 mr-3 text-gray-600 rounded cursor-pointer lg:inline hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                        <path stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h14M1 6h14M1 11h7"/>
+                    </svg>
                 </button>
                <a href="{{route('dashboard')}}"><img src="{{ asset('storage/plmlogo/plm-logo.png') }}" id="plm-logo" style="height:100% height: auto; min-height: 30px; max-height: 75px;"  alt="PLM Logo">
                </a>

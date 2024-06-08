@@ -65,7 +65,7 @@
                         <div class="inline-flex items-center justify-center min-[900px]:justify-start p-4">
                            <div class="ml-8 text-center">
                                 <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white" >{{$employeeRecord->first_name}} {{$employeeRecord->middle_name}} {{$employeeRecord->last_name}}</h5>
-                                <p class="text-lg text-gray-500 dark:text-gray-400"style="word-break: break-words overflow-wrap: break-word;">{{$collegeName}}</p>
+                                <p class="text-lg text-gray-500 dark:text-gray-400" style="word-break: break-word; overflow-wrap: break-word;">{{$collegeName}}</p>
                            </div>
                         </div>
                     </div>
