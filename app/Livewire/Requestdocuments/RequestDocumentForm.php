@@ -35,6 +35,8 @@ class RequestDocumentForm extends Component
     public $milc_description;
     public $position;
     public $other_request;
+
+    public $payrollDates;
     public $purpose;
     public $signature_requesting_party;
 
@@ -83,7 +85,7 @@ class RequestDocumentForm extends Component
         'reference_num' => 'required|min:13|max:13',
         'requests' => 'required|array|min:1',
         // 'requests.*' => 'in:Certificate of Employment,Certificate of Employment with Compensation,Service Record,Part time Teaching Services,MILC Certification,Certificate of No Pending Administrative Case,Others',
-        'requests.*' => 'in:Certificate of Employment,Certificate of Employment with Compensation,Service Record,Part time Teaching Services,MILC Certification,Others',
+        'requests.*' => 'in:Certificate of Employment,Certificate of Employment with Compensation,Service Record,Part time Teaching Services,MILC Certification,Others,Payroll',
         'purpose' => 'required|min:2|max:1000', 
         'signature_requesting_party' => 'required|mimes:jpg,png,pdf|extensions:jpg,png,pdf|max:5120'
     ];
@@ -92,6 +94,7 @@ class RequestDocumentForm extends Component
         $properties = [
             'milc_description' => 'MILC Certification',
             'other_request' => 'Others',
+            'payrollDates' => 'Payroll',
         ];
 
         foreach($properties as $property => $value){

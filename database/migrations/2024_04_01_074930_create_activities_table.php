@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('employee_activities', function (Blueprint $table) {
             // $table->id();
             $table->string('activity_id')->primary();
+            $table->string('status')->default('Active');
             $table->string('type');
             $table->string('title');
             $table->longText('description');
@@ -25,7 +26,6 @@ return new class extends Migration
             $table->boolean('is_featured');
             $table->json('visible_to_list');
             $table->dateTime('deleted_at')->nullable();
-
             $table->timestamps();
         });
     }

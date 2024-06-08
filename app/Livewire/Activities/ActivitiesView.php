@@ -36,6 +36,17 @@ class ActivitiesView extends Component
        
         // dd($this->activityData->poster);
     }
+
+    public function removeActivity(){
+        dd($this->index);
+        $leaveRequestData = Activities::where('activity_id', $this->index)->first();
+        $dataToUpdate = ['status' => 'Deleted',
+                         'deleted_at' => now()];
+        $this->authorize('delete', $leaveRequestData);
+        Activities::where('reference_num', $this->index)->update($dataToUpdate);
+        return redirect()->route('LeaveRequestTable');
+    }
+
     public function render()
     {
         return view('livewire.activities.activities-view', [

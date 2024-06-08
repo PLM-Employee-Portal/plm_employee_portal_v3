@@ -117,6 +117,18 @@ class ActivitiesUpdate extends Component
         return redirect()->to(route('ActivitiesGallery'));
     }
 
+    public function removeActivity(){
+        // $activityData = Activities::where('activity_id', $this->index)->first();
+        $dataToUpdate = ['status' => 'Deleted',
+                         'deleted_at' => now()];
+        // $this->authorize('delete',  $activityData);
+        $loggedInUser = auth()->user();
+        if(in_array($loggedInUser->role_id, [29, 30, 31, 48])){
+            Activities::where('activity_id', $this->index)->update($dataToUpdate);
+        } 
+        return redirect()->route('ActivitiesGallery');
+    }
+
     
     public function render()
     {

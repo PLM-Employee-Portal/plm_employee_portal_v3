@@ -117,10 +117,10 @@
                                         <input id="request3" type="checkbox" value="Service Record" wire:model="requests" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="request3" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Service Record</label>
                                     </div>  
-                                    {{-- <div class="flex items-center">
-                                        <input id="request4" type="checkbox" value="Part time Teaching Services" wire:model="requests" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="request4" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Part-time Teaching Services</label>
-                                    </div>   --}}
+                                    <div class="flex items-center">
+                                        <input id="request8" type="checkbox" value="Payroll" wire:model.live="requests" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="request8" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Payroll</label>
+                                    </div>  
                                 </div>
                                 <div class="grid grid-cols-1 gap-4">
                                     <div class="flex items-center mt-4 ">
@@ -152,8 +152,8 @@
                                     <span class="text-red-500 text-xs"> {{$message}}</span>
                                 </div> 
                             @enderror
-                            @if(in_array('Others', $requests) || in_array('MILC Certification', $requests))
-                            <div class="grid grid-cols-2 gap-4 mt-5 ">
+                            @if(in_array('Others', $requests) || in_array('MILC Certification', $requests) || in_array('Payroll', $requests))
+                            <div class="grid grid-cols-3 gap-4 mt-5 ">
                                 @if (in_array('MILC Certification', $requests))
                                 <div>
                                     <div class="grid grid-cols-1" id="milc_container">
@@ -185,6 +185,24 @@
                                     @error('other_request')   
                                         <div class="transition transform alert alert-danger text-sm"
                                             x-data x-init="document.getElementById('other_request_container').scrollIntoView({ behavior: 'smooth', block: 'center' }); document.getElementById('other_request_container').focus();">
+                                            <span class="text-red-500 text-xs"> {{$message}}</span>
+                                        </div> 
+                                    @enderror
+                               </div>
+                               @endif
+                               @if(in_array('Payroll', $requests))
+                               <div>
+                                    <div class="grid grid-cols-1" id="payroll_container">
+                                        <label for="payrollDates"
+                                        class="block mb-2  text-sm font-medium  text-gray-900 dark:text-white">Payroll Dates<span class="text-red-600">*</span> (If chosen Payroll)</label>
+                                        <textarea type="text" rows="2" id="payrollDates" name="payrollDates" wire:model="payrollDates"
+                                        placeholder="Type Payroll Dates you want to request here." 
+                                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        </textarea>
+                                    </div>
+                                    @error('payrollDates')   
+                                        <div class="transition transform alert alert-danger text-sm"
+                                            x-data x-init="document.getElementById('payroll_container').scrollIntoView({ behavior: 'smooth', block: 'center' }); document.getElementById('payroll_container').focus();">
                                             <span class="text-red-500 text-xs"> {{$message}}</span>
                                         </div> 
                                     @enderror

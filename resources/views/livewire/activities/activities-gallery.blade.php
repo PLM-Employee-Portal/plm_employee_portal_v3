@@ -44,7 +44,9 @@
                     <button type="button" wire:click="fillerSetter('Training')" class="text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700  focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800 {{ $filter === 'Training' ? 'bg-blue-500 text-white' : 'bg-white' }}">Training</button>
                     <button type="button" wire:click="fillerSetter('Others')" class="text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700  focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800 {{ $filter === 'Others' ? 'bg-blue-500 text-white' : 'bg-white' }}">Others</button>
                 </div>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 w-full h-1/2">
+                {{-- <div class="grid grid-cols-2 md:grid-cols-3 gap-4 w-full h-1/2"> --}}
+                {{-- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full h-1/2 place-items-center"> --}}
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; width: 100%; height: 50%; justify-items: center; align-items: top;">
                     @foreach ($ActivitiesData as $data)
                         <div class="h-1/2 object-cover">
                             @php

@@ -96,6 +96,8 @@ class ActivitiesForm extends Component
         $activitydata->activity_id = $randomNumber;
         $activitydata->title = $this->title;
         $activitydata->description = $this->description;
+        $activitydata->status = $this->active;
+
         // if($this->type == "Announcement"){
         //     $activitydata->poster = $this->poster->store('photos/activities/announcement', 'public');
         // }
