@@ -459,7 +459,7 @@
                                 <div class="grid grid-cols-1 items-center justify-center w-full">
                                 <label for="applicant_signature" class="relative flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                 @if($applicant_signature)
-                                        @php
+                                        {{-- @php
                                             $image = null;
                                             try {
                                                 $image = $applicant_signature->temporaryUrl();
@@ -470,7 +470,9 @@
                                         @endphp
                                         @if($image)
                                             <img src="{{ $image }}" class="w-full h-full object-contain" alt="Uploaded Image">
-                                        @endif
+                                        @endif --}}
+                                        <span class="text-green-800"> File Uploaded</span>
+
                                         <input id="applicant_signature" type="file" class="hidden" wire:model.blur="applicant_signature">
                                         <button type="button" wire:click="removeImage('applicant_signature')" class="absolute top-0 right-0 m-2 text-red-600 py-1  rounded">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -505,6 +507,5 @@
             </form>
         </div>
     </section>
-    
     </div>
 </div>

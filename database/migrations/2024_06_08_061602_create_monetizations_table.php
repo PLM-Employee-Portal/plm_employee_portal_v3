@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('requested_sick_credits');
             $table->string('total_requested');
             $table->string('purpose');
+            $table->longText('applicant_signature')->charset('binary');
+            $table->dateTime('applicant_signature_date');
             $table->dateTime('deleted_at')->default(now());
             $table->timestamps();
         });

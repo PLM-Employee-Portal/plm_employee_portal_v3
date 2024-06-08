@@ -50,6 +50,7 @@ class ChangeScheduleUpdate extends Component
         } catch (AuthorizationException $e) {
             abort(404);
         }
+
         $loggedInUser = auth()->user();
         $employeeRecord = Employee::select('first_name', 'middle_name', 'last_name', 'department_id', 'college_id', 'current_position', 'employee_type', 'teach_available_units' )
                                     ->where('employee_id', $loggedInUser->employee_id)
@@ -178,7 +179,7 @@ class ChangeScheduleUpdate extends Component
         
         $loggedInUser = auth()->user();
 
-        $changescheduledata = ChangeSchedule::where('reference_num', $this->index)->first();;
+        $changescheduledata = ChangeSchedule::where('reference_num', $this->index)->first();
        
         $departmentName = Employee::where('employee_id', $loggedInUser->employee_id)->value('department_id');
 
@@ -237,6 +238,7 @@ class ChangeScheduleUpdate extends Component
         $changescheduledata->proposed = $jsonProposedLoad;
 
         $updateData = [
+            'status' => "Pending",
             'start_period_cover' => $this->start_period_cover,
             'end_period_cover' => $this->end_period_cover,
             'reason' => $this->reason,

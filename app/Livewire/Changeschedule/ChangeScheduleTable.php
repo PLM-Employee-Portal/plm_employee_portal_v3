@@ -113,13 +113,16 @@ class ChangeScheduleTable extends Component
     
     }
 
-    public function removeTeachPermit($ref_num){
+    public function removeScheduleChange($ref_num){
         $data = ChangeSchedule::where('reference_num', $ref_num)->first();
         $dataToUpdate = ['status' => 'Deleted',
                          'deleted_at' => now()];
-        $this->authorize('delete', $data);
+        if($data->employee_id != auth()->user()->employee_id){
+            return redirect()->to(route('ChangeScheduleTable'));
+        };
+        // $this->authorize('delete', $data);
         ChangeSchedule::where('reference_num', $ref_num)->update($dataToUpdate);
-        return redirect()->route('TeachPermitTable');
+        return redirect()->route('ChangeScheduleTable');
     }
 
   

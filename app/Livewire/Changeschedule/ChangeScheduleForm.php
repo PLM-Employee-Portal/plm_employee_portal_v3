@@ -135,7 +135,6 @@ class ChangeScheduleForm extends Component
             // $this->resetErrorBag();
             $this->resetValidation();
         }   
-        dd($this->applicant_signature);
         
         $loggedInUser = auth()->user();
 

@@ -78,9 +78,9 @@ class CreditsMonetizationTable extends Component
 
 
         if(strlen($this->search) >= 1){
-            $results = $query->where('status', '!=', 'Deleted')->where('application_date', 'like', '%' . $this->search . '%')->orderBy('application_date', 'desc')->paginate(5);
+            $results = $query->where('status', '!=', 'Deleted')->where('date_of_filling', 'like', '%' . $this->search . '%')->orderBy('date_of_filling', 'desc')->paginate(5);
         } else {
-            $results = $query->where('status', '!=', 'Deleted')->orderBy('application_date', 'desc')->paginate(5);
+            $results = $query->where('status', '!=', 'Deleted')->orderBy('date_of_filling', 'desc')->paginate(5);
         }
         return view('livewire.creditsmonetization.credits-monetization-table', [
             'MonetizationData' => $results,
@@ -112,13 +112,15 @@ class CreditsMonetizationTable extends Component
     
     }
 
-    public function removeTeachPermit($ref_num){
+    public function removeData($ref_num){
         $data = Monetization::where('reference_num', $ref_num)->first();
         $dataToUpdate = ['status' => 'Deleted',
                          'deleted_at' => now()];
-        $this->authorize('delete', $data);
+        if($data->employee_id != auth()->user()->employee_id){
+            return redirect()->to(route('CreditsMonetizationTable'));
+        };
         Monetization::where('reference_num', $ref_num)->update($dataToUpdate);
-        return redirect()->route('TeachPermitTable');
+        return redirect()->route('CreditsMonetizationTable');
     }
 
 }
