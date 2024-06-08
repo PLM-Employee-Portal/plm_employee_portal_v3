@@ -459,7 +459,18 @@
                                 <div class="grid grid-cols-1 items-center justify-center w-full">
                                 <label for="applicant_signature" class="relative flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                 @if($applicant_signature)
-                                        <img src="{{ $applicant_signature->temporaryUrl() }}" class="w-full h-full object-contain" alt="Uploaded Image">
+                                        @php
+                                            $image = null;
+                                            try {
+                                                $image = $applicant_signature->temporaryUrl();
+                                            } catch (\Throwable $th) {
+                                                abort(404); 
+                                                $this->js("alert('Upload PNG, JPG, OR PDF only!')");
+                                            }
+                                        @endphp
+                                        @if($image)
+                                            <img src="{{ $image }}" class="w-full h-full object-contain" alt="Uploaded Image">
+                                        @endif
                                         <input id="applicant_signature" type="file" class="hidden" wire:model.blur="applicant_signature">
                                         <button type="button" wire:click="removeImage('applicant_signature')" class="absolute top-0 right-0 m-2 text-red-600 py-1  rounded">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -492,11 +503,6 @@
                     Submit Change Schedule
             </button>
             </form>
-            {{-- <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/js/multi-select-tag.js"></script>
-            <script>
-                new MultiSelectTag('proposed.' . '0' . '.days')  // id
-            </script> --}}
-            
         </div>
     </section>
     

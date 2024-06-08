@@ -132,14 +132,49 @@ class ChangeScheduleUpdate extends Component
         // Combine the date and random digits
         $referenceNumber = $today . $randomDigits;
         return $referenceNumber;
-     }
+    }
+    protected $validationAttributes = [
+        'start_period_cover' => 'Start Period',
+        'end_period_cover' => 'End Period',
+        'original.*.start_time_schedule' => 'Start Time Schedule',
+        'original.*.end_time_schedule' => 'End Time Schedule',
+        'original.*.work_days' => 'Work Days',
+        'original.*.start_break_time' => 'Start Break Time',
+        'original.*.end_break_time' => 'End Break Time',
+        'original.*.day_off' => 'Day Off',
+        'proposed.*.start_time_schedule' => 'Start Time Schedule',
+        'proposed.*.end_time_schedule' => 'End Time Schedule',
+        'proposed.*.work_days' => 'Work Days',
+        'proposed.*.start_break_time' => 'Start Break Time',
+        'proposed.*.end_break_time' => 'End Break Time',
+        'proposed.*.day_off' => 'Day Off',
+    ];
 
+    protected $rules = [
+        'start_period_cover' => 'required|date',
+        'end_period_cover' => 'required|after_or_equal:start_period_cover|date',
+        'original.*.start_time_schedule' => 'required',
+        'original.*.end_time_schedule' => 'required|after_or_equal:original.*.start_time_schedule',
+        'original.*.work_days' => 'required',
+        'original.*.start_break_time' => 'required',
+        'original.*.end_break_time' => 'required|after_or_equal:subjectLoad.*.start_time',
+        'original.*.day_off' => 'required',
+        'proposed.*.start_time_schedule' => 'required',
+        'proposed.*.end_time_schedule' => 'required|after_or_equal:proposed.*.start_time_schedule',
+        'proposed.*.work_days' => 'required',
+        'proposed.*.start_break_time' => 'required',
+        'proposed.*.end_break_time' => 'required|after_or_equal:subjectLoad.*.start_time',
+        'proposed.*.day_off' => 'required|',
+    ];
+
+   
     public function submit(){
-        // foreach($this->rules as $rule => $validationRule){
-        //     $this->validate([$rule => $validationRule]);
-        //     // $this->resetErrorBag();
-        //     $this->resetValidation();
-        // }   
+        foreach($this->rules as $rule => $validationRule){
+            $this->validate([$rule => $validationRule]);
+            // $this->resetErrorBag();
+            $this->resetValidation();
+        }   
+        // $this->validate();
         
         $loggedInUser = auth()->user();
 
