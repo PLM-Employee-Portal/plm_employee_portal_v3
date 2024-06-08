@@ -109,12 +109,21 @@ class CreditsMonetizationUpdate extends Component
     }
 
 
+     protected $rules = [
+        'salary' => 'required',
+        'requested_vacation_credits' => 'nullable|lte:vacation_credits',
+        'requested_sick_credits' => 'nullable|lte:sick_credits',    
+        'total_requested' => 'nullable|lte:total_credits',
+        'purpose' => 'nullable|string|min:10|max:500',
+        'applicant_signature_date' => 'required|date|after_or_equal:date'
+    ];
+
     public function submit(){
-        // foreach($this->rules as $rule => $validationRule){
-        //     $this->validate([$rule => $validationRule]);
-        //     // $this->resetErrorBag();
-        //     $this->resetValidation();
-        // }   
+        foreach($this->rules as $rule => $validationRule){
+            $this->validate([$rule => $validationRule]);
+            // $this->resetErrorBag();
+            $this->resetValidation();
+        }   
         
         $loggedInUser = auth()->user();
 

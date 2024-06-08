@@ -114,6 +114,12 @@
                                                         <input type="number" name="requested_vacation_credits" id="requested_vacation_credits"  wire:model="requested_vacation_credits"
                                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                             placeholder="{{$vacation_credits}}" required >
+                                                        @error('requested_vacation_credits')
+                                                            <div class="transition transform alert alert-danger text-sm mb-1"
+                                                                x-data x-init="document.getElementById('requested_vacation_credits').scrollIntoView({ behavior: 'smooth', block: 'center' }); document.getElementById('requested_vacation_credits').focus();">
+                                                                <span   span class="text-red-500 text-xs "> {{$message}}</span>
+                                                            </div> 
+                                                        @enderror
                                                     </div>
                                                     <div class="w-full ">
                                                         <label for="requested_sick_credits"
@@ -121,6 +127,12 @@
                                                         <input type="number" name="requested_sick_credits" id="requested_sick_credits" wire:model="requested_sick_credits"
                                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                             placeholder="{{$sick_credits}}" required >
+                                                        @error('requested_sick_credits')
+                                                            <div class="transition transform alert alert-danger text-sm mb-1"
+                                                                x-data x-init="document.getElementById('requested_sick_credits').scrollIntoView({ behavior: 'smooth', block: 'center' }); document.getElementById('requested_sick_credits').focus();">
+                                                                <span   span class="text-red-500 text-xs "> {{$message}}</span>
+                                                            </div> 
+                                                        @enderror
                                                     </div>
                                                     <div class="w-full">
                                                         <label for="total_requested"
@@ -128,6 +140,12 @@
                                                         <input type="number" name="total_requested" id="total_requested"  wire:model="total_requested"
                                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                             placeholder="{{$total_credits}}" required>
+                                                        @error('total_requested')
+                                                            <div class="transition transform alert alert-danger text-sm mb-1"
+                                                                x-data x-init="document.getElementById('total_requested').scrollIntoView({ behavior: 'smooth', block: 'center' }); document.getElementById('total_requested').focus();">
+                                                                <span   span class="text-red-500 text-xs "> {{$message}}</span>
+                                                            </div> 
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                     <div class="grid grid-cols-1 p-6 gap-4 col-span-1 pb-4  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -139,6 +157,12 @@
                                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                                 placeholder="Type your purpose here" required> </textarea>
                                                         </div>
+                                                        @error('purpose')
+                                                            <div class="transition transform alert alert-danger text-sm mb-1"
+                                                                x-data x-init="document.getElementById('purpose').scrollIntoView({ behavior: 'smooth', block: 'center' }); document.getElementById('purpose').focus();">
+                                                                <span   span class="text-red-500 text-xs "> {{$message}}</span>
+                                                            </div> 
+                                                        @enderror
                                                     </div>
                                               </div>
                                               <div class="grid grid-cols-1 gap-4 p-4 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700">
@@ -188,6 +212,12 @@
                                                 <input type="datetime-local" wire:model="applicant_signature_date"
                                                     class="bg-gray-50 border w-full   border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                      required >
+                                                @error('applicant_signature_date')
+                                                     <div class="transition transform alert alert-danger text-sm mb-1"
+                                                         x-data x-init="document.getElementById('applicant_signature_container').scrollIntoView({ behavior: 'smooth', block: 'center' }); document.getElementById('applicant_signature_container').focus();">
+                                                         <span   span class="text-red-500 text-xs "> {{$message}}</span>
+                                                     </div> 
+                                                 @enderror
                                             </div>
                                             </div>
                                                 
