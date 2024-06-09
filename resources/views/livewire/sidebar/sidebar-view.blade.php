@@ -196,8 +196,8 @@
                <!-- Dropdown menu -->
                <div class="hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
                    <div class="py-3 px-4">
-                       <span class="block text-sm font-semibold text-gray-900 dark:text-white">{{$employeeName}}</span>
-                       <span class="block text-sm text-gray-500 truncate dark:text-gray-400">{{$employee_id}}</span>
+                       <span class="block text-sm font-bold text-gray-900 dark:text-white">{{$employeeName}}</span>
+                       <span class="block text-sm textindigo font-semibold truncate dark:text-gray-400">{{$employee_id}}</span>
                    </div>
                    <ul class="py-1 text-gray-500 dark:text-gray-400" aria-labelledby="dropdown">
                     <a href="{{ route('profile') }}" class="block ml-2 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">

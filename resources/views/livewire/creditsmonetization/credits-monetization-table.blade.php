@@ -32,7 +32,7 @@
 
         
         <div class="flex justify-end">
-            <button type="button" onclick="location.href='{{ route('CreditsMonetizationForm') }}'" class="text-white mb-8 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create Credits Monetization</button>
+            <button type="button" onclick="location.href='{{ route('CreditsMonetizationForm') }}'" class="text-white mb-8 bgindigo focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create Credits Monetization</button>
             {{-- <button type="button" onclick="location.href='{{ route('ipcrform', ['type' => 'rated']) }}'" class="text-blue-700 border h-10 border-blue-400 hover:text-white hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 me-2 mb-2 dark:text-blue-300 dark:border-blue-300 dark:hover:text-white dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create Rated IPCR</button> --}}
         </div>
 
@@ -186,7 +186,7 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="black" class="w-6 h-6 mt-1 mr-1">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                                         </svg>
-                                        <p class="text-blue-500 text-xl font-semibold items-center "> Nothing to show</p>
+                                        <p class="textindigo text-xl font-semibold items-center "> Nothing to show</p>
                                     </div>
                                 </th>
                             </tr>

@@ -25,7 +25,7 @@ class PayrollSeeder extends Seeder
             $attendanceDate->addMonth();
             
             Payroll::create([
-                'employee_id' =>  202410005,
+                'employee_id' =>  202410048,
                 'date' => $attendanceDate,
                 'salary' => $randomNumber,
                 'lvt_pay' => $randomNumber,
@@ -33,6 +33,7 @@ class PayrollSeeder extends Seeder
                 'amount_earned' => $randomNumber,
                 'gsis_deduction' => $randomNumber,
                 'wtax' => $randomNumber,
+                'pera' => $randomNumber,
                 'philhealth' => $randomNumber,
                 'pag_ibig' => $randomNumber,
                 'plmpcci' => $randomNumber,

@@ -118,11 +118,11 @@
                                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white ">Commutation <span class="text-red-600">*</span></label>
                                                 <div class="grid grid-cols-4 w-full pl-4 items-start">
                                                     <div>
-                                                        <input type="radio" name="inside_outside_university" id="inside_outside_university" wire:model="inside_outside_university" value="Inside the University">
+                                                        <input type="radio" class="textindigo borderindigo" name="inside_outside_university" id="inside_outside_university" wire:model="inside_outside_university" value="Inside the University">
                                                         <label for="numOfWorkDay" class="text-sm font-semibold">Requested</label>
                                                     </div>
                                                     <div>
-                                                        <input type="radio" id="inside_outside_university" name="inside_outside_university" wire:model="inside_outside_university" value="Outside the University">
+                                                        <input type="radio" class="textindigo borderindigo" id="inside_outside_university" name="inside_outside_university" wire:model="inside_outside_university" value="Outside the University">
                                                         <label for="html" class="text-sm font-semibold">Not Requested</label><br>
                                                     </div>
                                                 </div>
@@ -314,7 +314,7 @@
                                     </script>
 
                                 <div class="flex justify-center">
-                                    <button type="button" name="add" wire:click.prevent="addSubjectLoad" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add Subject Load</button>
+                                    <button type="button" name="add" wire:click.prevent="addSubjectLoad" class="text-white bgindigo focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add Subject Load</button>
                                 </div>
                                 <div class="grid grid-cols-1 min-[740px]:grid-cols-2 col-span-3 p-6 gap-4 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 ">
                                         <div class="w-full">
@@ -443,7 +443,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit"  class="inline-flex items-center float-right px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                <button type="submit"  class="inline-flex items-center float-right px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bgindigo rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
                     Submit Permit to Teach
             </button>
             </form>

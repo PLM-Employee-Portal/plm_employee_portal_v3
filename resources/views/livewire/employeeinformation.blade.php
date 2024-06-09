@@ -75,7 +75,7 @@
                         <div class="grid grid-cols-1 min-[900px]:grid-cols-2 mb-2 border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 md:mb-12  bg-white dark:bg-gray-800">
                             <figure class="items-left justify-center pl-8 mt-6 text-left bg-white border-b border-gray-800 rounded-t-lg md:rounded-t-none md:rounded-ss-lg  dark:bg-gray-800 dark:border-gray-700">
                                 <blockquote class="max-w-2xl mx-auto mb-2 text-gray-900 lg:mb-8 dark:text-gray-400 pr-4">
-                                    <h3 class="text-xl font-semibold text-blue-700 dark:text-white" style="word-wrap: break-word;">Employee Information: </h3>
+                                    <h3 class="text-xl font-semibold textindigo dark:text-white" style="word-wrap: break-word;">Employee Information: </h3>
                                     <p class="my-4" style="word-wrap: break-word;"><b>Phone:</b> {{$employeeRecord->phone}} </p>
                                     <p class="my-4" style="word-wrap: break-word;"><b>Sex:</b> {{$employeeRecord->gender}}</p>
                                     <p class="my-4" style="word-wrap: break-word;"><b>Position:</b> {{$employeeRecord->current_position}} <span >{{$employeeRecord->is_faculty ? ' - Faculty' : '' }}</span></p>
@@ -93,7 +93,7 @@
                             </figure>
                             <figure class="items-center justify-center pl-8 mt-6 text-left bg-white border-b border-gray-800 md:rounded-es-lg md:border-b-0  dark:bg-gray-800 dark:border-gray-700">
                                 <blockquote class="max-w-2xl mx-auto mb-4 text-gray-900 lg:mb-8  dark:text-gray-400 pr-4">
-                                    <h3 class="text-xl font-semibold text-blue-700 dark:text-white" style="word-wrap: break-word;">Designation: </h3>
+                                    <h3 class="text-xl font-semibold textindigo dark:text-white" style="word-wrap: break-word;">Designation: </h3>
                                     <p class="my-4" style="word-wrap: break-word;"><b>Department Name:</b> {{$departmentName}}</p>
                                     <p class="my-4" ><b>Employee Type:</b> {{$employeeRecord->employee_type}}</p>
                                     {{-- <p class="my-4"><b>Faculty/Non Faculty:</b> {{$employeeRecord->faculty_or_not ? 'Faculty' : 'Not a Faculty' }}</p> --}}
@@ -102,7 +102,7 @@
                             </figure>
                             <figure class="overflow-x-auto items-center justify-center pl-8 mt-6 text-left bg-white border-gray-800  rounded-b-lg md:rounded-se-lg dark:bg-gray-800 dark:border-gray-700">
                                 <blockquote class="max-w-2xl overflow-x-auto mx-auto mb-4 text-gray-600 lg:mb-8 dark:text-gray-400 pr-4">
-                                    <h3 class="text-xl font-semibold text-blue-700 dark:text-white" style="word-wrap: break-word;">Employee History: </h3>
+                                    <h3 class="text-xl font-semibold textindigo dark:text-white" style="word-wrap: break-word;">Employee History: </h3>
                                     @if ($employeeHistory)
                                         @foreach ($employeeHistory as $index => $record)
                                             <p class="my-4" style="word-wrap: break-word;"><b>{{$index + 1}}. <span class="text-gray-900">{{$record->prev_position}}</span> - <span class="text-gray-700">{{$record->name_of_company}}</span> <br> | {{$record->start_date}} to {{$record->end_date}} </b> </p>
@@ -124,7 +124,7 @@
                 <div class="w-auto  ">
                     <div class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                         <div class="flex items-center justify-between mb-4">
-                            <p class="text-xl font-bold  text-blue-700 dark:text-white" style="word-break: break-all; overflow-wrap: break-word;">Submitted Documents</p>
+                            <p class="text-xl font-bold textindigo dark:text-white" style="word-break: break-all; overflow-wrap: break-word;">Submitted Documents</p>
                             {{-- <a href="#" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
                                 View all
                             </a> --}}

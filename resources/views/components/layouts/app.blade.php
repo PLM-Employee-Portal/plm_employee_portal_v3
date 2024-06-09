@@ -19,14 +19,46 @@
     {{-- <title>Document</title> --}}
 </head>
 <style>
+    .bgindigo:hover {
+        --tw-bg-opacity: 1;
+        background-color: rgb(54 47 120 / var(--tw-bg-opacity));
+    }
+    .bgindigo:focus {
+        --tw-ring-opacity: 1;
+        --tw-ring-color: rgb(180 198 252 / var(--tw-ring-opacity));
+        --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+        --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(4px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+        box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+    }
+    .sidebar{
+        --tw-bg-opacity: 1;
+        background-color: rgb(66 56 157 / var(--tw-bg-opacity));
+        }
+    .bgindigo{
+        --tw-bg-opacity: 1;
+        background-color: rgb(66 56 157 / var(--tw-bg-opacity));
+    }
     .textindigo{
         --tw-bg-opacity: 1;
         color: rgb(66 56 157 / var(--tw-bg-opacity));
     }
     .swipercolor{
-           --tw-bg-opacity: 1;
-          background-color: rgb(165 180 252 / var(--tw-bg-opacity));
-  	}
+        --tw-bg-opacity: 1;
+        color: rgb(165 180 252 / var(--tw-bg-opacity));
+    }
+    .borderindigo{
+        --tw-border-opacity: 1;
+        border-color: rgb(141 162 251 / var(--tw-bg-opacity));
+    }
+    .hoverindigo:hover{
+        --tw-bg-opacity: 1;
+        background-color: rgb(54 47 120 / var(--tw-bg-opacity));
+        color:white;
+    }
+    /* .hoverindigo{
+        --tw-bg-opacity: 1;
+        background-color: #FFFFFF;
+    } */
 </style>
 <body class="bg-gray-200">
 @extends('components.layouts.base')

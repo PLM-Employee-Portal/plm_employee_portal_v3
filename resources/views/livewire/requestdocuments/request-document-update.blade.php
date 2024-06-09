@@ -110,26 +110,26 @@
                             <div class="grid grid-cols-2 gap-4">
                                 <div class="grid grid-cols-1 gap-4">
                                     <div class="flex items-center mt-4 ">
-                                        <input  @disabled(is_null($certificate_of_employment) == False) id="request1" type="checkbox" value="Certificate of Employment" wire:model="requests" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <input  @disabled(is_null($certificate_of_employment) == False) id="request1" type="checkbox" value="Certificate of Employment" wire:model="requests" class="w-4 h-4 textindigo bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="request1" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Certificate of Employment</label>
                                     </div>
                                     <div class="flex items-center">
-                                        <input @disabled(is_null($certificate_of_employment_with_compensation) == False)  id="request2" type="checkbox" value="Certificate of Employment with Compensation" wire:model="requests" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <input @disabled(is_null($certificate_of_employment_with_compensation) == False)  id="request2" type="checkbox" value="Certificate of Employment with Compensation" wire:model="requests" class="w-4 h-4 textindigo bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="request2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Certificate of Employment with Compensation</label>
                                     </div>  
                                     <div class="flex items-center">
-                                        <input @disabled(is_null($service_record) == False)  id="request3" type="checkbox" value="Service Record" wire:model="requests" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <input @disabled(is_null($service_record) == False)  id="request3" type="checkbox" value="Service Record" wire:model="requests" class="w-4 h-4 textindigo bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="request3" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Service Record</label>
                                     </div>  
                                    
                                 </div>
                                 <div class="grid grid-cols-1 gap-4">
                                     <div class="flex items-center mt-4">
-                                        <input @disabled(is_null($part_time_teaching_services) == False)  id="request4" type="checkbox" value="Part time Teaching Services" wire:model="requests" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <input @disabled(is_null($part_time_teaching_services) == False)  id="request4" type="checkbox" value="Part time Teaching Services" wire:model="requests" class="w-4 h-4 textindigo bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="request4" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Part-time Teaching Services</label>
                                     </div>  
                                     <div class="flex items-center  ">
-                                        <input @disabled(is_null($milc_certification) == False)  id="request5" type="checkbox" value="MILC Certification" wire:model.live="requests" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <input @disabled(is_null($milc_certification) == False)  id="request5" type="checkbox" value="MILC Certification" wire:model.live="requests" class="w-4 h-4 textindigo bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="request5" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">MILC Certification</label>
                                     </div>
                                     {{-- <div class="flex items-center">
@@ -137,7 +137,7 @@
                                         <label for="request" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Certificate of No Pending Administrative Case</label>
                                     </div>   --}}
                                     <div class="flex items-center">
-                                        <input @disabled(is_null($other_documents) == False)  id="request7" type="checkbox" value="Others" wire:model.live="requests" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <input @disabled(is_null($other_documents) == False)  id="request7" type="checkbox" value="Others" wire:model.live="requests" class="w-4 h-4 textindigo bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="request" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Others</label>
                                     </div>  
                                     {{-- <div class="flex items-center">
@@ -267,7 +267,7 @@
                     </div>
                    
                 </div>
-                <button type="submit"  class="inline-flex items-center float-right px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                <button type="submit"  class="inline-flex items-center float-right px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bgindigo rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
                     Update Document
             </button>
             </form>
