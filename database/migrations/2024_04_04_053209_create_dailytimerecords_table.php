@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('dailytimerecords', function (Blueprint $table) {
             $table->foreignId('employee_id');
+            $table->string('attendance_id')->primary();
             $table->bigInteger('job_id');
             $table->date('attendance_date')->default(now());
             $table->time('time_in')->nullable();

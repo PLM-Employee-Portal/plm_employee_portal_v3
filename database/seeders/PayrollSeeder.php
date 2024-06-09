@@ -16,20 +16,24 @@ class PayrollSeeder extends Seeder
     public function run(): void
     {
         $employee = Employee::first();
-        
-        for ($i = 0; $i <= 50; $i++) {
+        $employeeId = 202410031; // Starting employee ID
+        $startDate = Carbon::createFromDate(2021, 1, 1); // Start from January 2021
+
+        $currentDate = Carbon::now();
+        $i = 0; // Counter for payroll IDs
+
+        while ($startDate->lessThanOrEqualTo($currentDate)) {
             $randomNumber = rand(1000, 10000);
-            $randomMonth = rand(1, 12); // Random month (1 to 12)
-            $randomDay = rand(1, 28); // Random day (assuming all months have max 28 days)
-            $attendanceDate = Carbon::createFromDate(2024, $randomMonth);
-            $attendanceDate->addMonth();
-            
+
+            $payrollId = $employeeId . str_pad($i, 4, '0', STR_PAD_LEFT);
+
             Payroll::create([
-                'employee_id' =>  202410048,
-                'date' => $attendanceDate,
+                'employee_id' => $employeeId,
+                'payroll_id' => $payrollId,
+                'date' => $startDate->copy(), // Use the current start date for this record
                 'salary' => $randomNumber,
                 'lvt_pay' => $randomNumber,
-                'absences' => $randomMonth,
+                'absences' => rand(0, 5), // Random absences in the month
                 'amount_earned' => $randomNumber,
                 'gsis_deduction' => $randomNumber,
                 'wtax' => $randomNumber,
@@ -43,6 +47,9 @@ class PayrollSeeder extends Seeder
                 'other_deductions' => $randomNumber,
                 'net_pay' => $randomNumber,
             ]);
+
+            $startDate->addMonth(); // Move to the next month
+            $i++; // Increment the counter for payroll IDs
         }
     }
 }
