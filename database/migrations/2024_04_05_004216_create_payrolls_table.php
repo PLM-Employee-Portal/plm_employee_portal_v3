@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('payroll_id')->primary();
             $table->date('date');
             $table->decimal('salary');
+            $table->decimal('balance', 10, 2)->nullable();
+            $table->decimal('loan_balance', 10, 2)->nullable();
             $table->decimal('lvt_pay', 10, 2)->nullable();
             $table->decimal('pera', 10, 2)->nullable();
             $table->decimal('absences', 10, 2)->nullable();

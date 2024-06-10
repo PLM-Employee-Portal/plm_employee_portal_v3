@@ -123,6 +123,9 @@
                                 Witholding Tax
                             </th>
                             <th scope="col" class="px-6 py-3 text-center">
+                                Balance
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-center">
                                 Net Pay
                             </th>
                             <th scope="col" class="px-6 py-3 text-center">
@@ -175,6 +178,9 @@
                                         </td>
                                         <td class="px-6 py-4 text-center whitespace-nowrap">
                                             {{$data->wtax}}
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            {{$data->balance}}
                                         </td>
                                         <td class="px-6 py-4 text-center">
                                             {{$data->net_pay}}

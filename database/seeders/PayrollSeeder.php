@@ -16,7 +16,7 @@ class PayrollSeeder extends Seeder
     public function run(): void
     {
         $employee = Employee::first();
-        $employeeId = 202410048; // Starting employee ID
+        $employeeId = 202410031; // Starting employee ID
         $startDate = Carbon::createFromDate(2021, 1, 1); // Start from January 2021
 
         $currentDate = Carbon::now();
@@ -27,11 +27,25 @@ class PayrollSeeder extends Seeder
 
             $payrollId = $employeeId . str_pad($i, 4, '0', STR_PAD_LEFT);
 
+            $zero_balance_probability = 0.7; // Adjust probability as needed
+
+            $random_number = rand(0, 100);
+            
+            if ($random_number <= $zero_balance_probability * 100) { // Convert probability to percentage for comparison
+              $balance = 0;
+            } else {
+              $balance = rand(1, 1000);
+            }
+            
+            $loan_balance = ($balance === 0) ? rand(1, 1000) : 0;
+
             Payroll::create([
                 'employee_id' => $employeeId,
                 'payroll_id' => $payrollId,
                 'date' => $startDate->copy(), // Use the current start date for this record
                 'salary' => rand(1000, 10000),
+                'balance' => $balance,
+                'loan_balance' => $loan_balance, 
                 'lvt_pay' => rand(100, 1000),
                 'absences' => rand(0, 5), // Random absences in the month
                 'amount_earned' => rand(100, 1000),

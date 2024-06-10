@@ -107,6 +107,20 @@
                                     </div>
                                 </div>
                             </li>
+                            <li class="pt-3 pb-0 sm:pt-4 mb-4">
+                                <div class="grid grid-cols-2 ">
+                                    <div class="grid grid-cols-2 min-w-0 ">
+                                        <ul class="max-w-md space-y-1 whitespace-nowrap text-gray-500 list-disc list-inside dark:text-gray-400">
+                                            <li>
+                                                Balance
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="text-end pr-4 text-base font-semibold text-gray-900 dark:text-white">
+                                        ₱{{$payrollData->balance}}
+                                    </div>
+                                </div>
+                            </li>
                             
                         </ul>
                     </div>
@@ -184,6 +198,20 @@
                                         </div>
                                         <div class="text-end pr-4 text-base font-semibold text-gray-900 dark:text-white">
                                             ₱{{$payrollData->maxicare}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="pt-3 pb-0 sm:pt-4 mb-4">
+                                    <div class="grid grid-cols-2 ">
+                                        <div class="grid grid-cols-2 min-w-0 ">
+                                            <ul class="max-w-md space-y-1 whitespace-nowrap text-gray-500 list-disc list-inside dark:text-gray-400">
+                                                <li>
+                                                    Loan Balance
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="text-end pr-4 text-base font-semibold text-gray-900 dark:text-white">
+                                            ₱{{$payrollData->loan_balance}}
                                         </div>
                                     </div>
                                 </li>

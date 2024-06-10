@@ -52,7 +52,7 @@
                             @php
                                 $photo = $this->getActivityPhoto($data->activity_id);
                             @endphp
-                            <a href="{{route('ActivitiesView', ['index' => $data->activity_id])}}"><img class="h-full w-full rounded-lg" src="data:image/gif;base64,{{ base64_encode($photo) }}" alt=""></a>
+                            <a href="{{route('ActivitiesView', ['index' => $data->activity_id])}}"><img class="h-full w-full rounded-lg" style="height: 300px;" src="data:image/gif;base64,{{ base64_encode($photo) }}" alt=""></a>
                         </div>
                     @endforeach
                 </div>
