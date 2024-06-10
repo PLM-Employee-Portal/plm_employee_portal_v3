@@ -251,7 +251,7 @@
                                                 <div class="x" id="original_{{$index}}_day_off">
                                                     <label for="original_{{$index}}_day_off" class="block mb-2 text-sm whitespace-nowrap font-medium text-gray-900 dark:text-white">Day Off <span class="text-red-600">*</span></label>
                                                     <input type="date" rows="4" id="original_{{$index}}_day_off" name="original[{{$index}}][day_off]" wire:model.live="original.{{$index}}.day_off" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></input>
-                                                    @error('original.' . $index . '.number_of_units')   
+                                                    @error('original.' . $index . '.day_off')   
                                                         <div class="transition transform alert alert-danger text-sm"
                                                                 x-data x-init="document.getElementById('original_{{$index}}_day_off').scrollIntoView({ behavior: 'smooth', block: 'center' }); document.getElementById('original_{{$index}}_day_off').focus();">
                                                             <span class="text-red-500 text-xs "> {{$message}}</span>
@@ -400,7 +400,7 @@
                                                 <div class="x" id="proposed_{{$index}}_day_off">
                                                     <label for="proposed_{{$index}}_day_off" class="block mb-2 text-sm whitespace-nowrap font-medium text-gray-900 dark:text-white">Day Off <span class="text-red-600">*</span></label>
                                                     <input type="date" rows="4" id="proposed_{{$index}}_day_off" name="proposed[{{$index}}][day_off]" wire:model.live="proposed.{{$index}}.day_off" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></input>
-                                                    @error('proposed.' . $index . '.number_of_units')   
+                                                    @error('proposed.' . $index . '.day_off')   
                                                         <div class="transition transform alert alert-danger text-sm"
                                                                 x-data x-init="document.getElementById('proposed_{{$index}}_day_off').scrollIntoView({ behavior: 'smooth', block: 'center' }); document.getElementById('proposed_{{$index}}_day_off').focus();">
                                                             <span class="text-red-500 text-xs "> {{$message}}</span>

@@ -16,7 +16,7 @@ class PayrollSeeder extends Seeder
     public function run(): void
     {
         $employee = Employee::first();
-        $employeeId = 202410031; // Starting employee ID
+        $employeeId = 202410048; // Starting employee ID
         $startDate = Carbon::createFromDate(2021, 1, 1); // Start from January 2021
 
         $currentDate = Carbon::now();
@@ -31,21 +31,21 @@ class PayrollSeeder extends Seeder
                 'employee_id' => $employeeId,
                 'payroll_id' => $payrollId,
                 'date' => $startDate->copy(), // Use the current start date for this record
-                'salary' => $randomNumber,
-                'lvt_pay' => $randomNumber,
+                'salary' => rand(1000, 10000),
+                'lvt_pay' => rand(100, 1000),
                 'absences' => rand(0, 5), // Random absences in the month
-                'amount_earned' => $randomNumber,
-                'gsis_deduction' => $randomNumber,
-                'wtax' => $randomNumber,
-                'pera' => $randomNumber,
-                'philhealth' => $randomNumber,
-                'pag_ibig' => $randomNumber,
-                'plmpcci' => $randomNumber,
-                'landbank' => $randomNumber,
-                'maxicare' => $randomNumber,
-                'study_grant' => $randomNumber,
-                'other_deductions' => $randomNumber,
-                'net_pay' => $randomNumber,
+                'amount_earned' => rand(100, 1000),
+                'gsis_deduction' => rand(100, 1000),
+                'wtax' => rand(100, 1000),
+                'pera' => rand(100, 1000),
+                'philhealth' => rand(100, 1000),
+                'pag_ibig' => rand(100, 1000),
+                'plmpcci' => rand(100, 1000),
+                'landbank' => rand(100, 1000),
+                'maxicare' => rand(100, 1000),
+                'study_grant' => rand(100, 1000),
+                'other_deductions' =>rand(100, 1000),
+                'net_pay' => rand(1000, 10000),
             ]);
 
             $startDate->addMonth(); // Move to the next month
