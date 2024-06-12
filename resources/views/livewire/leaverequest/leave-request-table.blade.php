@@ -168,6 +168,12 @@
                                 Sub Category
                             </th>
                             <th scope="col" class="px-6 py-3 text-center">
+                                Start Date
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-center">
+                                End Date
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-center">
                                 Number of Days
                             </th>
                             <th scope="col" class="px-6 py-3 text-center">
@@ -250,6 +256,12 @@
                                         </td>
                                         <td class="px-6 py-4 text-center whitespace-nowrap">
                                             {{$leaverequest->type_of_leave_sub_category}}
+                                        </td>
+                                        <td class="px-6 py-4 text-center whitespace-nowrap">
+                                            {{$leaverequest->inclusive_start_date}}
+                                        </td>
+                                        <td class="px-6 py-4 text-center whitespace-nowrap">
+                                            {{$leaverequest->inclusive_end_date}}
                                         </td>
                                         <td class="px-6 py-4 text-center">
                                             {{$leaverequest->num_of_days_work_days_applied}}

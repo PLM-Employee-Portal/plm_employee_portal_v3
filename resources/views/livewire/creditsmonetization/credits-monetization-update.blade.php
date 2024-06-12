@@ -101,7 +101,6 @@
                             {{-- Employee    field --}}
                             <div class="grid grid-cols-1 w-full col-span-3 gap-4 min-[902px]:grid-cols-3 p-6 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 ">
                                     <div  class="col-span-3">
-
                                             {{-- <div class="grid grid-cols-1 min-[1000px]:grid-cols-3 gap-4 col-span-3 pb-4"> --}}
                                             <div class="grid grid-cols-1 min-[902px]:grid-cols-3 gap-4">
                                               <div class="grid grid-cols-1 min-[902px]:grid-cols-2 col-span-2 gap-4 p-4 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700">
@@ -111,9 +110,9 @@
                                                     <div class="w-full ">
                                                         <label for="requested_vacation_credits"
                                                             class="block mb-2 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">Vacation Credits <span class="text-red-600">*</span></label>
-                                                        <input type="number" name="requested_vacation_credits" id="requested_vacation_credits"  wire:model="requested_vacation_credits"
+                                                        <input type="number" inputmode="decimal" name="requested_vacation_credits" id="requested_vacation_credits"  wire:model.live="requested_vacation_credits"
                                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                            placeholder="{{$vacation_credits}}" required >
+                                                            placeholder="{{$vacation_credits}}" required min="0" step="0.01" >
                                                         @error('requested_vacation_credits')
                                                             <div class="transition transform alert alert-danger text-sm mb-1"
                                                                 x-data x-init="document.getElementById('requested_vacation_credits').scrollIntoView({ behavior: 'smooth', block: 'center' }); document.getElementById('requested_vacation_credits').focus();">
@@ -124,9 +123,9 @@
                                                     <div class="w-full ">
                                                         <label for="requested_sick_credits"
                                                             class="block mb-2 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">Sick Credits <span class="text-red-600">*</span></label>
-                                                        <input type="number" name="requested_sick_credits" id="requested_sick_credits" wire:model="requested_sick_credits"
+                                                        <input type="number" inputmode="decimal" name="requested_sick_credits" id="requested_sick_credits" wire:model.live="requested_sick_credits"
                                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                            placeholder="{{$sick_credits}}" required >
+                                                            placeholder="{{$sick_credits}}" required min="0" step="0.01">
                                                         @error('requested_sick_credits')
                                                             <div class="transition transform alert alert-danger text-sm mb-1"
                                                                 x-data x-init="document.getElementById('requested_sick_credits').scrollIntoView({ behavior: 'smooth', block: 'center' }); document.getElementById('requested_sick_credits').focus();">
@@ -137,16 +136,48 @@
                                                     <div class="w-full">
                                                         <label for="total_requested"
                                                             class="block mb-2 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">Total Requested<span class="text-red-600">*</span></label>
-                                                        <input type="number" name="total_requested" id="total_requested"  wire:model="total_requested"
+                                                        <input disabled type="number" inputmode="decimal" name="total_requested" id="total_requested" value="{{$total_requested}}"
                                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                            placeholder="{{$total_credits}}" required>
+                                                             required min="0" step="0.01" >
                                                         @error('total_requested')
                                                             <div class="transition transform alert alert-danger text-sm mb-1"
                                                                 x-data x-init="document.getElementById('total_requested').scrollIntoView({ behavior: 'smooth', block: 'center' }); document.getElementById('total_requested').focus();">
-                                                                <span   span class="text-red-500 text-xs "> {{$message}}</span>
+                                                                <span class="text-red-500 text-xs "> {{$message}}</span>
                                                             </div> 
                                                         @enderror
                                                     </div>
+                                                    <script>
+                                                        var vacation_credits_allowed = @json($vacation_credits_allowed);
+                                                        var sick_credits_allowed = @json($sick_credits_allowed);
+                                                        // var total_requested = @json($total_credits);
+
+                                                        document.getElementById('requested_vacation_credits').addEventListener('input', function() {
+                                                            let value = parseFloat(this.value);
+                                                            if (value < 0) {
+                                                                this.value = 0;
+                                                            } else if (value > vacation_credits_allowed) {
+                                                                this.value = vacation_credits_allowed; // Correct the value here
+                                                            }
+                                                        });
+
+                                                        document.getElementById('requested_sick_credits').addEventListener('input', function() {
+                                                            let value = parseFloat(this.value);
+                                                            if (value < 0) {
+                                                                this.value = 0;
+                                                            } else if (value > sick_credits_allowed) {
+                                                                this.value = sick_credits_allowed; // Correct the value here
+                                                            }
+                                                        });
+
+                                                        // document.getElementById('total_requested').addEventListener('input', function() {
+                                                        //     let value = parseFloat(this.value);
+                                                        //     if (value < 0) {
+                                                        //         this.value = 0;
+                                                        //     } else if (value > total_requested ) {
+                                                        //         this.value = total_requested; // Correct the value here
+                                                        //     }
+                                                        // });
+                                                    </script>
                                                 </div>
                                                     <div class="grid grid-cols-1 p-6 gap-4 col-span-1 pb-4  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                                                         <h2><b>Purpose</b></h2>

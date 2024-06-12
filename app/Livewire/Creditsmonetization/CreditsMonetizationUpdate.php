@@ -37,9 +37,13 @@ class CreditsMonetizationUpdate extends Component
 
     public $date;
 
+    public $vacation_credits_allowed;
+  
     public $vacation_credits;
 
-    public $sick_credits;
+    public $sick_credits_allowed;
+  
+  	public $sick_credits;
 
     public $total_credits;
 
@@ -72,9 +76,13 @@ class CreditsMonetizationUpdate extends Component
         $this->current_position = $employeeRecord->current_position;
         $this->employee_type = $employeeRecord->employee_type;
         $this->salary = $employeeRecord->salary;
-        $this->sick_credits = $employeeRecord->sick_credits ?? 0;
-        $this->vacation_credits = $employeeRecord->vacation_credits ?? 0;
-        $this->total_credits = $employeeRecord->vacation_credits ?? 0 + $employeeRecord->sick_credits ?? 0;
+        $vacation_credits = floatval($employeeRecord->vacation_credits ?? 0) ;
+        $this->vacation_credits  = $vacation_credits;
+        $this->vacation_credits_allowed = $vacation_credits > 0 ? $vacation_credits - 1 : 0;
+        $sick_credits = floatval($employeeRecord->sick_credits ?? 0) ;
+        $this->sick_credits  = $sick_credits;
+        $this->sick_credits_allowed =  $sick_credits > 0 ? $sick_credits - 1 : 0;;
+        $this->total_credits = $this->vacation_credits_allowed + $this->sick_credits_allowed;
 
         $this->date_of_filling = $monetizationdata->date_of_filling;
         $this->salary =  $monetizationdata->salary_grade;
@@ -88,6 +96,18 @@ class CreditsMonetizationUpdate extends Component
         $this->date = now();
     }
 
+    public function updated(){
+        $sick_credits = 0;
+        $vacation_credits = 0;
+        if($this->requested_vacation_credits > 0){
+            $vacation_credits =  (float) $this->requested_vacation_credits;
+        }
+        if($this->requested_sick_credits > 0){
+            $sick_credits = (float)  $this->requested_sick_credits ;
+        }
+        $this->total_requested = $vacation_credits + $sick_credits;
+    }
+    
     public function editForm(){
         $form = Monetization::where('reference_num', $this->index)->first();
         if(!$form){
